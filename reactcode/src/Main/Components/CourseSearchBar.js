@@ -20,7 +20,7 @@ class CourseSearchBar extends React.Component {
             </div>
                 <div className = "row">
                     <div className="col-md-2">
-                        <div><Button bsStyle="primary">Primary</Button></div>
+                        <div><button className="btn btn-lg">Primary</button></div>
                         </div>
                     </div>
 
