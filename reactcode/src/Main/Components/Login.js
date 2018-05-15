@@ -8,6 +8,11 @@ import {
 } from "react-router-dom";
 
 import MainPage from '../MainPage';
+import { Button, form, FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap';
+
+
+
+
 
 ////////////////////////////////////////////////////////////
 // 1. Click the public page
@@ -29,9 +34,17 @@ const fakeAuth = {
 
 
 class Login extends React.Component {
-    state = {
+
+
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            email: '',
+            pass: '',
         redirectToReferrer: false
-    };
+        };
+    }
 
     login = () => {
         fakeAuth.authenticate(() => {
@@ -48,8 +61,28 @@ class Login extends React.Component {
         }
         return (
             <div>
-
-                <button onClick={this.login}>Log in</button>
+                <form>
+                    <FormGroup
+                        controlId='inputlogin'
+                    >
+                        <ControlLabel>Working example with validation</ControlLabel>
+                        <FormControl
+                            type="text"
+                            value={this.state.value}
+                            placeholder="Enter UCSD Email"
+                            onChange={e => this.setState({email: e.target.value})}
+                        />
+                        <FormControl
+                            type="text"
+                            value={this.state.value}
+                            placeholder="Enter UCSD Password"
+                            onChange={e => this.setState({pass: e.target.value})}
+                        />
+                        <FormControl.Feedback />
+                        <HelpBlock>Validation is based on UCSD Login.</HelpBlock>
+                    </FormGroup>
+                </form>
+                <Button bsStyle='primary' bsSize='large' onClick={this.login}>Log in</Button>
             </div>
         );
     }
