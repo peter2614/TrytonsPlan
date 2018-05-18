@@ -57,7 +57,7 @@ class Login extends React.Component {
         const { redirectToReferrer } = this.state;
 
         if (redirectToReferrer) {
-            return <MainPage />;
+            return <MainPage db={this.props.db}/>;
         }
         return (
             <div>
