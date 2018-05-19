@@ -30,7 +30,7 @@ class course extends Component {
         const divStyle = {
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
         }
 
         const textSectionStyle = {
@@ -50,29 +50,10 @@ class course extends Component {
             fontSize: '10px',
             padding: '0px'
         }
+ 
 
-        let sectionObjects = null;
-    if (this.state.showSections) {
-        sectionObjects = (<div>
-            {this.props.sections.map((section, index) => {
-                return <div style={divStyle}>
-                        <p style={textSectionStyle}
-                        onClick={this.showSectionsHandler}>
-                        {section.days}  {section.time}  {section.professor} {section.building}
-
-                        </p>
-                        <Button bsStyle="primary" 
-                        style={buttonSectionStyle} 
-                        onClick={(event) => {this.props.sectionHandler(event, this.props.name, section.sectionCode)}}>
-                        {this.props.text}</Button>
-                        </div>
-        })}
-        </div>
-        );
-    }
     //RETURN
         return (
-            <div>
             <div style={divStyle}>
             <p style={textStyle} 
             onClick={this.showSectionsHandler}>
@@ -81,9 +62,6 @@ class course extends Component {
             <Button bsStyle="primary"
              style={buttonStyle} 
              onClick={this.props.courseHandler}>{this.props.text}</Button>
-            
-            </div>
-            {sectionObjects}
             </div>
         )
     }

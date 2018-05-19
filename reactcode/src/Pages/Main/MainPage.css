@@ -6,7 +6,7 @@
 .sidebarcontainer {
     position: fixed;
     height: 100%;
-    background-color: #333;
+    background-color: #444;
     margin-left: 0px;
     margin-top: 0px;
     top: 50px;
@@ -40,3 +40,66 @@
     margin: 0px;
     padding: 0px;
 }
+
+.mainSpace {
+    background-color: 'lightgrey';
+    height: 500px;
+}
+
+.full-width-tabs > ul.nav.nav-tabs {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.full-width-tabs > ul.nav.nav-tabs > li {
+    float: none;
+    display: table-cell;
+    width: 100%;
+}
+.full-width-tabs > ul.nav.nav-tabs > li > a {
+    text-align: center;
+    color: white;
+    background-color: #444;
+}
+
+.full-width-tabs > ul.nav.nav-tabs > li > a:hover {
+    text-align: center;
+    color: white;
+    background-color: #777;
+}
+
+
+.full-width-tabs > ul.nav.nav-tabs > li.active > a,
+.full-width-tabs > ul.nav.nav-tabs > li.active > a:hover,
+.full-width-tabs > ul.nav.nav-tabs > li.active > a:focus {
+    text-align: center;
+    color: black;
+    background-color: whitesmoke;
+}
+
+
+
+
+/* Inactive tab */
+.myClass > ul > li > a {
+    background-color: white;
+    color: red;
+}
+.myClass ul > li > a:hover {
+    background-color: pink;
+}
+
+/* Active tab */
+.myClass > ul > li.active > a,
+.myClass > ul > li.active > a:hover,
+.myClass > ul > li.active > a:focus {
+    background-color: red;
+    color: white;
+}
+
+/* Disabled tab */
+.myClass > ul > li.disabled > a {
+    background-color: lightgray;
+    color: darkgray;
+}
+

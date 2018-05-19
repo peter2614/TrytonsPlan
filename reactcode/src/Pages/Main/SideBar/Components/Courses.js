@@ -9,6 +9,7 @@ const courses = (props) => props.courses.map( (course, index) => {
         backgroundColor: '#222',
         box: '1px',
         width: '100%',
+        borderRadius: '0px'
     }
 
     return <ListGroupItem 
@@ -18,7 +19,6 @@ const courses = (props) => props.courses.map( (course, index) => {
             name={course.name} 
             description={course.description} 
             courseHandler={(event) => props.courseHandler(event, course.name)} 
-            sectionHandler={props.sectionHandler}
             text={props.text}
             sections={course.sections}/> 
             </ListGroupItem>

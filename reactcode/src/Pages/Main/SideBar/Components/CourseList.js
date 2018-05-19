@@ -14,7 +14,6 @@ class courselist extends Component {
             <Courses 
             courses={this.props.courses} 
             courseHandler={this.props.courseHandler} 
-            sectionHandler={this.props.sectionHandler}
             text={"🗙"}/> 
             </ListGroup>
         
