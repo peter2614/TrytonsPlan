@@ -37,12 +37,20 @@ class SectionController {
         this.model.setQuarter = quarter;
     }
 
-    get getTime() {
-        return this.model.getTime;
+    get getStartingTime() {
+        return this.model.getStartingTime;
     }
 
-    set setTime(time) {
-        this.model.setTime = time;
+    set setStartingTime(startingTime) {
+        this.model.setStartingTime = startingTime;
+    }
+
+    get getEndingTime() {
+        return this.model.getEndingTime;
+    }
+
+    set setEndingTime(endingTime) {
+        this.model.setEndingTime = endingTime;
     }
 
     get getDay() {
