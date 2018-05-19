@@ -1,33 +1,92 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Button } from 'react-bootstrap';
 
-const course = (props) => {
+//The course component
+class course extends Component {
+    state = {
+        showSections: false
+    }
     
-
-    const textStyle = {
-        textAlign: 'left',
-        margin: '0px',
-        color: 'lightgrey'
+    showSectionsHandler = () => {
+        const currentState = this.state.showSections; 
+        this.setState({showSections: !currentState});
     }
-    const buttonStyle = {
-        margin: '1px',
-        width: '25px',
-        float: 'right',
-        height: '25px',
-        textAlign: 'center',
-        padding: '0px'
+    
+    render() {
+        //Styles
+        const textStyle = {
+            textAlign: 'left',
+            margin: '0px',
+            color: 'lightgrey'
+        }
+        const buttonStyle = {
+            margin: '0px',
+            width: '20px',
+            float: 'right',
+            height: '18px',
+            textAlign: 'center',
+            padding: '0px'
+        }
+        const divStyle = {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between'
+        }
 
+        const textSectionStyle = {
+            textAlign: 'left',
+            margin: '0px',
+            color: 'lightgrey',
+            fontSize: '12px',
+
+        }
+        const buttonSectionStyle = {
+            margin: '1px',
+            width: '15px',
+            float: 'right',
+            height: '13px',
+            align: 'right',
+            textAlign: 'center',
+            fontSize: '10px',
+            padding: '0px'
+        }
+
+        let sectionObjects = null;
+    if (this.state.showSections) {
+        sectionObjects = (<div>
+            {this.props.sections.map((section, index) => {
+                return <div style={divStyle}>
+                        <p style={textSectionStyle}
+                        onClick={this.showSectionsHandler}>
+                        {section.days}  {section.time}  {section.professor} {section.building}
+
+                        </p>
+                        <Button bsStyle="primary" 
+                        style={buttonSectionStyle} 
+                        onClick={(event) => {this.props.sectionHandler(event, this.props.name, section.sectionCode)}}>
+                        {this.props.text}</Button>
+                        </div>
+        })}
+        </div>
+        );
     }
-
-
-
-    return (
-        <p style={textStyle} >{props.name} - {props.description} <Button bsStyle="primary" style={buttonStyle} onClick={props.courseHandler} >{props.text}</Button></p>
-        /*
-        <div style={courseStyle}>
-        <p style={textStyle}>{props.name} - {props.description} <button style={buttonStyle} /></p>
-        </div>*/
-    )
+    //RETURN
+        return (
+            <div>
+            <div style={divStyle}>
+            <p style={textStyle} 
+            onClick={this.showSectionsHandler}>
+                {this.props.name} - {this.props.description} 
+            </p>
+            <Button bsStyle="primary"
+             style={buttonStyle} 
+             onClick={this.props.courseHandler}>{this.props.text}</Button>
+            
+            </div>
+            {sectionObjects}
+            </div>
+        )
+    }
 }
 
 export default course;

@@ -6,8 +6,15 @@ class searchbar extends Component {
 
     render() {
         let courses = null;
-        courses = <ListGroup style={{flex: '1 1 0', display: 'flex', flexDirection: 'column', maxHeight: '450px', overflowY: 'auto', width: '311px', marginLeft: '-1px', marginBottom: '0px', marginTop: '-2px'}}>
-        <Courses courses={this.props.courses} courseHandler={this.props.courseHandler} text={"✔"}/> </ListGroup>
+            courses = 
+            <ListGroup 
+            style={{flex: '1 1 0', display: 'flex', flexDirection: 'column', maxHeight: '450px', overflowY: 'auto', width: '100%', marginLeft: '-1px', marginBottom: '0px', marginTop: '-1px'}}>
+            <Courses 
+            courses={this.props.courses} 
+            courseHandler={this.props.courseHandler}
+            sectionHandler={this.props.sectionHandler}
+            text={"✔"}/> 
+            </ListGroup>
 
         const searchBarStyle = {marginTop: '10px', marginBottom: '10px'}
         return (

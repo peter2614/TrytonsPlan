@@ -2,6 +2,7 @@ import React from 'react';
 import Course from './Course.js'
 import {ListGroupItem} from 'react-bootstrap';
 
+//Used to map the array of javascript objects into Course Components
 const courses = (props) => props.courses.map( (course, index) => {
     const courseStyle = {
         //margin: 'auto',
@@ -17,7 +18,9 @@ const courses = (props) => props.courses.map( (course, index) => {
             name={course.name} 
             description={course.description} 
             courseHandler={(event) => props.courseHandler(event, course.name)} 
-            text={props.text}/> 
+            sectionHandler={props.sectionHandler}
+            text={props.text}
+            sections={course.sections}/> 
             </ListGroupItem>
 });
 

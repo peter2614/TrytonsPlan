@@ -1,6 +1,6 @@
 .sidebar {
     border-radius: 0px;
-    width: 310px;
+    width: 320px;
 }
 
 .sidebarcontainer {
@@ -10,7 +10,7 @@
     margin-left: 0px;
     margin-top: 0px;
     top: 50px;
-    width: 310px;
+    width: 340px;
 }
 
 .searchBar {
@@ -19,7 +19,7 @@
     margin: 0px;    
 }
 .courseList {
-    height: 400px;
+    height: 420px;
     width: 100%;
     text-align: center;    
     margin: 0px;    
