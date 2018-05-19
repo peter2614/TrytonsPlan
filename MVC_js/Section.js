@@ -1,12 +1,14 @@
 class Section {
 
-    constructor(sectionID, pair, year, quarter, time, location) {
+    constructor(sectionID, pair, year, quarter, time, day, location, finalTime) {
         this.sectionID = sectionID;
         this.pair = pair;
         this.year = year;
         this.quarter = quarter;
         this.time = time;
+        this.day = day;
         this.location = location;
+        this.finalTime = finalTime;
     }
 
     get getSectionID() {
@@ -49,12 +51,28 @@ class Section {
         this.time = time;
     }
 
+    get getDay() {
+        return this.day;
+    }
+
+    set setDay(day) {
+        this.day = day;
+    }
+
     get getLocation() {
         return this.location;
     }
 
     set setLocation(location) {
         this.location = location;
+    }
+
+    get getFinalTime() {
+        return this.finalTime;
+    }
+
+    set setFinalTime(finalTime) {
+        this.finalTime = finalTime;
     }
 }
 
