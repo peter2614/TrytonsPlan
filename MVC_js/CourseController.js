@@ -1,14 +1,7 @@
-const Course = require('./Course.js');
-
 class CourseController {
 
     constructor(model, view) {
-        this.model = new Course(model.getCourseID,
-                                model.getTitle,
-                                model.getUnits,
-                                model.getDescription,
-                                model.getPrerequisities);
-
+        this.model = model;
         this.view = view;
     }
 
