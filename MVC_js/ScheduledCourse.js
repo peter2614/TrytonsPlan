@@ -1,7 +1,16 @@
 class ScheduledCourse {
 
-    constructor(sections) {
+    constructor(scheduledCourseID, sections) {
+        this.scheduledCourseID = scheduledCourseID;
         this.sections = sections;
+    }
+
+    get getScheduledCourseID() {
+        return this.scheduledCourseID;
+    }
+
+    set setScheduledCourseID(scheduledCourseID) {
+        this.scheduledCourseID = scheduledCourseID;
     }
 
     get getSections() {
