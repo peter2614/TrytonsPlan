@@ -4,6 +4,7 @@ import Login from './Components/Login'
 import CourseSearchBar from './Components/CourseSearchBar'
 
 
+
 class MainPage extends React.Component {
 
     constructor(props){
@@ -27,10 +28,10 @@ class MainPage extends React.Component {
         });
     }
 
-
     logout = () => {
         this.setState({ redirectToReferrer: false });
     };
+
 
     render(){
 
@@ -43,12 +44,13 @@ class MainPage extends React.Component {
         )
 
         if (!redirectToReferrer) {
-            return <Login />;
+            return <Login db={this.props.db} />;
         }
 
         return (
             <div>
                 <button onClick={this.logout}>Log out</button>
+
                 <h1>Trytonsplan</h1>
                 <CourseSearchBar />
                 <table style={{border: '1px solid black'}}>

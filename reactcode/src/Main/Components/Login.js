@@ -10,7 +10,7 @@ import {
 import MainPage from '../MainPage';
 import { Button, form, FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap';
 
-
+import './Login.css';
 
 
 
@@ -25,10 +25,6 @@ const fakeAuth = {
     authenticate(cb) {
         this.isAuthenticated = true;
         setTimeout(cb, 100); // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false;
-        setTimeout(cb, 100);
     }
 };
 
@@ -42,8 +38,9 @@ class Login extends React.Component {
         this.state = {
             email: '',
             pass: '',
-        redirectToReferrer: false
+            redirectToReferrer: false
         };
+
     }
 
     login = () => {
@@ -55,34 +52,40 @@ class Login extends React.Component {
     render() {
 
         const { redirectToReferrer } = this.state;
-
         if (redirectToReferrer) {
             return <MainPage db={this.props.db}/>;
         }
         return (
-            <div>
-                <form>
-                    <FormGroup
-                        controlId='inputlogin'
-                    >
-                        <ControlLabel>Working example with validation</ControlLabel>
-                        <FormControl
-                            type="text"
-                            value={this.state.value}
-                            placeholder="Enter UCSD Email"
-                            onChange={e => this.setState({email: e.target.value})}
-                        />
-                        <FormControl
-                            type="text"
-                            value={this.state.value}
-                            placeholder="Enter UCSD Password"
-                            onChange={e => this.setState({pass: e.target.value})}
-                        />
-                        <FormControl.Feedback />
-                        <HelpBlock>Validation is based on UCSD Login.</HelpBlock>
-                    </FormGroup>
-                </form>
-                <Button bsStyle='primary' bsSize='large' onClick={this.login}>Log in</Button>
+
+            <div className="outer">
+                <div className="middle">
+                    <div className="inner">
+
+                            <form>
+                                <FormGroup
+                                    controlId='inputlogin'
+                                >
+                                    <ControlLabel>Working example with validation</ControlLabel>
+                                    <FormControl
+                                        type="text"
+                                        value={this.state.value}
+                                        placeholder="Enter UCSD Email"
+                                        onChange={e => this.setState({email: e.target.value})}
+                                    />
+                                    <FormControl
+                                        type="text"
+                                        value={this.state.value}
+                                        placeholder="Enter UCSD Password"
+                                        onChange={e => this.setState({pass: e.target.value})}
+                                    />
+                                    <FormControl.Feedback />
+                                    <HelpBlock>Validation is based on UCSD Login.</HelpBlock>
+                                </FormGroup>
+                            </form>
+                            <Button bsStyle='primary' bsSize='large' onClick={this.login}>Log in</Button>
+
+                    </div>
+                </div>
             </div>
         );
     }
