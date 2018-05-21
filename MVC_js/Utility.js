@@ -5,6 +5,16 @@ let Section = require("./Section")
 let Schedule = require("./Schedule")
 let ScheduledCourse = require("./ScheduledCourse")
 
+/*
+import {Course} from "./Course.js"
+import {Professor} from "./Professor.js"
+import {Pair} from "./Pair.js"
+import {Section} from "./Section.js"
+import {Schedule} from "./Schedule.js"
+import {ScheduledCourse} from "./ScheduledCourse.js"
+*/
+
+
 var processedList;  //Global variable -- the list processed by processCourseList(). For helperGenerator().
 
 
@@ -18,14 +28,17 @@ var generateSchedule = function (courseList){
     let numCourse = courseList.length;
 
 
-    let sectionList  = [];
+    let sectionList  = new Array();
     for (let i = 0; i < courseList.length; i++){  //Get all sections from all courses in courseList.
-        let course = courseList[i];
-        let sections = course.getSections();
+        let course = new ScheduledCourse(courseList[i]);
+        let sections = courseList[i].getSections;
+
         for (let j = 0; j < sections.length; j++){
             sectionList.push(sections[j]);
         }
     }
+
+    //console.log ();
 
     let processedSecList = processCourseList(sectionList);
     processedList = processedSecList;
@@ -34,6 +47,7 @@ var generateSchedule = function (courseList){
 
     helperGenerator(initialSchedule, scheduleArr, 0);
 
+    return scheduleArr;
     /*for (let i = 0; i < processedSecList.length - numCourse; i++){
         let currSlot = processedSecList[i];
         let numSecInSlot = currSlot.length;
@@ -55,8 +69,11 @@ var helperGenerator = function (currSchedule, scheduleList, slotIndex){
         return;
     }
 
+    var slot = processedList[slotIndex];
+    //console.log (slot);
+    var numSectionInSlot = slot.length;
 
-    for (let i = 0; i < processedList[slotIndex].length; i++) {
+    for (let i = 0; i < numSectionInSlot; i++) {
         var retVal = addSection(currSchedule, processedList[slotIndex][i]);
         if (retVal === 1) {
             let newSchedule = new Schedule(currSchedule.getScheduleID(), currSchedule.getYear(), currSchedule.getQuarter(),
@@ -79,15 +96,15 @@ var processCourseList = function (sectionList){
         return 0;
     }
 
-    let newList = [];
+    let newList = [[]];
     newList[0][0] = sectionList[0];
 
     for (let i = 0; i < numSection; i++){
         let findSlot = 0;
 
         for (let j = 1; j < newList.length; j++){  //Search to see if there is a slot in the new list for this section.
-            if (sectionList[i].getTime() === newList[j].getTime()
-                && checkDay(sectionList[i].getDay(), newList[j].getDay())){  //TODO: getTime() need to be updated
+            console.log(sectionList[i]);
+             if (sectionList[i].getTime === newList[j].getTime && checkDay(sectionList[i].getDay, newList[j].getDay)){  //TODO: getTime() need to be updated
                 newList[j].push(sectionList[i]);
                 findSlot = 1;
                 break;
@@ -95,9 +112,11 @@ var processCourseList = function (sectionList){
         }
 
         if (findSlot === 0){  //If no time slot found, create a new slot.
-            newList[newList.length][0] = sectionList[i];
+            newList.push([sectionList[i]]);
+            //newList[newList.length][0] = sectionList[i];
         }
     }
+    console.log ("End list");
     return newList;
 }
 
@@ -139,6 +158,7 @@ var addSection = function (schedule, newSection){
                   1 if there is no overlapping.
  */
 var checkDay = function (dayArr1, dayArr2){
+    console.log(dayArr1);
     for (let i = 0; i < dayArr1.length; i++){
         for (let j = 0; j < dayArr.length; j++){
             if (dayArr1[i] === dayArr2[j]) {
@@ -148,3 +168,5 @@ var checkDay = function (dayArr1, dayArr2){
     }
     return 1;
 }
+
+module.exports = generateSchedule;
