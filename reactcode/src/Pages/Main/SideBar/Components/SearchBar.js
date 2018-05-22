@@ -2,27 +2,15 @@ import React, {Component} from 'react';
 import Courses from './Courses.js';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
-class searchbar extends Component {
-    state = {
-        courses: [],
-    }
+const searchbar = (props) => {
 
-    handleChange = (event) => {
-        const condition = new RegExp(event.target.value, 'i');
-        const courses = this.props.courses.filter(course => {
-            return condition.test(course.name);
-        });
-        this.setState({courses: courses});
-    }
-
-    render() {
         let courses = null;
             courses = 
             <ListGroup 
-            style={{flex: '1 1 0', display: 'flex', flexDirection: 'column', height: '450px', overflowY: 'auto', width: '100%', marginLeft: '-1px', marginBottom: '0px', marginTop: '-1px'}}>
+            style={{position: 'relative', flex: '1 1 0', display: 'flex', flexDirection: 'column', minHeight: '45vh', maxHeight: '45vh', overflowY: 'auto', minWidth: '100%', marginLeft: '-1px', marginBottom: '0px', marginTop: '-1px', backgroundColor: '#333'}}>
             <Courses 
-            courses={this.state.courses} 
-            courseHandler={this.props.courseHandler}
+            courses={props.searchResults} 
+            courseHandler={props.courseHandler}
             text={"✔"}/> 
             </ListGroup>
     
@@ -30,17 +18,15 @@ class searchbar extends Component {
         const searchBarStyle = {marginTop: '10px', marginBottom: '10px'}
         return (
             <div>
-                <div style={searchBarStyle}>
-                    <input style={{backgroundColor: 'lightgrey'}} type="text" onChange={(event) => this.handleChange(event)} placeholder="Search For Courses"/>
-                    
+                <div style={{height: '5vh'}}>
+                    <input style={{backgroundColor: 'lightgrey', height: '3vh', width: '25vh', marginTop:'1vh',  marginBottom:'1vh', fontSize: '2vh' }} type="text" onChange={(event) => props.searchCourseHandler(event)} placeholder="Search For Courses"/> 
                 </div>
-                <hr className="hr1"/>
+
                 {courses}
                     
                 
             </div>
         );
     }
-}
 
 export default searchbar;
