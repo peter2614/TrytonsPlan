@@ -1,15 +1,17 @@
 class Section {
 
-    constructor(sectionID, pair, year, quarter, startingTime, endingTime, day, location, finalTime) {
+    constructor(sectionID, courseID, startingTime, endingTime, day, location, professor, finalTime, finalDate) {
         this.sectionID = sectionID;
-        this.pair = pair;
-        this.year = year;
-        this.quarter = quarter;
+        this.courseID = courseID;
+        /*this.year = year;
+        this.quarter = quarter;*/
         this.startingTime = startingTime;
         this.endingTime = endingTime;
         this.day = day;
         this.location = location;
+        this.professor = professor;
         this.finalTime = finalTime;
+        this.finalDate = finalDate;
     }
 
     get getSectionID() {
@@ -20,14 +22,14 @@ class Section {
         this.sectionID = sectionID;
     }
 
-    get getPair() {
-        return this.pair;
+    get getCourseID() {
+        return this.courseID;
     }
 
-    set setPair(pair) {
-        this.pair = pair;
+    set setCourseID(courseID) {
+        this.courseID = courseID;
     }
-
+/*
     get getYear() {
         return this.year;
     }
@@ -43,7 +45,7 @@ class Section {
     set setQuarter(quarter) {
         this.quarter = quarter;
     }
-
+*/
     get getStartingTime() {
         return this.startingTime;
     }
@@ -76,12 +78,28 @@ class Section {
         this.location = location;
     }
 
+    get getProfessor() {
+        return this.professor;
+    }
+
+    set setProfessor(professor) {
+        this.professor = professor;
+    }
+
     get getFinalTime() {
         return this.finalTime;
     }
 
     set setFinalTime(finalTime) {
         this.finalTime = finalTime;
+    }
+
+    get getFinalDate() {
+        return this.finalDate;
+    }
+
+    set setFinalDate(finalDate) {
+        this.finalDate = finalDate;
     }
 }
 
