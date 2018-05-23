@@ -126,7 +126,7 @@ function end() {
         var courseList = [course1, course2];
 
         var scheduleList = generator(courseList, 0);
-        //console.log(scheduleList[0]);
+        console.log(scheduleList[0]);
 
         console.log ("Complete");
 
@@ -141,27 +141,8 @@ firebaseRef = firebase.database().ref(QUARTER + TO + COURSEID2 + TO + 'E00');
 retrieve(end);
 /* End of setting up firebase */
 
+
 /*
-//Extracting info from database data.
-var courseID1 = COURSEID;
-var sectionID1 = 'A00';
-var sectionID2 = 'B00';
-var startTime1 = data.A00.LE[0].start_time;
-var startTime2 = data.B00.LE[0].start_time;
-var endTime1 = data.A00.LE[0].end_time;
-var endTime2 = data.B00.LE[0].end_time;
-var day1 = data.A00.LE[0].day;
-var day2 = data.B00.LE[0].day;
-var loc = "TBA";
-var prof1 = data.A00.LE[0].professor;
-var prof2 = data.B00.LE[0].professor;
-var finalStart1 = data.A00.FI.start_time;
-var finalStart2 = data.B00.FI.start_time;
-var finalDate1 = data.A00.FI.date;
-var finalDate2 = data.B00.FI.date;
-
-console.log ("Start");
-
 /*var pair1 = new Pair(200, 10, "XXX", 0, 10);
 var pair2 = new Pair(201, 11, "YYY", 0, 5);
 var pair3 = new Pair(202, 12, "ZZZ", 0, 15);
@@ -181,8 +162,6 @@ var course1 = new ScheduledCourse(COURSEID, [section1, section2]);
 var courseList = [course1];
 
 var scheduleList = generator(courseList);
-
-console.log ("Complete");
 */
 
 

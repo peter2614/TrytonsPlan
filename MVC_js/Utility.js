@@ -7,6 +7,7 @@ let ScheduledCourse = require("./ScheduledCourse")
 
 
 var processedList;  //Global variable -- the list processed by processCourseList(). For helperGenerator().
+var scheduleID = 0;
 
 
 /*
@@ -15,6 +16,7 @@ var processedList;  //Global variable -- the list processed by processCourseList
     Return value: an array of Schedule objects.
  */
 var generateSchedule = function (courseList){
+    scheduleID = 0;
     let scheduleArr = [];
     let numCourse = courseList.length;
 
@@ -31,7 +33,7 @@ var generateSchedule = function (courseList){
     let processedSecList = processCourseList(sectionList);
     processedList = processedSecList;
 
-    var initialSchedule = new Schedule(0, 0, 0, [], 0, 0, 0, 0);
+    var initialSchedule = new Schedule(scheduleID, 0, 0, [], 0, 0, 0, 0);
 
     helperGenerator(initialSchedule, scheduleArr, 0);
 
@@ -49,6 +51,7 @@ var generateSchedule = function (courseList){
 var helperGenerator = function (currSchedule, scheduleList, slotIndex){
     if (slotIndex === processedList.length){
         scheduleList.push(currSchedule);
+        scheduleID++;
         return;
     }
 
@@ -128,17 +131,24 @@ var addSection = function (schedule, newSection){
             return -1;
         }
         else {
-            if (section.getFinalDate === newSection.getFinalDate) {
-                if (section.getFinalTime === newSection.getFinalTime){
+            /* Check for overlapping between sections */
+            if (section.getEndingTime > newSection.getStartingTime && section.getStartingTime < newSection.getStartingTime){
+                return 0;
+            }
+            else if (section.getStartingTime < newSection.getEndingTime && section.getStartingTime > newSection.getStartingTime){
+                return 0;
+            }
+
+            else if (section.getFinalDate === newSection.getFinalDate) {  //Check final date and time
+                if (section.getFinalTime === newSection.getFinalTime ||
+                    section.getFinalTime > newSection.getFinalTime && section.getFinalTime < newSection.getFinalEndTime ||
+                    newSection.getFinalTime > section.getFinalTime && newSection.getFinalTime < section.getFinalEndTime){
                     return 0;
                 }
-                return 1;
-            }
-            else {
-                return 1;
             }
         }
     }
+    return 1;  //No conflict
 }
 
 

@@ -1,6 +1,6 @@
 class Section {
 
-    constructor(sectionID, courseID, startingTime, endingTime, day, location, professor, finalTime, finalDate) {
+    constructor(sectionID, courseID, startingTime, endingTime, day, location, professor, finalTime, finalEndTime, finalDate) {
         this.sectionID = sectionID;
         this.courseID = courseID;
         /*this.year = year;
@@ -11,6 +11,7 @@ class Section {
         this.location = location;
         this.professor = professor;
         this.finalTime = finalTime;
+        this.finalEndTime = finalEndTime;
         this.finalDate = finalDate;
     }
 
@@ -92,6 +93,14 @@ class Section {
 
     set setFinalTime(finalTime) {
         this.finalTime = finalTime;
+    }
+
+    get getFinalEndTime() {
+        return this.finalEndTime;
+    }
+
+    set setFinalEndTime(finalEndTime) {
+        this.finalEndTime = finalEndTime;
     }
 
     get getFinalDate() {
