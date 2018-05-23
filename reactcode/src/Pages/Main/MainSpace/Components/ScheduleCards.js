@@ -1,8 +1,27 @@
 import React from 'react';
+import ScheduleCard from './ScheduleCard.js';
 
 const schedulecards = (props) => {
+
     return(
-        <div><p>All about the course</p></div>
+        <div style={{display: 'flex', flexWrap: 'wrap'}}>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+            <ScheduleCard/>
+        </div>
     )
 
 }

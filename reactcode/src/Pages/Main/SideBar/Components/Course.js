@@ -17,7 +17,7 @@ class course extends Component {
         const textStyle = {
             textAlign: 'left',
             margin: '0px',
-            color: 'lightgrey'
+            color: 'lightgrey',
         }
         const buttonStyle = {
             margin: '0px',
@@ -25,7 +25,9 @@ class course extends Component {
             float: 'right',
             height: '18px',
             textAlign: 'center',
-            padding: '0px'
+            padding: '0px',
+            fontWeight: '700',
+            fontSize: '1.5vh',
         }
         const divStyle = {
             display: 'flex',
