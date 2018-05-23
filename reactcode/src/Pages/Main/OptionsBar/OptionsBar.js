@@ -3,7 +3,8 @@ import React from 'react';
 const OptionsBar = (props) => {
     const buttonStyle = {
         height: '4vh',
-        minWidth: '4vw'
+        width: '6vw',
+        maxWidth: '6vw'
     }
     return(
         <div>
@@ -20,7 +21,7 @@ const OptionsBar = (props) => {
                 <input style={{height: '3vh', width: '4vw'}} />
             </div>
             <div>
-                <button style={{float: 'right', margin: '1.2vh', marginRight: '3vw', fontSize: '2vh'}}>Generate Schedules</button>
+                <button style={{float: 'right', margin: '1.2vh', marginRight: '3vw', fontSize: '2vh', width: '10vw', height: '4vh'}}>Generate Schedules</button>
             </div>
         </div>
     );

@@ -5,15 +5,23 @@ import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
 const courselist = (props) => {
 
-
+    const courseGroupStyle={
+        display: 'flex', 
+        flexDirection: 'column', 
+        height: '35vh', 
+        overflowY: 'auto', 
+        width: '100%', 
+        marginBottom: '0px', 
+        marginLeft: '0px', 
+        backgroundColor: '#333'}
 
     let courses = 
         <ListGroup 
-        style={{position: 'relative', flex: '1 1 0', display: 'flex', flexDirection: 'column', minHeight: '35vh', maxHeight: '35vh', overflowY: 'auto', width: '100%', marginBottom: '0px', marginLeft: '-1px', backgroundColor: '#333'}}>
+        style={courseGroupStyle}>
         <Courses 
         courses={props.courses} 
         courseHandler={props.courseHandler} 
-        text={"🗙"}/> 
+        text={"-"}/> 
         </ListGroup>
         
         
