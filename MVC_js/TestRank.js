@@ -1,5 +1,5 @@
 let Schedule = require('./Schedule')
-let Rank = require('./RankSchedule')
+let Rank = require('./Utility')
 var rankByProfScore = Rank.rankByProfScore;
 var rankByDistance = Rank.rankByDistance;
 var rankByTimeCommitment = Rank.rankByTimeCommitment;

@@ -1,28 +1,23 @@
-/*import {generateSchedule} from "./Utility.js"
-import {Course} from "./Course.js"
-import {Pair} from "./Pair.js"
-import {Section} from "./Section.js"
-import {Schedule} from "./Schedule.js"
-import {ScheduledCourse} from "./ScheduledCourse.js"*/
-
 let Course = require("./Course")
 let Professor = require("./Professor")
 let Pair = require("./Pair")
 let Section = require("./Section")
 let Schedule = require("./Schedule")
 let ScheduledCourse = require("./ScheduledCourse")
-let generator = require("./Utility")
+let generator = require("./ScheduleGenerator")
 
 /* Set up firebase */
 var QUARTER = "F18";
 var COURSEID1 = "CSE 100";
-var COURSEID2 = "MATH 18"
-//var SECTION = "A00";
+var COURSEID2 = "MATH 18";
+var COURSEID = ["CSE 100", "CSE 105", "CSE 110", "CSE 30", "CSE 11"];
 var TO = "/";
+var courseList = [];
+var sections = ['A00', 'B00', 'C00', 'D00', 'E00', 'F00'];
 
 var firebase = require("firebase");		// the great work done by Oliver
 var incomingData = null;			// The data will be retrieved from db
-var numCallbacks = 0;
+var numRetrieve = 0;
 var dataSet = [];
 
 //Variables declaration.
@@ -66,15 +61,15 @@ firebase.initializeApp(config);
 
 
 // get the reference of the data
-firebaseRef = firebase.database().ref(QUARTER + TO + COURSEID1);//+ TO + SECTION);
+//firebaseRef = firebase.database().ref(QUARTER + TO + COURSEID1);//+ TO + SECTION);
 
 // get the data
 function retrieve(end) {
     firebaseRef.on("value", function(snapshot) {
         incomingData = snapshot.val();
-        numCallbacks++;
+        numRetrieve++;
         dataSet.push(incomingData);
-        if (numCallbacks === 2)
+        if (numRetrieve === 5)
             end();
     });
 }
@@ -83,11 +78,12 @@ function retrieve(end) {
 function end() {
     // when we have the correct db reference
     if(dataSet[0]) {
+        buildTestSet();
         //console.log("\n\n");
         //console.log(data);
 
         //Extracting info from database data.
-        courseID1 = COURSEID1;
+        /*courseID1 = COURSEID1;
         courseID2 = COURSEID2;
         sectionID1 = 'A00';
         sectionID2 = 'B00';
@@ -120,8 +116,6 @@ function end() {
 
         var course1 = new ScheduledCourse(COURSEID1, [section1, section2]);
         var course2 = new ScheduledCourse(COURSEID2, [section3]);
-        //var course2 = new ScheduledCourse(11, [101]);
-//var course3 = new ScheduledCourse(12, [102]);
 
         var courseList = [course1, course2];
 
@@ -130,39 +124,47 @@ function end() {
 
         console.log ("Complete");
 
-        firebaseRef.off();
+        firebaseRef.off();*/
     } else {
         console.log("Hehe");
     }
 }
 
-retrieve(end);
-firebaseRef = firebase.database().ref(QUARTER + TO + COURSEID2 + TO + 'E00');
-retrieve(end);
-/* End of setting up firebase */
 
+function buildTestSet (){
+    for (let j = 0; j < dataSet.length; j++){
+        let courseData = dataSet[j];
+
+        let k = 0;
+        let sectionArr = [];
+        while (courseData.hasOwnProperty(sections[k])){
+            let secID = sections[k];
+            let currSec = courseData.secID;
+            console.log (currSec);
+            sectionArr[k] = new Section(sections[k], COURSEID[j], currSec.getStartingTime, currSec.getEndingTime, currSec.getDay, currSec.getLocation,
+                currSec.getProfessor, currSec.getFinalTime, currSec.getFinalEndTime, currsec.getFinalDate);
+            k++;
+        }
+
+        if (sectionArr.length > 0){
+            courseList[j] = new ScheduledCourse(COURSEID[j], sectionArr);
+        }
+        console.log(courseData);
+    }
+
+    var scheduleList = generator(courseList);
+    console.log(dataSet);
+}
+
+for (let i = 0; i < 5; i++){
+    firebaseRef = firebase.database().ref(QUARTER + TO + COURSEID[i]);
+    retrieve(end);
+}
 
 /*
-/*var pair1 = new Pair(200, 10, "XXX", 0, 10);
-var pair2 = new Pair(201, 11, "YYY", 0, 5);
-var pair3 = new Pair(202, 12, "ZZZ", 0, 15);
-
-var section1 = new Section("A00", COURSEID, startTime1, endTime1, day1, loc, prof1, finalStart1, finalDate1);
-var section2 = new Section("B00", COURSEID, startTime2, endTime2, day2, loc, prof2, finalStart1, finalDate1);
-//var section3 = new Section(102, 202, 2018, "FA18", 900, 950, [1, 3, 5], "PETER 108", 1500);
-
-/*var c1 = new Course(10, "CSE 11", 4, "NA", "NA");
-var c2 = new Course(11, "CSE 12", 4, "NA", "NA");
-var c3 = new Course(12, "CSE 20", 4, "NA", "NA");
-
-var course1 = new ScheduledCourse(COURSEID, [section1, section2]);
-//var course2 = new ScheduledCourse(11, [101]);
-//var course3 = new ScheduledCourse(12, [102]);
-
-var courseList = [course1];
-
-var scheduleList = generator(courseList);
-*/
+retrieve(end);
+firebaseRef = firebase.database().ref(QUARTER + TO + COURSEID2 + TO + 'E00');
+retrieve(end);*/
 
 
 

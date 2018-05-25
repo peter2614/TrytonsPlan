@@ -1,175 +1,224 @@
-let Course = require("./Course")
-let Professor = require("./Professor")
-let Pair = require("./Pair")
-let Section = require("./Section")
-let Schedule = require("./Schedule")
-let ScheduledCourse = require("./ScheduledCourse")
+/* Functions to retrieve data from database */
+var firebase = require("firebase");
 
+var TO = "/";
+var data;
+var QUARTER = "F18"
 
-var processedList;  //Global variable -- the list processed by processCourseList(). For helperGenerator().
-var scheduleID = 0;
+// db setup
+var config = {
+    apiKey: "AIzaSyDHND3EVIe-S8r0k_3DLf_GClaM2qazGMI",
+    authDomain: "trytonsplan.firebaseapp.com",
+    databaseURL: "https://trytonsplan.firebaseio.com",
+    projectId: "trytonsplan",
+    storageBucket: "trytonsplan.appspot.com",
+    messagingSenderId: "242589223564"
+};
 
+firebase.initializeApp(config);
 
-/*
-    Schedule generator. First extract all sections in all courses in the course list, then call processCourseList() and
-    helperGenerator to generate a list of all possible courses.
-    Return value: an array of Schedule objects.
- */
-var generateSchedule = function (courseList){
-    scheduleID = 0;
-    let scheduleArr = [];
-    let numCourse = courseList.length;
-
-
-    let sectionList  = new Array();
-    for (let i = 0; i < courseList.length; i++){  //Get all sections from all courses in courseList.
-        let sections = courseList[i].getSections;
-
-        for (let j = 0; j < sections.length; j++){
-            sectionList.push(sections[j]);
-        }
-    }
-
-    let processedSecList = processCourseList(sectionList);
-    processedList = processedSecList;
-
-    var initialSchedule = new Schedule(scheduleID, 0, 0, [], 0, 0, 0, 0);
-
-    helperGenerator(initialSchedule, scheduleArr, 0);
-
-    //console.log (scheduleArr[0]);
-    //console.log ("\n");
-    //console.log (scheduleArr);
-
-    return scheduleArr;
+function getData (CourseID, cb) {
+    let reference = QUARTER + TO + CourseID;  //Get the reference of the data
+    firebaseRef = firebase.database().ref(reference);
+    firebaseRef.on("value", function(snapshot) {
+        data = snapshot.val();
+        end();
+        cb (data);
+    });
 }
 
 
-/*
-    Recursive function for generating all possible schedules.
- */
-var helperGenerator = function (currSchedule, scheduleList, slotIndex){
-    if (slotIndex === processedList.length){
-        scheduleList.push(currSchedule);
-        scheduleID++;
-        return;
-    }
+function retrieve(end) {
+    firebaseRef.on("value", function(snapshot) {
+        data = snapshot.val();
+        end();
 
-    var slot = processedList[slotIndex];
-
-    var numSectionInSlot = slot.length;
-
-    for (let i = 0; i < numSectionInSlot; i++) {
-        var retVal = addSection(currSchedule, processedList[slotIndex][i]);
-        //console.log (retVal);
-        if (retVal === 1) {
-            let newSchedule = new Schedule(currSchedule.getScheduleID, currSchedule.getYear, currSchedule.getQuarter,
-                currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
-                currSchedule.getTimeCommitment, currSchedule.getTimeInSchool);  //TODO: is there a better way?
-            newSchedule.getSections.push(processedList[slotIndex][i]);
-            helperGenerator(newSchedule, scheduleList, slotIndex + 1);
-        }
-    }
+    });
 }
 
 
-/*
-    Put sections into different time slots.
-    Return value: the processed list of sections.
- */
-var processCourseList = function (sectionList){
-    let numSection = sectionList.length;
-    if (numSection === 0){
-        return 0;
+function end() {
+    if (data){
+    // when we have the correct db reference
+
+        firebaseRef.off();
+        return data;
+    } else {
+        console.log("Hehe");
+    }
+}
+/* End of database functions */
+
+
+
+/* Rank functions*/
+/* All the ranking functions to rank a schedule list based on different criterion.*/
+
+// rank by professor score
+var rankByProfScore = function(scheduleList) {
+
+    var len = scheduleList.length;
+    return quickSortProfScore(scheduleList,0,len-1);
+}
+
+// rank by distance
+var rankByDistance = function(scheduleList) {
+
+    var len = scheduleList.length;
+    return quickSortDistance(scheduleList,0,len-1);
+}
+
+// rank by time commitment
+var rankByTimeCommitment = function(scheduleList) {
+
+    var len = scheduleList.length;
+    return quickSortTimeCommitment(scheduleList,0,len-1);
+}
+
+// rank by time in school
+var rankByTimeInSchool = function(scheduleList) {
+
+    var len = scheduleList.length;
+    return quickSortTimeInSchool(scheduleList,0,len-1);
+}
+
+// quick sort function for professor score
+function quickSortProfScore(list, left, right) {
+
+    var pivot, partitionIndex;
+
+    if(left < right) {
+        pivot = right;
+        partitionIndex = partitionProfScore(list, pivot, left, right);
+
+        quickSortProfScore(list, left, partitionIndex - 1);
+        quickSortProfScore(list, partitionIndex + 1, right);
     }
 
-    let newList = [[]];
-    newList[0][0] = sectionList[0];
+    return list;
+}
 
-    for (let i = 1; i < numSection; i++){
-        let findSlot = 0;
+// helper function for quick sort for professor score
+function partitionProfScore(list, pivot, left, right) {
+    var pivotValue = list[pivot].getProfScore,
+        partitionIndex = left;
 
-        for (let j = 0; j < newList.length; j++){  //Search to see if there is a slot in the new list for this section.
-             if (sectionList[i].getStartingTime === newList[j][0].getStartingTime &&
-                 sectionList[i].getEndingTime === newList[j][0].getEndingTime &&
-                 checkDay(sectionList[i].getDay, newList[j][0].getDay)){  //TODO: getTime() need to be updated
-
-                newList[j].push(sectionList[i]);
-                findSlot = 1;
-                break;
-            }
-        }
-
-        if (findSlot === 0){  //If no time slot found, create a new slot.
-            newList.push([sectionList[i]]);
-            //newList[newList.length][0] = sectionList[i];
+    for(var i = left; i < right; i++) {
+        if(list[i].getProfScore > pivotValue) {
+            swap(list, i, partitionIndex);
+            partitionIndex++;
         }
     }
-    //console.log (newList);
-    return newList;
+    swap(list,right,partitionIndex);
+    return partitionIndex;
+}
+
+// quick sort function for distance
+function quickSortDistance(list, left, right) {
+
+    var pivot, partitionIndex;
+
+    if(left < right) {
+        pivot = right;
+        partitionIndex = partitionDistance(list, pivot, left, right);
+
+        quickSortDistance(list, left, partitionIndex - 1);
+        quickSortDistance(list, partitionIndex + 1, right);
+    }
+
+    return list;
+}
+
+// helper function for quick sort for distance
+function partitionDistance(list, pivot, left, right) {
+    var pivotValue = list[pivot].getDistance,
+        partitionIndex = left;
+
+    for(var i = left; i < right; i++) {
+        if(list[i].getDistance > pivotValue) {
+            swap(list, i, partitionIndex);
+            partitionIndex++;
+        }
+    }
+    swap(list,right,partitionIndex);
+    return partitionIndex;
+}
+// quick sort function for time commitment
+function quickSortTimeCommitment(list, left, right) {
+
+    var pivot, partitionIndex;
+
+    if(left < right) {
+        pivot = right;
+        partitionIndex = partitionTimeCommitment(list, pivot, left, right);
+
+        quickSortTimeCommitment(list, left, partitionIndex - 1);
+        quickSortTimeCommitment(list, partitionIndex + 1, right);
+    }
+
+    return list;
+}
+
+// helper function for quick sort for time commitment
+function partitionTimeCommitment(list, pivot, left, right) {
+    var pivotValue = list[pivot].getTimeCommitment,
+        partitionIndex = left;
+
+    for(var i = left; i < right; i++) {
+        if(list[i].getTimeCommitment > pivotValue) {
+            swap(list, i, partitionIndex);
+            partitionIndex++;
+        }
+    }
+    swap(list,right,partitionIndex);
+    return partitionIndex;
+}
+
+// quick sort function for time in school
+function quickSortTimeInSchool(list, left, right) {
+
+    var pivot, partitionIndex;
+
+    if(left < right) {
+        pivot = right;
+        partitionIndex = partitionTimeInSchool(list, pivot, left, right);
+
+        quickSortTimeInSchool(list, left, partitionIndex - 1);
+        quickSortTimeInSchool(list, partitionIndex + 1, right);
+    }
+
+    return list;
+}
+
+// helper function for quick sort for time in school
+function partitionTimeInSchool(list, pivot, left, right) {
+    var pivotValue = list[pivot].getTimeInSchool,
+        partitionIndex = left;
+
+    for(var i = left; i < right; i++) {
+        if(list[i].getTimeInSchool > pivotValue) {
+            swap(list, i, partitionIndex);
+            partitionIndex++;
+        }
+    }
+    swap(list,right,partitionIndex);
+    return partitionIndex;
 }
 
 
-
-/*
-    Check if a section can be added to the given schedule.
-    Return value: -1 if repeated new section;
-                  0 if conflict;
-                  1 if successful.
- */
-var addSection = function (schedule, newSection){
-    let sectionList = schedule.getSections;
-    let numSections = sectionList.length;
-
-    if (numSections === 0){
-        return 1;
-    }
-
-    for (let i = 0; i < numSections; i++){
-        let section = sectionList[i];
-        if (section.getCourseID === newSection.getCourseID){
-            return -1;
-        }
-        else {
-            /* Check for overlapping between sections */
-            if (section.getEndingTime > newSection.getStartingTime && section.getStartingTime < newSection.getStartingTime){
-                return 0;
-            }
-            else if (section.getStartingTime < newSection.getEndingTime && section.getStartingTime > newSection.getStartingTime){
-                return 0;
-            }
-
-            else if (section.getFinalDate === newSection.getFinalDate) {  //Check final date and time
-                if (section.getFinalTime === newSection.getFinalTime ||
-                    section.getFinalTime > newSection.getFinalTime && section.getFinalTime < newSection.getFinalEndTime ||
-                    newSection.getFinalTime > section.getFinalTime && newSection.getFinalTime < section.getFinalEndTime){
-                    return 0;
-                }
-            }
-        }
-    }
-    return 1;  //No conflict
+// helper function for swap
+function swap(list, i, j) {
+    var temp = list[i];
+    list[i] = list[j];
+    list[j] = temp;
 }
 
+module.exports = {
+    getData: getData,
+    rankByProfScore: rankByProfScore,
+    rankByDistance: rankByDistance,
+    rankByTimeCommitment: rankByTimeCommitment,
+    rankByTimeInSchool: rankByTimeInSchool
+};
 
-/*
-    Helper function for checking the day of two courses.
-    Return value: 0 if there is overlapping in the two days array;
-                  1 if there is no overlapping.
- */
-var checkDay = function (dayArr1, dayArr2){
-    //console.log(dayArr1);
-    for (let i = 0; i < dayArr1.length; i++){
-        for (let j = 0; j < dayArr2.length; j++){
-            if (dayArr1[i] === dayArr2[j]) {
-                break;
-            }
-            if (j === dayArr2.length - 1){
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-
-module.exports = generateSchedule;
+//module.exports = getData;
