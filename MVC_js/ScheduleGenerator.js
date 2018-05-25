@@ -16,7 +16,6 @@ var scheduleID = 0;
     Return value: an array of Schedule objects.
  */
 var generateSchedule = function (courseList){
-    scheduleID = 0;
     let scheduleArr = [];
     let numCourse = courseList.length;
 
@@ -33,12 +32,15 @@ var generateSchedule = function (courseList){
     let processedSecList = processCourseList(sectionList);
     processedList = processedSecList;
 
-    var initialSchedule = new Schedule(scheduleID, 0, 0, [], 0, 0, 0, 0);
 
 
-    //helperGenerator(initialSchedule, scheduleArr, 0);
+    for (let i = 0; i < processedSecList.length; i++){
+        scheduleID = scheduleArr.length;
+        let initialSchedule = new Schedule(scheduleID, 0, 0, [], 0, 0, 0, 0);
+        helperGenerator(initialSchedule, scheduleArr, i);
+    }
 
-    //console.log (scheduleArr);
+    //console.log (processedSecList);
 
     return scheduleArr;
 }
@@ -48,9 +50,12 @@ var generateSchedule = function (courseList){
     Recursive function for generating all possible schedules.
  */
 var helperGenerator = function (currSchedule, scheduleList, slotIndex){
+    //console.log (slotIndex);
     if (slotIndex === processedList.length){
-        scheduleList.push(currSchedule);
-        scheduleID++;
+        if (currSchedule.getSections.length > 1) {
+            scheduleList.push(currSchedule);
+            scheduleID++;
+        }
         return;
     }
 
@@ -58,14 +63,30 @@ var helperGenerator = function (currSchedule, scheduleList, slotIndex){
     var numSectionInSlot = slot.length;
 
     for (let i = 0; i < numSectionInSlot; i++) {
+       // console.log (processedList[slotIndex][i]);
+
         var retVal = addSection(currSchedule, processedList[slotIndex][i]);
         //console.log (retVal);
         if (retVal === 1) {
-            let newSchedule = new Schedule(currSchedule.getScheduleID, currSchedule.getYear, currSchedule.getQuarter,
-                currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
-                currSchedule.getTimeCommitment, currSchedule.getTimeInSchool);  //TODO: is there a better way?
-            newSchedule.getSections.push(processedList[slotIndex][i]);
-            helperGenerator(newSchedule, scheduleList, slotIndex + 1);
+            if (i === 0) {
+                let newSchedule = new Schedule(currSchedule.getScheduleID, currSchedule.getYear, currSchedule.getQuarter,
+                    currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
+                    currSchedule.getTimeCommitment, currSchedule.getTimeInSchool);
+                newSchedule.getSections.push(processedList[slotIndex][i]);
+                helperGenerator(newSchedule, scheduleList, slotIndex + 1);
+            }
+            else{
+                let newSchedule = new Schedule(currSchedule.getScheduleID + 1, currSchedule.getYear, currSchedule.getQuarter,
+                    currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
+                    currSchedule.getTimeCommitment, currSchedule.getTimeInSchool);
+                newSchedule.getSections.push(processedList[slotIndex][i]);
+                helperGenerator(newSchedule, scheduleList, slotIndex + 1);
+            }
+        }
+        else{
+            if (i === numSectionInSlot - 1){
+                helperGenerator(currSchedule, scheduleList, slotIndex + 1);
+            }
         }
     }
 }
