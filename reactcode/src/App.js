@@ -20,11 +20,10 @@ class App extends Component {
 
   render() {
 
-    return (
-      <div className="App" style={{minHeight: '1rem', minWidth:'1rem', backgroundColor: '#AAA', overflow:'none'}}>
-        <MainPage db={firebase}/>
-      </div>
-    );
+      return <div className="App"
+                  style={{position: 'relative', minHeight: '1rem', minWidth: '1rem', backgroundColor: '#3c3c3c', overflow: 'scroll'}}>
+          <MainPage db={firebase}/>
+      </div>;
   }
 }
 

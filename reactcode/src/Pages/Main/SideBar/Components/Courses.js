@@ -5,11 +5,12 @@ import {ListGroupItem} from 'react-bootstrap';
 //Used to map the array of javascript objects into Course Components
 const courses = (props) => props.courses.map( (course, index) => {
     const courseStyle = {
-        //margin: 'auto',
-        backgroundColor: '#222',
-        box: '1px',
+        position: 'relative',
+        backgroundColor: '#222222',
+        box: '1vh',
         width: '100%',
-        borderRadius: '0px'
+        borderRadius: '0px',
+        display: 'block'
     }
 
     return <ListGroupItem 

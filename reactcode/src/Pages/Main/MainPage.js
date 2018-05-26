@@ -143,39 +143,57 @@ class MainPage extends Component {
     }
 
     render() {
-    return (
-        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: 'inherit'}}>
-            <div className={"NAVBAR"} style={{width:'100vw', height: '5vh', backgroundColor: '#333'}}>
+        return <div className="container" style={{padding: '0px', margin: '0px', width: 'auto', height: 'auto'}}>
+            <div className={"NAVBAR"} style={{width: 'inherit', height: 'auto', backgroundColor: '#3c3c3c'}}>
                 <div style={{display: 'inline-block', float: 'left'}}>
-                <p style={{float: 'left', paddingLeft: '3vw', marginBottom:'0', marginTop: '-.7vh', fontSize: '4vh', color: '#49B', fontWeight: '900'}}>Trytons</p>
-                <p style={{float: 'left', paddingLeft: '0', marginBottom:'0', marginTop: '.5vh', fontSize: '3vh', color: '#BB0', fontWeight: '900'}}>Plan</p>
+                    <p style={{
+                        float: 'left',
+                        paddingLeft: '3vw',
+                        marginBottom: '0vh',
+                        marginTop: '1vh',
+                        fontSize: '3.5vh',
+                        fontFamily: 'Avenir',
+                        color: '#37506a',
+                        fontWeight: '400'
+                    }}>Trytons</p>
+                    <p style={{
+                        float: 'left',
+                        paddingLeft: '0',
+                        marginBottom: '0',
+                        marginTop: '1vh',
+                        fontFamily: 'Avenir',
+                        fontSize: '3.5vh',
+                        color: '#b9b079',
+                        fontWeight: '400'
+                    }}>Plan</p>
                 </div>
             </div>
             <div style={{display: 'inline-block'}}>
-                <div  className="sidebarcontainer">
-                    <SideBar 
-                    courseCatalog={this.state.courseCatalog} 
-                    courseList={this.state.courseList} 
-                    searchResults={this.state.searchResults}   
+                <div className={"sidebarcontainer"}>
+                    <SideBar
+                        courseCatalog={this.state.courseCatalog}
+                        courseList={this.state.courseList}
+                        searchResults={this.state.searchResults}
 
-                    addCourseHandler={this.addCourseHandler} 
-                    removeCourseHandler={this.removeCourseHandler}   
-                    searchCourseHandler={this.searchCourseHandler}
-                    displayCourseInfoHandler={this.displayCourseInfoHandler}/>
+                        addCourseHandler={this.addCourseHandler}
+                        removeCourseHandler={this.removeCourseHandler}
+                        searchCourseHandler={this.searchCourseHandler}
+                        displayCourseInfoHandler={this.displayCourseInfoHandler}/>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column'}}>
-                    
-                    <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
-                        <OptionsBar generateScheduleHandler={this.generateScheduleHandler} />
+
+                    <div className={"GENERATE OPTIONS"} style={{width: '78vw', height: '6vh', backgroundColor: '#3c3c3c'}}>
+                        <OptionsBar generateScheduleHandler={this.generateScheduleHandler}/>
                     </div>
-                    <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#777', overflowY: 'auto'}}>
-                        <MainSpace scheduleCards={this.state.schedules} displayInfo={this.state.displayInfo} courseInfo={this.state.courseInfo}  generalInfo={this.state.generalInfo} courseID={this.state.courseID}/>
+                    <div className={"MAINSPACE CONTAINER"}
+                         style={{width: '78vw', height: '89vh', backgroundColor: '#777', overflowY: 'auto'}}>
+                        <MainSpace scheduleCards={this.state.schedules} displayInfo={this.state.displayInfo}
+                                   courseInfo={this.state.courseInfo} generalInfo={this.state.generalInfo}
+                                   courseID={this.state.courseID}/>
                     </div>
                 </div>
             </div>
-        </div>
-        
-    );
+        </div>;
   }
 }
 
