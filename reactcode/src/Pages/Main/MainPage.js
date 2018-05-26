@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import {Jumbotron, Grid, Row, Col, Image, Button, Navbar } from 'react-bootstrap';
 import SideBar from './SideBar/SideBar.js'
-import NavBar from './NavBar/Navbar.js'
 import MainSpace from './MainSpace/MainSpace.js'
 import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
-import firebase from 'firebase';
 
 
 class MainPage extends Component {
@@ -38,6 +35,7 @@ class MainPage extends Component {
         displayInfo: true,
         courseInfo: null,
         generalInfo: null,
+        courseID: null,
     }
 
     getCourses(courseCatalog) {
@@ -54,7 +52,8 @@ class MainPage extends Component {
                     name: property,
                     description: "need oliver"
                 }
-                this.state.courseCatalog = [...this.state.courseCatalog,course];
+                let courseCatalog = [...this.state.courseCatalog,course];
+                this.setState({courseCatalog: courseCatalog})
                 //console.log(this.state.courseCatalog);
             }
            
@@ -121,15 +120,19 @@ class MainPage extends Component {
     }
 
     displayCourseInfoHandler = (event, courseID) => {
-        console.log(courseID); 
+        //console.log(courseID); 
+        this.setState({courseID: courseID});
         let f18ref = this.props.db.database().ref("F18/" + courseID);
         let catalogref = this.props.db.database().ref("course" + courseID);
         f18ref.on("value", snapshot => {
             this.setState({courseInfo: snapshot.val()});
+            //console.log(snapshot.val());
+            
+            //this.state.courseInfo = snapshot.val();
+            //console.log(this.state.courseInfo);
         });
         catalogref.on("value", snapshot => {
             this.setState({generalInfo: snapshot.val()});
-
         });
         this.setState({displayInfo: true});
     }
@@ -166,7 +169,7 @@ class MainPage extends Component {
                         <OptionsBar generateScheduleHandler={this.generateScheduleHandler} />
                     </div>
                     <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#777', overflowY: 'auto'}}>
-                        <MainSpace scheduleCards={this.state.schedules} displayInfo={this.state.displayInfo} generalInfo={this.state.generalInfo}/>
+                        <MainSpace scheduleCards={this.state.schedules} displayInfo={this.state.displayInfo} courseInfo={this.state.courseInfo}  generalInfo={this.state.generalInfo} courseID={this.state.courseID}/>
                     </div>
                 </div>
             </div>
