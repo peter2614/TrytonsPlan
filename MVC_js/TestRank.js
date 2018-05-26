@@ -3,15 +3,16 @@ let Rank = require('./Utility')
 var rankByProfScore = Rank.rankByProfScore;
 var rankByDistance = Rank.rankByDistance;
 var rankByTimeCommitment = Rank.rankByTimeCommitment;
-var rankByTimeInSchool = Rank.rankByTimeInSchool;
+var rankByTimeUsage = Rank.rankByTimeUsage;
+var rankByGPA = Rank.rankByGPA;
 
-var s1 = new Schedule("A","",0,0,0.75,100,12,12);
-var s2 = new Schedule("B","",0,0,0.90,80,22,15);
-var s3 = new Schedule("C","",0,0,0.88,250,23,18);
-var s4 = new Schedule("D","",0,0,0.42,1000,25,14);
-var s5 = new Schedule("E","",0,0,0.67,20,11,17);
-var s6 = new Schedule("F","",0,0,0.44,534,30,10);
-var s7 = new Schedule("G","",0,0,0.20,33,18,8);
+var s1 = new Schedule("A","",0,0,0.75,100,12,0.55,3.3);
+var s2 = new Schedule("B","",0,0,0.90,80,22,0.57,3.2);
+var s3 = new Schedule("C","",0,0,0.88,250,23,0.88,2.9);
+var s4 = new Schedule("D","",0,0,0.42,1000,25,0.24,2.5);
+var s5 = new Schedule("E","",0,0,0.67,20,11,0.13,3.9);
+var s6 = new Schedule("F","",0,0,0.44,534,30,0.45,1.7);
+var s7 = new Schedule("G","",0,0,0.20,33,18,0.87,3.77);
 var scheduleList = [s1,s2,s3,s4,s5,s6,s7];
 
 // Schedule List
@@ -44,11 +45,20 @@ for(var i = 0; i < ScheduleListRankedByTimeCommitment.length; i++) {
     console.log(ScheduleListRankedByTimeCommitment[i].getScheduleID);
 }
 
-// Test Case 4: rank by time in school
-var ScheduleListRankedByTimeInSchool = rankByTimeInSchool(scheduleList);
+// Test Case 4: rank by time usage
+var ScheduleListRankedByTimeUsage = rankByTimeUsage(scheduleList);
 
-// expected output: C E B D A F G
-console.log("Rank by Time In School:")
-for(var i = 0; i < ScheduleListRankedByTimeInSchool.length; i++) {
-    console.log(ScheduleListRankedByTimeInSchool[i].getScheduleID);
+// expected output: C G B A F D E
+console.log("Rank by Time Usage:")
+for(var i = 0; i < ScheduleListRankedByTimeUsage.length; i++) {
+    console.log(ScheduleListRankedByTimeUsage[i].getScheduleID);
+}
+
+// Test Case 5: rank by GPA
+var ScheduleListRankedByGPA = rankByGPA(scheduleList);
+
+// expected output: E G A B C D F
+console.log("Rank by GPA:")
+for(var i = 0; i < ScheduleListRankedByGPA.length; i++) {
+    console.log(ScheduleListRankedByGPA[i].getScheduleID);
 }

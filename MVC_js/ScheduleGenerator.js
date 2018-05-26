@@ -70,14 +70,14 @@ var helperGenerator = function (currSchedule, scheduleList, slotIndex){
             if (i === 0) {
                 let newSchedule = new Schedule(currSchedule.getScheduleID, currSchedule.getYear, currSchedule.getQuarter,
                     currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
-                    currSchedule.getTimeCommitment, currSchedule.getTimeInSchool);
+                    currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA);
                 newSchedule.getSections.push(processedList[slotIndex][i]);
                 helperGenerator(newSchedule, scheduleList, slotIndex + 1);
             }
             else{
                 let newSchedule = new Schedule(currSchedule.getScheduleID + 1, currSchedule.getYear, currSchedule.getQuarter,
                     currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
-                    currSchedule.getTimeCommitment, currSchedule.getTimeInSchool);
+                    currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA);
                 newSchedule.getSections.push(processedList[slotIndex][i]);
                 helperGenerator(newSchedule, scheduleList, slotIndex + 1);
             }
@@ -199,5 +199,145 @@ var checkDay = function (dayArr1, dayArr2){
     }
     return 1;
 }
+
+/*
+    Retrieve data from database with a specific path
+    // TODO: Need to implement
+ */
+
+var retrieveData = function(path) {
+
+    // TODO
+
+    return "";
+}
+
+// -----------------------------------------------------------------------------------------------
+// Version ONE                          |
+// Setting schedule info separately     |
+// --------------------------------------
+
+/*
+    Helper function for setting GPA for one schedule.
+    // TODO: Need to implement function retrieveData(string path) to retrieve data from database
+ */
+
+var setGPA = function (schedule) {
+    var avg, sum = 0;
+    var len = schedule.sections.length;
+
+    for (let i = 0; i < len; i++) {
+
+        // TODO: Need to retrieve actual GPA earned from database
+        // TODO: Path is professor/LastName, FirstName/CourseID/gpaActual
+
+        let profName = schedule.sections[i].getProfessor;
+        let courseID = schedule.sections[i].getCourseID;
+        let path = "professor/" + profName.toString() + "/" + courseID.toString() + "/gpaActual";
+
+        sum = sum + parseFloat(retrieveData(path));
+    }
+    avg = sum / len;
+
+    schedule.setGPA = avg;
+}
+
+/*
+    Helper function for setting profScore for one schedule.
+    // TODO: Need to implement function retrieveData(string path) to retrieve data from database
+ */
+
+var setScore = function (schedule) {
+    var avg, sum = 0;
+    var len = schedule.sections.length;
+
+    for (let i = 0; i < len; i++) {
+
+        // TODO: Need to retrieve score from database
+        // TODO: Path is professor/LastName, FirstName/CourseID/score
+
+        let profName = schedule.sections[i].getProfessor;
+        let courseID = schedule.sections[i].getCourseID;
+        let path = "professor/" + profName.toString() + "/" + courseID.toString() + "/score";
+
+        sum = sum + parseFloat(retrieveData(path));
+    }
+    avg = sum / len;
+
+    schedule.setScore = avg;
+}
+
+/*
+    Helper function for setting time commitment for one schedule.
+    // TODO: Need to implement function retrieveData(string path) to retrieve data from database
+ */
+
+var setTimeCommitment = function (schedule) {
+    var sum = 0;
+    var len = schedule.sections.length;
+
+    for (let i = 0; i < len; i++) {
+
+        // TODO: Need to retrieve score from database
+        // TODO: Path is professor/LastName, FirstName/CourseID/timeCommitment
+
+        let profName = schedule.sections[i].getProfessor;
+        let courseID = schedule.sections[i].getCourseID;
+        let path = "professor/" + profName.toString() + "/" + courseID.toString() + "/timeCommitment";
+
+        sum = sum + parseFloat(retrieveData(path));
+    }
+
+    schedule.setTimeCommitment = sum;
+}
+
+// --------------------------------------
+// END of Version ONE                   |
+// -----------------------------------------------------------------------------------------------
+
+
+// -----------------------------------------------------------------------------------------------
+// Version TWO                          |
+// Setting schedule info altogether     |
+// --------------------------------------
+
+/*
+    Helper function to set profScore, TimeCommitment, GPA for one schedule
+ */
+
+var setInfo = function (schedule) {
+
+    var sumProfScore = 0,
+        sumTimeCommitment = 0,
+        sumGPA = 0;
+    var len = schedule.sections.length;
+
+    for (let i = 0; i < len; i++) {
+
+        // TODO: Need to retrieve score from database
+        // TODO: Path is professor/LastName, FirstName/CourseID
+
+        let profName = schedule.sections[i].getProfessor;
+        let courseID = schedule.sections[i].getCourseID;
+        let path = "professor/" + profName.toString() + "/" + courseID.toString();
+
+        data = retrieveData(path);
+
+        sumProfScore += data.score;
+        sumTimeCommitment += data.timeCommitment;
+        sumGPA += data.gpaActual;
+    }
+
+    schedule.setProfScore = sumProfScore / len;
+    schedule.setTimeCommitment = sumTimeCommitment;
+    schedule.setGPA = sumGPA / len;
+}
+
+// --------------------------------------
+// END of Version TWO                          |
+// -----------------------------------------------------------------------------------------------
+
+
+
 
 module.exports = generateSchedule;

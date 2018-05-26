@@ -1,6 +1,6 @@
 class Schedule {
 
-    constructor(scheduleID, year, quarter, sections, profScore, distance, timeCommitment, timeInSchool) {
+    constructor(scheduleID, year, quarter, sections, profScore, distance, timeCommitment, timeUsage, GPA) {
         this.scheduleID = scheduleID;
         this.year = year;
         this.quarter = quarter;
@@ -8,7 +8,8 @@ class Schedule {
         this.profScore = profScore;
         this.distance = distance;
         this.timeCommitment = timeCommitment;
-        this.timeInSchool = timeInSchool;
+        this.timeUsage = timeUsage;
+        this.GPA = GPA;
     }
 
     get getScheduleID() {
@@ -67,12 +68,20 @@ class Schedule {
         this.timeCommitment = timeCommitment;
     }
 
-    get getTimeInSchool() {
-        return this.timeInSchool;
+    get getTimeUsage() {
+        return this.timeUsage;
     }
 
-    set setTimeInSchool(timeInSchool) {
-        this.timeInSchool = timeInSchool;
+    set setTimeUsage(timeUsage) {
+        this.timeUsage = timeUsage;
+    }
+
+    get getGPA() {
+        return this.GPA;
+    }
+
+    set setGPA(GPA) {
+        this.GPA = GPA;
     }
 }
 

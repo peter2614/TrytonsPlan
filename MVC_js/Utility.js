@@ -113,10 +113,17 @@ var rankByTimeCommitment = function(scheduleList) {
 }
 
 // rank by time in school
-var rankByTimeInSchool = function(scheduleList) {
+var rankByTimeUsage = function(scheduleList) {
 
     var len = scheduleList.length;
-    return quickSortTimeInSchool(scheduleList,0,len-1);
+    return quickSortTimeUsage(scheduleList,0,len-1);
+}
+
+// rank by GPA
+var rankByGPA = function(scheduleList) {
+
+    var len = scheduleList.length;
+    return quickSortGPA(scheduleList,0,len-1);
 }
 
 // quick sort function for professor score
@@ -212,28 +219,59 @@ function partitionTimeCommitment(list, pivot, left, right) {
 }
 
 // quick sort function for time in school
-function quickSortTimeInSchool(list, left, right) {
+function quickSortTimeUsage(list, left, right) {
 
     var pivot, partitionIndex;
 
     if(left < right) {
         pivot = right;
-        partitionIndex = partitionTimeInSchool(list, pivot, left, right);
+        partitionIndex = partitionTimeUsage(list, pivot, left, right);
 
-        quickSortTimeInSchool(list, left, partitionIndex - 1);
-        quickSortTimeInSchool(list, partitionIndex + 1, right);
+        quickSortTimeUsage(list, left, partitionIndex - 1);
+        quickSortTimeUsage(list, partitionIndex + 1, right);
     }
 
     return list;
 }
 
 // helper function for quick sort for time in school
-function partitionTimeInSchool(list, pivot, left, right) {
-    var pivotValue = list[pivot].getTimeInSchool,
+function partitionTimeUsage(list, pivot, left, right) {
+    var pivotValue = list[pivot].getTimeUsage,
         partitionIndex = left;
 
     for(var i = left; i < right; i++) {
-        if(list[i].getTimeInSchool > pivotValue) {
+        if(list[i].getTimeUsage > pivotValue) {
+            swap(list, i, partitionIndex);
+            partitionIndex++;
+        }
+    }
+    swap(list,right,partitionIndex);
+    return partitionIndex;
+}
+
+// quick sort function for GPA
+function quickSortGPA(list, left, right) {
+
+    var pivot, partitionIndex;
+
+    if(left < right) {
+        pivot = right;
+        partitionIndex = partitionGPA(list, pivot, left, right);
+
+        quickSortGPA(list, left, partitionIndex - 1);
+        quickSortGPA(list, partitionIndex + 1, right);
+    }
+
+    return list;
+}
+
+// helper function for quick sort for GPA
+function partitionGPA(list, pivot, left, right) {
+    var pivotValue = list[pivot].getGPA,
+        partitionIndex = left;
+
+    for(var i = left; i < right; i++) {
+        if(list[i].getGPA > pivotValue) {
             swap(list, i, partitionIndex);
             partitionIndex++;
         }
@@ -255,7 +293,8 @@ module.exports = {
     rankByProfScore: rankByProfScore,
     rankByDistance: rankByDistance,
     rankByTimeCommitment: rankByTimeCommitment,
-    rankByTimeInSchool: rankByTimeInSchool,
+    rankByTimeUsage: rankByTimeUsage,
+    rankByGPA: rankByGPA,
     getSchedule: getSchedule
 };
 
