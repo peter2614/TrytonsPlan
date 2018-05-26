@@ -19,6 +19,7 @@ const courses = (props) => props.courses.map( (course, index) => {
             name={course.name} 
             description={course.description} 
             courseHandler={(event) => props.courseHandler(event, course.name)} 
+            displayCourseInfoHandler={(event) => props.displayCourseInfoHandler(event, course.name)}
             text={props.text}
             sections={course.sections}/> 
             </ListGroupItem>

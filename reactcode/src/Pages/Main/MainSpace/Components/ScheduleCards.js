@@ -1,29 +1,17 @@
 import React from 'react';
 import ScheduleCard from './ScheduleCard.js';
+import {ListGroupItem} from 'react-bootstrap';
+const schedulecards = (props) => props.scheduleCards.map( (schedule, index) => {
+   
+    
+        return (
+                <ScheduleCard
+                schedule={schedule}
+                index={index+1}/>
+                
+        )
 
-const schedulecards = (props) => {
+});
 
-    return(
-        <div style={{display: 'flex', flexWrap: 'wrap'}}>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-            <ScheduleCard/>
-        </div>
-    )
-
-}
 
 export default schedulecards;

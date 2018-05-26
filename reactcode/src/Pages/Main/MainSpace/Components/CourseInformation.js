@@ -1,8 +1,12 @@
 import React from 'react';
 
 const courseinformation = (props) => {
+    
+
     return(
-        <div><p>All about the course</p></div>
+        <div style={{backgroundColor: '#277'}}>
+        <p>Course Info{props.courseInfo}</p>
+        </div>
     )
 
 }
