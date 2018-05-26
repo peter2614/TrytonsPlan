@@ -1,6 +1,4 @@
 let Course = require("./Course")
-let Professor = require("./Professor")
-let Pair = require("./Pair")
 let Section = require("./Section")
 let Schedule = require("./Schedule")
 let ScheduledCourse = require("./ScheduledCourse")
@@ -10,7 +8,7 @@ let generator = require("./ScheduleGenerator")
 var QUARTER = "F18";
 var COURSEID1 = "CSE 100";
 var COURSEID2 = "MATH 18";
-var COURSEID = ["CSE 100", "CSE 105", "CSE 110", "CSE 30", "CSE 11", "CSE 158", "CSE 140", "CSE 101", "MATH 18"];
+var COURSEID = ["CSE 100", "CSE 105", "CSE 110", "CSE 30", "CSE 11", "CSE 158", "CSE 140", "CSE 101", "MATH 18", "CHEM 11"];
 var TO = "/";
 var courseList = [];
 var sections = ['0', '1', '2', '3', '4', '5', '6'];
@@ -19,32 +17,6 @@ var firebase = require("firebase");		// the great work done by Oliver
 var incomingData = null;			// The data will be retrieved from db
 var numRetrieve = 0;
 var dataSet = [];
-
-//Variables declaration.
-/*var courseID1;
-var courseID2;
-var sectionID1;
-var sectionID2;
-var sectionID3;
-var startTime1;
-var startTime2;
-var startTime3;
-var endTime1;
-var endTime2;
-var endTime3;
-var day1;
-var day2;
-var day3;
-var loc;
-var prof1;
-var prof2;
-var prof3;
-var finalStart1;
-var finalStart2;
-var finalStart3;
-var finalDate1;
-var finalDate2;
-var finalDate3;*/
 
 
 // db setup
@@ -121,9 +93,3 @@ function printSchedule (scheduleList){
         console.log ("\n");
     }
 }
-
-
-
-
-
-

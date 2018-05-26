@@ -1,6 +1,7 @@
 class Section {
 
-    constructor(sectionID, courseID, startingTime, endingTime, day, location, professor, finalTime, finalEndTime, finalDate) {
+    constructor(sectionID, courseID, startingTime, endingTime, day, location, professor, finalTime, finalEndTime, finalDate,
+                disArr) {
         this.sectionID = sectionID;
         this.courseID = courseID;
         /*this.year = year;
@@ -13,6 +14,9 @@ class Section {
         this.finalTime = finalTime;
         this.finalEndTime = finalEndTime;
         this.finalDate = finalDate;
+        this.disStartingTime = disStartingTime;
+        this.disEndingTime = disEndingTime;
+        this.disDay = disDay;
     }
 
     get getSectionID() {
@@ -109,6 +113,14 @@ class Section {
 
     set setFinalDate(finalDate) {
         this.finalDate = finalDate;
+    }
+
+    get getDisArr(){
+        return this.disArr;
+    }
+
+    set setDisArr (disArr){
+        this.disArr = disArr;
     }
 }
 

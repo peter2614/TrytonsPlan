@@ -1,9 +1,13 @@
 /* Functions to retrieve data from database */
 var firebase = require("firebase");
+var generator = require("./ScheduleGenerator")
+let Section = require("./Section")
+let ScheduledCourse = require("./ScheduledCourse")
 
 var TO = "/";
 var data;
 var QUARTER = "F18"
+var sections = ['0', '1', '2', '3', '4', '5', '6'];
 
 // db setup
 var config = {
@@ -20,19 +24,19 @@ firebase.initializeApp(config);
 function getData (CourseID, cb) {
     let reference = QUARTER + TO + CourseID;  //Get the reference of the data
     firebaseRef = firebase.database().ref(reference);
-    firebaseRef.on("value", function(snapshot) {
+    retrieve(cb);
+    /*firebaseRef.on("value", function(snapshot) {
         data = snapshot.val();
         end();
         cb (data);
-    });
+    });*/
 }
 
 
 function retrieve(end) {
     firebaseRef.on("value", function(snapshot) {
         data = snapshot.val();
-        end();
-
+        end(data);
     });
 }
 
@@ -48,6 +52,39 @@ function end() {
     }
 }
 /* End of database functions */
+
+
+
+/* Get schedule function */
+function getSchedule (courseIDList, dataSet) {
+    let courseList = [];
+
+    //Build the array of ScheduledCourse
+    for (let j = 0; j < dataSet.length; j++){
+        let courseData = dataSet[j];
+        let k = 0;
+        let sectionArr = [];
+        while (courseData.hasOwnProperty(sections[k])){
+            let secID = sections[k];
+            let currSec = courseData[k];
+            //console.log (currSec);
+            sectionArr[k] = new Section(currSec.id, courseIDList[j], currSec.LE[0].start_time, currSec.LE[0].end_time, currSec.LE[0].day,
+                                        currSec.LE[0].building, currSec.LE[0].professor, currSec.FI.start_time,
+                                        currSec.FI.end_time, currSec.FI.date, currSec.DI);
+            k++;
+        }
+
+        if (sectionArr.length > 0){
+            courseList[j] = new ScheduledCourse(courseIDList[j], sectionArr);
+        }
+    }
+
+    var scheduleList = generator(courseList);
+    //console.log (scheduleList);
+
+    return scheduleList;
+}
+
 
 
 
@@ -218,7 +255,8 @@ module.exports = {
     rankByProfScore: rankByProfScore,
     rankByDistance: rankByDistance,
     rankByTimeCommitment: rankByTimeCommitment,
-    rankByTimeInSchool: rankByTimeInSchool
+    rankByTimeInSchool: rankByTimeInSchool,
+    getSchedule: getSchedule
 };
 
 //module.exports = getData;

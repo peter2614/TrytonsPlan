@@ -40,8 +40,7 @@ var generateSchedule = function (courseList){
         helperGenerator(initialSchedule, scheduleArr, i);
     }
 
-    //console.log (processedSecList);
-
+    //console.log (scheduleArr);
     return scheduleArr;
 }
 
@@ -165,6 +164,16 @@ var addSection = function (schedule, newSection){
                     return 0;
                 }
             }
+            /*else if (section.getDisDay === newSection.getDisDay && section.getDisDay !== 0){
+                if (section.getDisStartingTime < newSection.getDisStartingTime && section.getDisEndingTime > newSection.getDisEndingTime ||
+                    section.getDisStartingTime > newSection.getDisStartingTime && section.getDisStartingTime < newSection.getDisEndingTime){
+                    return 0;
+                }
+                else if (section.getStartingTime < newSection.getDisStartingTime && section.getEndingTime > newSection.getDisEndingTime ||
+                    section.getStartingTime > newSection.getDisStartingTime && section.getStartingTime < newSection.getDisEndingTime){
+                    return 0;
+                }
+            }*/
         }
     }
     return 1;  //No conflict
