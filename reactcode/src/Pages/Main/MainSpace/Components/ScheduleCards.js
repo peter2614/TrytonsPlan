@@ -1,6 +1,6 @@
 import React from 'react';
 import ScheduleCard from './ScheduleCard.js';
-import {ListGroupItem} from 'react-bootstrap';
+
 const schedulecards = (props) => props.scheduleCards.map( (schedule, index) => {
    
     

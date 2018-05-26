@@ -13,7 +13,7 @@ class MainSpace extends Component {
                 <ScheduleCards scheduleCards={this.props.scheduleCards}/>
             </div>
         } else
-            display = <CourseInformation courseInfo={this.props.courseInfo} generalInfo={this.props.generalInfo} />
+            display = <CourseInformation courseInfo={this.props.courseInfo} generalInfo={this.props.generalInfo} courseID={this.props.courseID}/>
         return (
             <div> 
                 {display}

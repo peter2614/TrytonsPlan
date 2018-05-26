@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Courses from './Courses.js';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {ListGroup} from 'react-bootstrap';
 
 
 const courselist = (props) => {
@@ -14,7 +14,6 @@ const courselist = (props) => {
         marginBottom: '0px', 
         marginLeft: '0px', 
         backgroundColor: '#333'}
-
     let courses = 
         <ListGroup 
         style={courseGroupStyle}>

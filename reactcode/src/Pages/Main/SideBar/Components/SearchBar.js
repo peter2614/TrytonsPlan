@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Courses from './Courses.js';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {ListGroup} from 'react-bootstrap';
 
 const searchbar = (props) => {
 
@@ -27,7 +27,7 @@ const searchbar = (props) => {
             </ListGroup>
     
 
-        const searchBarStyle = {marginTop: '10px', marginBottom: '10px'}
+        //const searchBarStyle = {marginTop: '10px', marginBottom: '10px'}
         return (
             <div>
                 <div style={{height: '6vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
