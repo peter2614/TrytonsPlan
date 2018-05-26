@@ -21,6 +21,7 @@ const courselist = (props) => {
         <Courses 
         courses={props.courses} 
         courseHandler={props.courseHandler} 
+        displayCourseInfoHandler={props.displayCourseInfoHandler}
         text={"-"}/> 
         </ListGroup>
         

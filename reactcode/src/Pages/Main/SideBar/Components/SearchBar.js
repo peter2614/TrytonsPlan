@@ -22,6 +22,7 @@ const searchbar = (props) => {
             <Courses 
             courses={props.searchResults} 
             courseHandler={props.courseHandler}
+            displayCourseInfoHandler={props.displayCourseInfoHandler}
             text={"+"}/> 
             </ListGroup>
     

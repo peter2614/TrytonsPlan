@@ -6,7 +6,7 @@
 .sidebarcontainer {
     height: 95vh;
     background-color: #307080;
-    width: 18vw;
+    width: 22vw;
     float: left;
 }
 
@@ -21,6 +21,16 @@
     width: 100%;
     text-align: center;    
     margin: 0px;    
+}
+
+.addButton {
+    background: url(AddButton.png) no-repeat;
+    background-size: 2.5vh;
+    width: 2vw;
+    height: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navBar {
