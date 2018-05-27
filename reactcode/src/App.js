@@ -7,7 +7,7 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    var config = {
+    const config = {
       apiKey: "AIzaSyDHND3EVIe-S8r0k_3DLf_GClaM2qazGMI",
       authDomain: "trytonsplan.firebaseapp.com",
       databaseURL: "https://trytonsplan.firebaseio.com",
@@ -20,8 +20,7 @@ class App extends Component {
 
   render() {
 
-      return <div className="App"
-                  style={{position: 'relative', minHeight: '1rem', minWidth: '1rem', backgroundColor: '#3c3c3c', overflow: 'scroll'}}>
+      return <div className="App">
           <MainPage db={firebase}/>
       </div>;
   }

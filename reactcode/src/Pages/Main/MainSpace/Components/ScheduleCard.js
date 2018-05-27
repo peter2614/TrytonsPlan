@@ -2,22 +2,22 @@ import React from 'react';
 
 const schedulecard = (props) => {
     const scheduleCardStyle = {
-        marginTop: '1vw',
-        marginLeft: '2%',
+        position: 'relative',
+        marginTop: '2vh',
+        marginLeft: '2vw',
+        marginBottom: '1.5vh',
         padding: '1vw',
-        width: '47%',
+        width: '62vh',
         height: '40vh',
-        backgroundColor: '#258'
-    }
+        backgroundColor: '#37506a',
+    };
     //width: 47%
 
-    return(
-        <div style={scheduleCardStyle}>
-            <p style={{color: 'lightgrey'}}>Schedule {props.index}</p>
-        
-        
-        </div>
-    )
+    return <div style={scheduleCardStyle}>
+        <p style={{color: '#cccccc', textAlign: 'center'}}>Schedule {props.index}</p>
+
+
+    </div>
 
 }
 

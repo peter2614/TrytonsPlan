@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import SideBar from './SideBar/SideBar.js'
 import MainSpace from './MainSpace/MainSpace.js'
-import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
+import './MainPage.css';
+
 
 
 class MainPage extends Component {
@@ -43,15 +44,15 @@ class MainPage extends Component {
         let f18ref = this.props.db.database().ref("F18");
         let catalogref = this.props.db.database().ref("course");
         const courseCatalogCopy = [...this.state.courseCatalog];
-        var newCatalog = null;
+        const newCatalog = null;
         f18ref.on("value", snapshot => {
             //var data = [];
-            for (var property in snapshot.val()) {
+            for (const property in snapshot.val()) {
                 //console.log(property);
-                var course = {
+                const course = {
                     name: property,
                     description: "need oliver"
-                }
+                };
                 let courseCatalog = [...this.state.courseCatalog,course];
                 this.setState({courseCatalog: courseCatalog})
                 //console.log(this.state.courseCatalog);
@@ -104,7 +105,7 @@ class MainPage extends Component {
 
         listCopy.splice(courseIndex, 1);
         this.setState({courseList: listCopy});
-    }
+    };
 
     searchCourseHandler = (event) => {
         //console.log(event.target.value);
@@ -117,7 +118,7 @@ class MainPage extends Component {
         });
         this.setState({searchResults: courses});
         }
-    }
+    };
 
     displayCourseInfoHandler = (event, courseID) => {
         //console.log(courseID); 
@@ -135,16 +136,16 @@ class MainPage extends Component {
             this.setState({generalInfo: snapshot.val()});
         });
         this.setState({displayInfo: true});
-    }
+    };
 
     generateScheduleHandler = () => {
             console.log("GENERATE SCHEDULES");
             this.setState({displayInfo: false});
-    }
+    };
 
     render() {
         return <div className="container" style={{padding: '0px', margin: '0px', width: 'auto', height: 'auto'}}>
-            <div className={"NAVBAR"} style={{width: 'inherit', height: 'auto', backgroundColor: '#3c3c3c'}}>
+            <div className={"navBar"} style={{width: '100%', height: 'auto', backgroundColor: '#3c3c3c'}}>
                 <div style={{display: 'inline-block', float: 'left'}}>
                     <p style={{
                         float: 'left',
@@ -153,8 +154,8 @@ class MainPage extends Component {
                         marginTop: '1vh',
                         fontSize: '3.5vh',
                         fontFamily: 'Avenir',
-                        color: '#37506a',
-                        fontWeight: '400'
+                        color: '#415e7c',
+                        fontWeight: '500'
                     }}>Trytons</p>
                     <p style={{
                         float: 'left',
@@ -164,7 +165,7 @@ class MainPage extends Component {
                         fontFamily: 'Avenir',
                         fontSize: '3.5vh',
                         color: '#b9b079',
-                        fontWeight: '400'
+                        fontWeight: '500'
                     }}>Plan</p>
                 </div>
             </div>
@@ -186,7 +187,7 @@ class MainPage extends Component {
                         <OptionsBar generateScheduleHandler={this.generateScheduleHandler}/>
                     </div>
                     <div className={"MAINSPACE CONTAINER"}
-                         style={{width: '78vw', height: '89vh', backgroundColor: '#777', overflowY: 'auto'}}>
+                         style={{width: '81vw', height: '89vh', backgroundColor: '#777777', overflowY: 'auto'}}>
                         <MainSpace scheduleCards={this.state.schedules} displayInfo={this.state.displayInfo}
                                    courseInfo={this.state.courseInfo} generalInfo={this.state.generalInfo}
                                    courseID={this.state.courseID}/>

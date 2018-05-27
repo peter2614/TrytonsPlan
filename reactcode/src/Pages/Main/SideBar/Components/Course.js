@@ -19,7 +19,7 @@ class course extends Component {
             textAlign: 'left',
             margin: '0px',
             color: '#cdcdcd',
-            fontSize: '1.75vh',
+            fontSize: '2vh',
             fontFamily: 'Avenir',
             cursor: 'pointer',
         };

@@ -11,7 +11,7 @@ const courses = (props) => props.courses.map( (course, index) => {
         width: '100%',
         borderRadius: '0px',
         display: 'block'
-    }
+    };
 
     return <ListGroupItem 
             key={course.name} 

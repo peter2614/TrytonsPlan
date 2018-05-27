@@ -1,14 +1,16 @@
 .sidebar {
     border-radius: 0;
-    width: 320em;
+    width: 25em;
+
 }
 
 .sidebarcontainer {
-    position: relative;
     float: left;
     height: 95vh;
+    width: 21vw;
     background-color: #37506a;
-    width: 20em;
+    max-width: 21vw;
+    max-height: 95vh;
 }
 
 .searchBar {
@@ -39,14 +41,15 @@
     background-color: #3c3c3c;
 }
 
+/*
 .navbar-default {
     background-color: #333;
 }
-
+*/
 
 .hr1 {
     height: 1em;
-    border-top: 1vh solid lightgrey;
+    border-top: 1vh solid #cccccc;
     margin: 0;
     padding: 0;
 }
@@ -54,17 +57,18 @@
 .mainSpace {
     background-color: #3c3c3c;
     height: 100%;
+    float: right;
 }
 
 .full-width-tabs > ul.nav.nav-tabs {
     display: table;
-    width: 100em;
+    width: 100%;
     table-layout: fixed;
 }
 .full-width-tabs > ul.nav.nav-tabs > li {
     float: none;
     display: table-cell;
-    width: 100em;
+    width: 100%;
 }
 .full-width-tabs > ul.nav.nav-tabs > li > a {
     text-align: center;
