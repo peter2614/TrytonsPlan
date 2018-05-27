@@ -28,7 +28,7 @@ const courselist = (props) => {
         //const style = {height: '520px', padding: '0px', marginBottom: '0px', marginTop: '-1px'}
         return (
             <div>
-                <p style={{margin: '0px', padding: '1vh', color: 'black', fontSize: '2vh', backgroundColor: '#CCC'}}>Course List</p>
+                <p style={{margin: '0px', padding: '1vh', color: 'black', fontSize: '2.5vh', backgroundColor: '#CCC'}}>Course List</p>
                 <div style={{height: '100%', marginTop: '0px'}}>
                     {courses}
                 </div>

@@ -18,7 +18,7 @@ class course extends Component {
             textAlign: 'left',
             margin: '0px',
             color: 'lightgrey',
-            fontSize: '1.5vh',
+            fontSize: '130%',
             cursor: 'pointer',
         }
         const buttonStyle = {

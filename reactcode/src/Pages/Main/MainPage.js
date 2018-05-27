@@ -36,6 +36,8 @@ class MainPage extends Component {
         courseInfo: null,
         generalInfo: null,
         courseID: null,
+        professorInfo: null,
+        visible: false,
     }
 
     getCourses(courseCatalog) {
@@ -124,12 +126,33 @@ class MainPage extends Component {
         this.setState({courseID: courseID});
         let f18ref = this.props.db.database().ref("F18/" + courseID);
         let catalogref = this.props.db.database().ref("course" + courseID);
+        this.setState({loading: true});
+        this.setState({visible: false});
         f18ref.on("value", snapshot => {
-            this.setState({courseInfo: snapshot.val()});
-            //console.log(snapshot.val());
             
-            //this.state.courseInfo = snapshot.val();
-            //console.log(this.state.courseInfo);
+            if(!snapshot.val()) {
+                console.log("loading");
+            }
+            //get professor information
+            this.state.professorInfo = [];
+            snapshot.val().forEach(section => {
+                section.LE.forEach(LE => {
+                    
+                    let professorPath = LE.professor;
+                    if (professorPath[professorPath.length-1] === ".") {
+                        professorPath = LE.professor.slice(0, LE.professor.length-1);
+                    }
+                    let profref = this.props.db.database().ref("professor/" + professorPath + "/" + courseID);
+                    profref.on("value",snapshot2 => {
+                        this.setState({professorInfo: [...this.state.professorInfo,snapshot2.val()]});
+                        this.setState({loading: false});
+                        this.setState({visible: true});
+                    }); 
+                })  
+            })
+            this.setState({courseInfo: snapshot.val()});
+            
+            
         });
         catalogref.on("value", snapshot => {
             this.setState({generalInfo: snapshot.val()});
@@ -143,6 +166,8 @@ class MainPage extends Component {
     }
 
     render() {
+        
+
     return (
         <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: 'inherit'}}>
             <div className={"NAVBAR"} style={{width:'100vw', height: '5vh', backgroundColor: '#333'}}>
@@ -169,7 +194,7 @@ class MainPage extends Component {
                         <OptionsBar generateScheduleHandler={this.generateScheduleHandler} />
                     </div>
                     <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#777', overflowY: 'auto'}}>
-                        <MainSpace scheduleCards={this.state.schedules} displayInfo={this.state.displayInfo} courseInfo={this.state.courseInfo}  generalInfo={this.state.generalInfo} courseID={this.state.courseID}/>
+                        <MainSpace scheduleCards={this.state.schedules} displayInfo={this.state.displayInfo} courseInfo={this.state.courseInfo}  generalInfo={this.state.generalInfo} courseID={this.state.courseID} professorInfo={this.state.professorInfo} loading={this.state.loading} visible={this.state.visible} db={this.props.db}/>
                     </div>
                 </div>
             </div>
