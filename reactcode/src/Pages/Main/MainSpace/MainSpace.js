@@ -4,18 +4,18 @@ import CourseInformation from './Components/CourseInformation';
 import './MainSpace.css'
 
 class MainSpace extends Component {
-    //render <CourseInformation />
+
 
     render() {
         let display = null;
-        
+
         if(this.props.displayInfo === false) {
             display = 
             <div style={{display: 'flex', flexWrap: 'wrap'}}>
                 <ScheduleCards scheduleCards={this.props.scheduleCards}/>
             </div>
         } else {
-            if (this.props.courseInfo != null) { 
+            if (this.props.allInfo != null) { 
                 display = <div className={this.props.loading?'fadeOut':'fadeIn'} style={{ position: 'relative', backgroundColor: '#333'}}>
                 <div style={{height: '20vh'}}>
                     <p style={{fontSize: '3vw', fontWeight: '700', margin: '0px', color: 'lightgrey'}}>{this.props.courseID} - Course Title</p>
@@ -23,7 +23,7 @@ class MainSpace extends Component {
                     
                 </div>
                 <hr style={{paddingTop: '.5vh', marginLeft: '0%', width: '100%'}}/>
-                    <CourseInformation key={this.props.courseID} courseInfo={this.props.courseInfo} generalInfo={this.props.generalInfo} courseID={this.props.courseID} professorInfo={this.props.professorInfo} db={this.props.db}/>
+                    <CourseInformation key={this.props.courseID} allInfo={this.props.allInfo} courseID={this.props.courseID} db={this.props.db}/>
                 </div> 
 
         }

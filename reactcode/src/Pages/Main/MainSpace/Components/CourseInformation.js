@@ -1,7 +1,7 @@
 import React from 'react';
 import './CourseInformation.css'
 
-const courseinformation = (props) =>  props.courseInfo.map((section, index) => {
+const courseinformation = (props) =>  props.allInfo.map((section, index) => {
 
     let sections = null;
     let DI = null;
@@ -12,17 +12,16 @@ const courseinformation = (props) =>  props.courseInfo.map((section, index) => {
     let PercentRecommend = 'N/A';
     let StudyHours = 'N/A';
 
-    if (props.courseInfo != null){
-            if (props.professorInfo[index] != null) {
-                console.log(props.professorInfo)
-                GPA = props.professorInfo[index].gpaActual.toString().slice(0,4);
-                GPAExpected = props.professorInfo[index].gpaExpected.toString().slice(0,4);
-                PercentRecommend = props.professorInfo[index].score*100;
+    if (props.allInfo != null){
+            if (section.professor != null) {
+                GPA = section.professor.gpaActual.toString().slice(0,4);
+                GPAExpected = section.professor.gpaExpected.toString().slice(0,4);
+                PercentRecommend = section.professor.score*100;
                 PercentRecommend = PercentRecommend.toString().slice(0,4) + "%";
-                StudyHours = props.professorInfo[index].timeCommitment.toString().slice(0,4) + "hrs";
+                StudyHours = section.professor.timeCommitment.toString().slice(0,4) + "hrs";
             }
-            if(section.DI != null) {
-                DI = section.DI.map(DI => {
+            if(section.course.DI != null) {
+                DI = section.course.DI.map(DI => {
                     let weekdays = '';
                     if (DI.day != null) {
                     DI.day.forEach(day => {
@@ -48,9 +47,9 @@ const courseinformation = (props) =>  props.courseInfo.map((section, index) => {
                     </tr>)
                 })
             }
-            if(section.LE != null) {
+            if(section.course.LE != null) {
                 
-                LE = section.LE.map(LE => {
+                LE = section.course.LE.map(LE => {
 
 
 
@@ -82,16 +81,16 @@ const courseinformation = (props) =>  props.courseInfo.map((section, index) => {
                 })
             }
             
-            if(section.FI != null) {
-                let formattedStartTime = formatTime(section.FI.start_time);
-                let formattedEndTime = formatTime(section.FI.end_time);
+            if(section.course.FI != null) {
+                let formattedStartTime = formatTime(section.course.FI.start_time);
+                let formattedEndTime = formatTime(section.course.FI.end_time);
                 FI = 
                     <tr>
                         <th>FINAL</th>
-                        <th>{section.FI.date}</th>
+                        <th>{section.course.FI.date}</th>
                         <th>{formattedStartTime}-{formattedEndTime}</th>
-                        <th>{section.FI.building}</th>
-                        <th>{section.FI.room}</th>
+                        <th>{section.course.FI.building}</th>
+                        <th>{section.course.FI.room}</th>
                         <th> </th>
                     </tr>   
             }
@@ -155,7 +154,7 @@ const courseinformation = (props) =>  props.courseInfo.map((section, index) => {
         <div style={{backgroundColor: '#DDD', paddingTop: '2vh'}}>
             
             
-            <p style={{fontSize: '1.5vw', fontWeight: '400'}}>Section ID - {section.id}</p>
+            <p style={{fontSize: '1.5vw', fontWeight: '400'}}>Section ID - {section.course.id}</p>
             <div style={{width: '80%', marginLeft: '10%'}}>
                 <table>
                     <tbody>

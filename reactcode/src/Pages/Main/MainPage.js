@@ -3,6 +3,7 @@ import SideBar from './SideBar/SideBar.js'
 import MainSpace from './MainSpace/MainSpace.js'
 import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
+import {getData} from './GetData.js';
 
 
 class MainPage extends Component {
@@ -38,6 +39,7 @@ class MainPage extends Component {
         courseID: null,
         professorInfo: null,
         visible: false,
+        allInfo: null,
     }
 
     getCourses(courseCatalog) {
@@ -71,6 +73,8 @@ class MainPage extends Component {
 
     componentDidMount() {
         this.getCourses(this.state.courseCatalog);      
+        //console.log("DATAHERE")
+        //console.log(getData("CSE 100",this.props.db));
     }
 
     
@@ -121,42 +125,16 @@ class MainPage extends Component {
         }
     }
 
+    callbackSetState = (data) => {
+        this.setState({allInfo: data});
+        this.setState({loading: false});
+    }
+
     displayCourseInfoHandler = (event, courseID) => {
-        //console.log(courseID); 
+ 
         this.setState({courseID: courseID});
-        let f18ref = this.props.db.database().ref("F18/" + courseID);
-        let catalogref = this.props.db.database().ref("course" + courseID);
         this.setState({loading: true});
-        this.setState({visible: false});
-        f18ref.on("value", snapshot => {
-            
-            if(!snapshot.val()) {
-                console.log("loading");
-            }
-            //get professor information
-            this.state.professorInfo = [];
-            snapshot.val().forEach(section => {
-                section.LE.forEach(LE => {
-                    
-                    let professorPath = LE.professor;
-                    if (professorPath[professorPath.length-1] === ".") {
-                        professorPath = LE.professor.slice(0, LE.professor.length-1);
-                    }
-                    let profref = this.props.db.database().ref("professor/" + professorPath + "/" + courseID);
-                    profref.on("value",snapshot2 => {
-                        this.setState({professorInfo: [...this.state.professorInfo,snapshot2.val()]});
-                        this.setState({loading: false});
-                        this.setState({visible: true});
-                    }); 
-                })  
-            })
-            this.setState({courseInfo: snapshot.val()});
-            
-            
-        });
-        catalogref.on("value", snapshot => {
-            this.setState({generalInfo: snapshot.val()});
-        });
+        getData(courseID,this.props.db, this.callbackSetState);
         this.setState({displayInfo: true});
     }
 
@@ -194,7 +172,7 @@ class MainPage extends Component {
                         <OptionsBar generateScheduleHandler={this.generateScheduleHandler} />
                     </div>
                     <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#777', overflowY: 'auto'}}>
-                        <MainSpace scheduleCards={this.state.schedules} displayInfo={this.state.displayInfo} courseInfo={this.state.courseInfo}  generalInfo={this.state.generalInfo} courseID={this.state.courseID} professorInfo={this.state.professorInfo} loading={this.state.loading} visible={this.state.visible} db={this.props.db}/>
+                        <MainSpace scheduleCards={this.state.schedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} visible={this.state.visible} db={this.props.db}/>
                     </div>
                 </div>
             </div>
