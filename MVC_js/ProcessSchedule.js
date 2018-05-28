@@ -97,10 +97,6 @@ var numData = 0;
 // -----------------------------------------------------------------------------------------------
 
 
-// -----------------------------------------------------------------------------------------------
-// Version TWO                          |
-// Setting schedule info altogether     |
-// --------------------------------------
 
 /*
     Helper function to set profScore, TimeCommitment, GPA for one schedule
@@ -108,14 +104,43 @@ var numData = 0;
 function processSchedule (aSchedule){
     schedule = aSchedule;
     var len = schedule.sections.length;
+    var path;
+    var courseID;
+    var totalTimeUsage = 0;
+    let dayGotoSchool = 0;
+
 
     for (let i = 0; i < len; i++) {
         let profName = schedule.sections[i].getProfessor;
-        let courseID = schedule.sections[i].getCourseID;
-        let path = "professor/" + profName.toString() + "/" + courseID.toString();
+        courseID = schedule.sections[i].getCourseID;
+        path = "professor/" + profName.toString() + "/" + courseID.toString();
 
         getScheduleData(path, callback);
     }
+
+    //Calculate time usage
+    for (let j = 1; j <= 5; j++){
+        let timeForCurrDay = 0;
+        var startTime = 0, endTime = 0;
+        for (let k = 0; k < len; k++) {
+            if (schedule.sections[k].getDay.indexOf(j) !== -1){
+                timeForCurrDay += timeBetween(schedule.sections[k].getStartingTime, schedule.sections[k].getEndingTime);
+                if (startTime === 0 || schedule.sections[k].getStartingTime < startTime){
+                    startTime = schedule.sections[k].getStartingTime;
+                }
+                if (endTime === 0 || schedule.sections[k].getEndingTime > endTime){
+                    endTime = schedule.sections[k].getEndingTime;
+                }
+            }
+        }
+
+        if (timeForCurrDay !== 0) {
+            totalTimeUsage += timeForCurrDay / timeBetween(startTime, endTime);
+            dayGotoSchool++;
+        }
+    }
+    let aveTimeUsage = totalTimeUsage / dayGotoSchool;
+    schedule.timeUsage = aveTimeUsage;
 }
 
 function updateData (data){
@@ -126,6 +151,7 @@ function updateData (data){
     }
     if (numData === schedule.sections.length){
         setInfo();
+        console.log(schedule);
     }
 }
 
@@ -141,10 +167,16 @@ function callback(data){
     updateData(data);
 }
 
+function timeBetween (time1, time2){
+    let result = Math.floor((time2 - time1) / 100) * 60 + (time2 - time1) % 100;
+    return result;
+}
+
 module.exports = setInfo;
 //Testing example
-/*var sec = new Section("A00", "CSE 100", 800, 920, [1, 3, 5], "TBD", "Porter, Leonard Emerson", 1130, 1420, "12/21/18", []);
-var sche = new Schedule(1, 18, "FA", [sec], 0, 0, 0, 0, 0);
+/*var sec = new Section("A00", "CSE 100", 800, 920, [1, 3, 5], "TBD", "Porter, Leonard Emerson", 1130, 1420, "12/21/2018", []);
+var sec2 = new Section("A00", "CSE 101", 1300, 1350, [1, 3, 5], "TBD", "Kane, Daniel Mertz", 1130, 1420, "12/10/2018", []);
+var sche = new Schedule(1, 18, "FA", [sec, sec2], 0, 0, 0, 0, 0);
 
 processSchedule(sche);*/
 

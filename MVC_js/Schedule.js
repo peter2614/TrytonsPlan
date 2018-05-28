@@ -1,6 +1,6 @@
 class Schedule {
 
-    constructor(scheduleID, year, quarter, sections, profScore, distance, timeCommitment, timeUsage, GPA) {
+    constructor(scheduleID, year, quarter, sections, profScore, distance, timeCommitment, timeUsage, GPA, units) {
         this.scheduleID = scheduleID;
         this.year = year;
         this.quarter = quarter;
@@ -10,6 +10,7 @@ class Schedule {
         this.timeCommitment = timeCommitment;
         this.timeUsage = timeUsage;
         this.GPA = GPA;
+        this.units = units;
     }
 
     get getScheduleID() {
@@ -82,6 +83,14 @@ class Schedule {
 
     set setGPA(GPA) {
         this.GPA = GPA;
+    }
+
+    get getUnits() {
+        return this.units;
+    }
+
+    set setUnits(units) {
+        this.units = units;
     }
 }
 
