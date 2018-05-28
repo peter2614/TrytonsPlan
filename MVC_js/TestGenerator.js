@@ -3,12 +3,13 @@ let Section = require("./Section")
 let Schedule = require("./Schedule")
 let ScheduledCourse = require("./ScheduledCourse")
 let generator = require("./ScheduleGenerator")
+let processor = require ("./ProcessSchedule")
 
 /* Set up firebase */
 var QUARTER = "F18";
 var COURSEID1 = "CSE 100";
 var COURSEID2 = "MATH 18";
-var COURSEID = ["CSE 100", "CSE 105", "CSE 110", "CSE 30", "CSE 11", "CSE 158", "CSE 140", "CSE 101", "MATH 18", "CHEM 11"];
+var COURSEID = ["CSE 100", "CSE 105", "CSE 110", "CSE 30", "CSE 11", "CSE 101", "MATH 18", "CHEM 11"];
 var TO = "/";
 var courseList = [];
 var sections = ['0', '1', '2', '3', '4', '5', '6'];
@@ -85,6 +86,7 @@ for (let i = 0; i < COURSEID.length; i++){
     firebaseRef = firebase.database().ref(QUARTER + TO + COURSEID[i]);
     retrieve(end);
 }
+
 
 
 function printSchedule (scheduleList){

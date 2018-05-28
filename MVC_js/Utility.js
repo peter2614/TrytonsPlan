@@ -32,6 +32,11 @@ function getData (CourseID, cb) {
     });*/
 }
 
+function getScheduleData (path, cb){
+    firebaseRef = firebase.database().ref(path);
+    retrieve(cb);
+}
+
 
 function retrieve(end) {
     firebaseRef.on("value", function(snapshot) {
@@ -40,17 +45,6 @@ function retrieve(end) {
     });
 }
 
-
-function end() {
-    if (data){
-    // when we have the correct db reference
-
-        firebaseRef.off();
-        return data;
-    } else {
-        console.log("Hehe");
-    }
-}
 /* End of database functions */
 
 
@@ -295,7 +289,8 @@ module.exports = {
     rankByTimeCommitment: rankByTimeCommitment,
     rankByTimeUsage: rankByTimeUsage,
     rankByGPA: rankByGPA,
-    getSchedule: getSchedule
+    getSchedule: getSchedule,
+    getScheduleData: getScheduleData
 };
 
 //module.exports = getData;

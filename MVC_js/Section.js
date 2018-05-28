@@ -14,9 +14,6 @@ class Section {
         this.finalTime = finalTime;
         this.finalEndTime = finalEndTime;
         this.finalDate = finalDate;
-        this.disStartingTime = disStartingTime;
-        this.disEndingTime = disEndingTime;
-        this.disDay = disDay;
     }
 
     get getSectionID() {
