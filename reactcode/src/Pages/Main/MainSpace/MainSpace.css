@@ -1,10 +1,24 @@
 .fadeOut{
-    opacity:.3;
-    transition: opacity 0.1s;
+    opacity:0;
+    transition: opacity 0.2s;
+    transition-timing-function:  ease-in;
 
 }
 .fadeIn{
     opacity:1;
-    transition: opacity 0.1s;
+    transition: opacity 0.2s;
+    transition-timing-function:  ease-in;
+
+}
+
+.loadingfadeOut{
+    opacity:0;
+    transition: opacity 0s;
+
+}
+.loadingfadeIn{
+    opacity:1;
+    transition: opacity 3s;
+    transition-timing-function:  ease-in;
 
 }

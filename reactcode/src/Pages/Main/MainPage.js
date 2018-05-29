@@ -3,7 +3,7 @@ import SideBar from './SideBar/SideBar.js'
 import MainSpace from './MainSpace/MainSpace.js'
 import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
-import {getData} from './GetData.js';
+import {getData, getGeneralInfo, getNameAndTitle, getCourseName} from './GetData.js';
 
 
 class MainPage extends Component {
@@ -30,51 +30,40 @@ class MainPage extends Component {
             {name: 'CSE12', description: 'Second CSE Course'},
             {name: 'CSE13', description: 'Third CSE Course'},*/
         ],
+         //sidebar
         courseList: [],
         searchResults: [],
-        schedules: [1,2,3,4,5,6,7],
+        sidebarLoading: true,
+
+        //Course Information
         displayInfo: true,
         courseInfo: null,
         generalInfo: null,
         courseID: null,
         professorInfo: null,
-        visible: false,
         allInfo: null,
+
+        schedules: [1,2,3,4,5,6,7],
     }
 
+    //==================On Startup==============
     getCourses(courseCatalog) {
         console.log("TEST");
-        let f18ref = this.props.db.database().ref("F18");
-        let catalogref = this.props.db.database().ref("course");
-        const courseCatalogCopy = [...this.state.courseCatalog];
-        var newCatalog = null;
-        f18ref.on("value", snapshot => {
-            //var data = [];
-            for (var property in snapshot.val()) {
-                //console.log(property);
-                var course = {
-                    name: property,
-                    description: "need oliver"
-                }
-                let courseCatalog = [...this.state.courseCatalog,course];
-                this.setState({courseCatalog: courseCatalog})
-                //console.log(this.state.courseCatalog);
-            }
-           
-            
-            /*console.log(snapshot.val());
-            snapshot.forEach(course => {
-                console.log(course.val());
-             });*/
-             this.setState({searchResults: this.state.courseCatalog});
-        })
-        
+        getNameAndTitle(this.props.db, this.getCoursesCallback);
+
+    }
+
+    getCoursesCallback = (course) => {
+        let courseCatalog = [...this.state.courseCatalog,course];
+        this.setState({courseCatalog: courseCatalog});
+        this.setState({searchResults: this.state.courseCatalog});  
+        this.setState({sidebarLoading: false}) ;
     }
 
     componentDidMount() {
-        this.getCourses(this.state.courseCatalog);      
-        //console.log("DATAHERE")
-        //console.log(getData("CSE 100",this.props.db));
+        this.setState({sidebarLoading: true}) ;
+        this.getCourses(this.state.courseCatalog);   
+        
     }
 
     
@@ -124,30 +113,39 @@ class MainPage extends Component {
         this.setState({searchResults: courses});
         }
     }
-
+    
+    //========================Displaying Course Information=============================
     callbackSetState = (data) => {
         this.setState({allInfo: data});
         this.setState({loading: false});
+    }
+
+    callbackSetGeneralInfo = (data) => {
+        this.setState({generalInfo: data});
     }
 
     displayCourseInfoHandler = (event, courseID) => {
  
         this.setState({courseID: courseID});
         this.setState({loading: true});
+        getGeneralInfo(courseID, this.props.db, this.callbackSetGeneralInfo)
         getData(courseID,this.props.db, this.callbackSetState);
         this.setState({displayInfo: true});
     }
+
+
 
     generateScheduleHandler = () => {
             console.log("GENERATE SCHEDULES");
             this.setState({displayInfo: false});
     }
 
+
     render() {
         
 
     return (
-        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: 'inherit'}}>
+        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: 'inherit', overflowX:'hidden'}}>
             <div className={"NAVBAR"} style={{width:'100vw', height: '5vh', backgroundColor: '#333'}}>
                 <div style={{display: 'inline-block', float: 'left'}}>
                 <p style={{float: 'left', paddingLeft: '3vw', marginBottom:'0', marginTop: '-.7vh', fontSize: '4vh', color: '#49B', fontWeight: '900'}}>Trytons</p>
@@ -159,7 +157,8 @@ class MainPage extends Component {
                     <SideBar 
                     courseCatalog={this.state.courseCatalog} 
                     courseList={this.state.courseList} 
-                    searchResults={this.state.searchResults}   
+                    searchResults={this.state.searchResults}  
+                    loading={this.state.sidebarLoading} 
 
                     addCourseHandler={this.addCourseHandler} 
                     removeCourseHandler={this.removeCourseHandler}   
@@ -171,8 +170,8 @@ class MainPage extends Component {
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
                         <OptionsBar generateScheduleHandler={this.generateScheduleHandler} />
                     </div>
-                    <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#777', overflowY: 'auto'}}>
-                        <MainSpace scheduleCards={this.state.schedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} visible={this.state.visible} db={this.props.db}/>
+                    <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#345', overflowY: 'scroll'}}>
+                        <MainSpace scheduleCards={this.state.schedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>
                     </div>
                 </div>
             </div>

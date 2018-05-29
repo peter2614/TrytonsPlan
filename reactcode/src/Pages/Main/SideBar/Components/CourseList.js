@@ -6,7 +6,7 @@ import {ListGroup} from 'react-bootstrap';
 const courselist = (props) => {
 
     const courseGroupStyle={
-        display: 'flex', 
+        display: 'block', 
         flexDirection: 'column', 
         height: '35vh', 
         overflowY: 'auto', 
@@ -15,14 +15,14 @@ const courselist = (props) => {
         marginLeft: '0px', 
         backgroundColor: '#333'}
     let courses = 
-        <ListGroup 
+        <div
         style={courseGroupStyle}>
         <Courses 
         courses={props.courses} 
         courseHandler={props.courseHandler} 
         displayCourseInfoHandler={props.displayCourseInfoHandler}
         text={"-"}/> 
-        </ListGroup>
+        </div>
         
         
         //const style = {height: '520px', padding: '0px', marginBottom: '0px', marginTop: '-1px'}

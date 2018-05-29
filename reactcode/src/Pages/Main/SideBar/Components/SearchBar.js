@@ -1,11 +1,12 @@
 import React from 'react';
 import Courses from './Courses.js';
 import {ListGroup} from 'react-bootstrap';
+import './Course.css';
 
 const searchbar = (props) => {
 
     const courseGroupStyle={
-        display: 'flex', 
+        display: 'block', 
         flexDirection: 'column', 
         height: '45vh', 
         overflowY: 'auto', 
@@ -14,18 +15,34 @@ const searchbar = (props) => {
         marginTop: '-1px',
         backgroundColor: '#333'
     }
-
-        let courses = null;
-            courses = 
-            <ListGroup 
-            style={courseGroupStyle}>
-            <Courses 
-            courses={props.searchResults} 
-            courseHandler={props.courseHandler}
-            displayCourseInfoHandler={props.displayCourseInfoHandler}
-            text={"+"}/> 
-            </ListGroup>
-    
+    const courseGroupStyleLoading={
+        height: '45vh', 
+        width: '100%', 
+        marginBottom: '0px', 
+        marginTop: '-1px',
+        backgroundColor: '#333',
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex',
+        flexDirection:'column',
+    }
+        
+        
+    let courses = <div style={courseGroupStyleLoading}>
+                <div class="loader"></div>
+                    <p style={{marginTop: '10px', fontSize: '2vw', color:'lightgrey'}}>Loading up Course Offerings...</p>
+                </div>
+    if(props.loading == false) {
+        courses = 
+        <div
+        style={courseGroupStyle}>
+        <Courses 
+        courses={props.searchResults} 
+        courseHandler={props.courseHandler}
+        displayCourseInfoHandler={props.displayCourseInfoHandler}
+        text={"+"}/> 
+        </div>
+    } 
 
         //const searchBarStyle = {marginTop: '10px', marginBottom: '10px'}
         return (

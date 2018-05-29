@@ -11,17 +11,40 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     let GPAExpected = 'N/A';
     let PercentRecommend = 'N/A';
     let StudyHours = 'N/A';
+    let professorInfo = null;
 
     if (props.allInfo != null){
+            //handle professor information
             if (section.professor != null) {
+                professorInfo = section.professor.map(professor => {
+                    if(professor != null) {
+                    PercentRecommend = professor.score*100;
+                     return(
+                        <tr>
+                            <th style={{color: '#722'}}>Professor Info:</th>
+                            <th style={{color: '#722'}}>GPA: {professor.gpaActual.toString().slice(0,4)} </th>
+                            <th style={{color: '#722'}}>Expected GPA: {professor.gpaExpected.toString().slice(0,4)} </th>
+                            <th style={{color: '#722'}}>Recommend: {PercentRecommend.toString().slice(0,4) + "%"} </th>
+                            <th style={{color: '#722'}}>StudyHours: {professor.timeCommitment.toString().slice(0,4) + "hrs"} </th>
+                        </tr>);
+
+                     } else {
+                         return <tr>
+                             <th style={{color: '#722'}}>Professor Info:</th>
+                             <th style={{color: '#722'}}>Unknown</th>
+                             </tr>
+                     };
+                })
+                /*
                 GPA = section.professor.gpaActual.toString().slice(0,4);
                 GPAExpected = section.professor.gpaExpected.toString().slice(0,4);
                 PercentRecommend = section.professor.score*100;
                 PercentRecommend = PercentRecommend.toString().slice(0,4) + "%";
-                StudyHours = section.professor.timeCommitment.toString().slice(0,4) + "hrs";
+                StudyHours = ;
+                */
             }
             if(section.course.DI != null) {
-                DI = section.course.DI.map(DI => {
+                DI = section.course.DI.map((DI, index) => {
                     let weekdays = '';
                     if (DI.day != null) {
                     DI.day.forEach(day => {
@@ -35,7 +58,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     let formattedStartTime = formatTime(DI.start_time);
                     let formattedEndTime = formatTime(DI.end_time);
         
-                    return(<tr>
+                    return(<tr key={index}>
                         <th>DISCUSSION</th>
                         <th>{weekdays}</th>
                         <th>{formattedStartTime}-{formattedEndTime}</th>
@@ -49,7 +72,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
             }
             if(section.course.LE != null) {
                 
-                LE = section.course.LE.map(LE => {
+                LE = section.course.LE.map((LE, index) => {
 
 
 
@@ -69,7 +92,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                 
                     return(
                         
-                        <tr>
+                        <tr key={index}>
                             <th>LECTURE</th>
                             <th>{weekdays}</th>
                             <th>{formattedStartTime}-{formattedEndTime}</th>  
@@ -166,13 +189,9 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
 
                         {FIGUIDE}
                         {FI}
-                        <tr>
-                        <th style={{color: '#722'}}>Professor Info:</th>
-                            <th style={{color: '#722'}}>GPA: {GPA} </th>
-                            <th style={{color: '#722'}}>Expected GPA: {GPAExpected} </th>
-                            <th style={{color: '#722'}}>Recommend: {PercentRecommend} </th>
-                            <th style={{color: '#722'}}>StudyHours: {StudyHours} </th>
-                        </tr>
+                        
+                        {professorInfo}
+                        
                     </tbody>
                 </table>
                 

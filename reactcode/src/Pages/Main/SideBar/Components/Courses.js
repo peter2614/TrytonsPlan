@@ -9,20 +9,24 @@ const courses = (props) => props.courses.map( (course, index) => {
         backgroundColor: '#222',
         box: '1px',
         width: '100%',
-        borderRadius: '0px'
+        minHeight: '4vh',
+        borderStyle: 'solid',
+        borderWidth: '1px',
+        borderColor: '#FFF',
+        borderRadius: '0px',
     }
-
-    return <ListGroupItem 
+    return <div
             key={course.name} 
             style={courseStyle}> 
             <Course 
             name={course.name} 
             description={course.description} 
+            units={course.units}
             courseHandler={(event) => props.courseHandler(event, course.name)} 
             displayCourseInfoHandler={(event) => props.displayCourseInfoHandler(event, course.name)}
             text={props.text}
             sections={course.sections}/> 
-            </ListGroupItem>
+            </div>
 });
 
 export default courses;
