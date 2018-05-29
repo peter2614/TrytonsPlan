@@ -3,13 +3,16 @@ let Professor = require("./Professor")
 let Section = require("./Section")
 let Schedule = require("./Schedule")
 let ScheduledCourse = require("./ScheduledCourse")
-let getScheduleData = require("./Utility").getScheduleData;
+let Utility = require("./Utility");
+let getScheduleData = Utility.getScheduleData;
 
 var schedule;
 var sumProfScore = 0,
     sumTimeCommitment = 0,
     sumGPA = 0;
 var numData = 0;
+var numUnitsValue = 0;
+var sumUnits = 0;
 
 
 
@@ -102,9 +105,10 @@ var numData = 0;
     Helper function to set profScore, TimeCommitment, GPA for one schedule
  */
 function processSchedule (aSchedule){
+
     schedule = aSchedule;
     var len = schedule.sections.length;
-    var path;
+    var path, unitPath;
     var courseID;
     var totalTimeUsage = 0;
     let dayGotoSchool = 0;
@@ -114,7 +118,9 @@ function processSchedule (aSchedule){
         let profName = schedule.sections[i].getProfessor;
         courseID = schedule.sections[i].getCourseID;
         path = "professor/" + profName.toString() + "/" + courseID.toString();
+        unitPath = "course/" + courseID.toString();
 
+        getScheduleData(unitPath, unitsCallback);
         getScheduleData(path, callback);
     }
 
@@ -156,9 +162,15 @@ function updateData (data){
 }
 
 function setInfo () {
+
     schedule.setProfScore = sumProfScore / schedule.getSections.length;
     schedule.setTimeCommitment = sumTimeCommitment;
     schedule.setGPA = sumGPA / schedule.getSections.length;
+}
+
+
+function setUnits() {
+    schedule.units = sumUnits;
 }
 
 
@@ -167,12 +179,21 @@ function callback(data){
     updateData(data);
 }
 
+function unitsCallback (data){
+    console.log (data);
+    numUnitsValue++;
+    sumUnits += data.units;
+    if (numUnitsValue === schedule.sections.length){
+        setUnits();
+    }
+}
+
 function timeBetween (time1, time2){
     let result = Math.floor((time2 - time1) / 100) * 60 + (time2 - time1) % 100;
     return result;
 }
 
-module.exports = setInfo;
+module.exports = processSchedule;
 //Testing example
 /*var sec = new Section("A00", "CSE 100", 800, 920, [1, 3, 5], "TBD", "Porter, Leonard Emerson", 1130, 1420, "12/21/2018", []);
 var sec2 = new Section("A00", "CSE 101", 1300, 1350, [1, 3, 5], "TBD", "Kane, Daniel Mertz", 1130, 1420, "12/10/2018", []);

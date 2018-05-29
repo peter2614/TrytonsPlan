@@ -3,6 +3,7 @@ var firebase = require("firebase");
 var generator = require("./ScheduleGenerator")
 let Section = require("./Section")
 let ScheduledCourse = require("./ScheduledCourse")
+let processSchedule = require("./ProcessSchedule");
 
 var TO = "/";
 var data;
@@ -76,6 +77,9 @@ function getSchedule (courseIDList, dataSet) {
     var scheduleList = generator(courseList);
     //console.log (scheduleList);
 
+    for (let i = 0; i < 1; i++){
+        processSchedule (scheduleList[i]);
+    }
     return scheduleList;
 }
 
