@@ -8,7 +8,10 @@ let processSchedule = require("./ProcessSchedule");
 var TO = "/";
 var data;
 var QUARTER = "F18"
-var sections = ['0', '1', '2', '3', '4', '5', '6'];
+var sections = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
+var getScheduleCB;
+var scheduleList;
+var numCBFromProcess = 0;
 
 // db setup
 var config = {
@@ -22,15 +25,21 @@ var config = {
 
 firebase.initializeApp(config);
 
+module.exports = {
+    getData: getData,
+    rankByProfScore: rankByProfScore,
+    rankByDistance: rankByDistance,
+    rankByTimeCommitment: rankByTimeCommitment,
+    rankByTimeUsage: rankByTimeUsage,
+    rankByGPA: rankByGPA,
+    getSchedule: getSchedule,
+    getScheduleData: getScheduleData
+};
+
 function getData (CourseID, cb) {
     let reference = QUARTER + TO + CourseID;  //Get the reference of the data
     firebaseRef = firebase.database().ref(reference);
     retrieve(cb);
-    /*firebaseRef.on("value", function(snapshot) {
-        data = snapshot.val();
-        end();
-        cb (data);
-    });*/
 }
 
 function getScheduleData (path, cb){
@@ -45,14 +54,14 @@ function retrieve(end) {
         end(data);
     });
 }
-
 /* End of database functions */
 
 
 
 /* Get schedule function */
-function getSchedule (courseIDList, dataSet) {
+function getSchedule (courseIDList, dataSet, cb) {
     let courseList = [];
+    getScheduleCB = cb;
 
     //Build the array of ScheduledCourse
     for (let j = 0; j < dataSet.length; j++){
@@ -74,18 +83,33 @@ function getSchedule (courseIDList, dataSet) {
         }
     }
 
-    var scheduleList = generator(courseList);
-    //console.log (scheduleList);
+    var scheduleListLocal = generator(courseList);
+    scheduleList = scheduleListLocal;
 
-    for (let i = 0; i < 1; i++){
-        processSchedule (scheduleList[i]);
-    }
-    return scheduleList;
+    callProcessor();
 }
 
+function callProcessor (){
+    processSchedule(scheduleList[numCBFromProcess], getScheduleData, processCallback);
+}
+
+function processCallback (){
+    //scheduleList.push[schedule];
+    numCBFromProcess++;
+
+    if (numCBFromProcess === scheduleList.length){
+        getScheduleCB (scheduleList);
+    }
+    else{
+        callProcessor()
+    }
+}
+//-------------------------------------------------------------------------------------------------------------------
 
 
 
+
+//-------------------------------------------------------------------------------------------------------------------
 /* Rank functions*/
 /* All the ranking functions to rank a schedule list based on different criterion.*/
 
@@ -286,15 +310,6 @@ function swap(list, i, j) {
     list[j] = temp;
 }
 
-module.exports = {
-    getData: getData,
-    rankByProfScore: rankByProfScore,
-    rankByDistance: rankByDistance,
-    rankByTimeCommitment: rankByTimeCommitment,
-    rankByTimeUsage: rankByTimeUsage,
-    rankByGPA: rankByGPA,
-    getSchedule: getSchedule,
-    getScheduleData: getScheduleData
-};
+
 
 //module.exports = getData;

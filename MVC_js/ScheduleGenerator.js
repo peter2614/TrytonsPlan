@@ -41,6 +41,7 @@ var generateSchedule = function (courseList){
     }
 
     //console.log (scheduleArr);
+
     return scheduleArr;
 }
 
