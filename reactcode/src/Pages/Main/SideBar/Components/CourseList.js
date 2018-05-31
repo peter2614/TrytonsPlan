@@ -1,30 +1,40 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Courses from './Courses.js';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {ListGroup} from 'react-bootstrap';
 
 
-class courselist extends Component {
+const courselist = (props) => {
 
-    render() {
-        let courses = null;
-
-        courses = 
-            <ListGroup 
-            style={{flex: '1 1 0', display: 'flex', flexDirection: 'column', maxHeight: '100%', overflowY: 'auto', width: '100%', marginLeft: '-1px'}}>
-            <Courses 
-            courses={this.props.courses} 
-            courseHandler={this.props.courseHandler} 
-            text={"🗙"}/> 
-            </ListGroup>
+    const courseGroupStyle={
+        display: 'block', 
+        flexDirection: 'column', 
+        height: '35vh', 
+        overflowY: 'auto', 
+        width: '100%', 
+        marginBottom: '0px', 
+        marginLeft: '0px', 
+        backgroundColor: '#333'}
+    let courses = 
+        <div
+        style={courseGroupStyle}>
+        <Courses 
+        courses={props.courses} 
+        courseHandler={props.courseHandler} 
+        displayCourseInfoHandler={props.displayCourseInfoHandler}
+        text={"-"}/> 
+        </div>
         
         
         //const style = {height: '520px', padding: '0px', marginBottom: '0px', marginTop: '-1px'}
         return (
-            <div style={{height: '100%', marginTop: '-1px'}}>
-                {courses}
+            <div>
+                <p style={{margin: '0px', padding: '1vh', color: 'black', fontSize: '2.5vh', backgroundColor: '#CCC'}}>Course List</p>
+                <div style={{height: '100%', marginTop: '0px'}}>
+                    {courses}
+                </div>
             </div>
         );
-    }
 }
+
 
 export default courselist;

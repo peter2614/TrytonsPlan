@@ -1,0 +1,30 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+hr {
+    border: none;
+    background-color: #379;
+    margin: 0px;
+    height: 4px;
+    margin-left: 7%;
+    width: 86%;
+    
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    font-size: 20px;
+    
+}
+
+tr:hover {
+    background-color: #FFF;
+}
+
+tr:hover td {
+    background-color: transparent; /* or #000 */
+}
