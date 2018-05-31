@@ -3,7 +3,7 @@ import SideBar from './SideBar/SideBar.js'
 import MainSpace from './MainSpace/MainSpace.js'
 import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
-import {getData, getGeneralInfo, getNameAndTitle, getCourseName} from './GetData.js';
+import {getAllInfo, getGeneralInfo, getCourseNames, getCourseTitles} from './GetData.js';
 
 
 class MainPage extends Component {
@@ -13,23 +13,7 @@ class MainPage extends Component {
     }
 
     state = {
-        courseCatalog: [
-            /*{name: 'HUM7', description: 'Progrmng Lang:Princpl&Paradigm'},
-            {name: 'HUM10', description: 'Third CSE Course'},
-            {name: 'Math1', description: 'Third CSE Course'},
-            {name: 'Math2', description: 'Third CSE Course'},
-            {name: 'CSE3', description: 'Third CSE Course'},
-            {name: 'CSE4', description: 'First CSE Course'},
-            {name: 'CSE5', description: 'Second CSE Course'},
-            {name: 'CSE6', description: 'Third CSE Course'},
-            {name: 'CSE7', description: 'First CSE Course'},
-            {name: 'CSE8', description: 'Second CSE Course'},
-            {name: 'CSE9', description: 'Third CSE Course'},
-            {name: 'CSE10', description: 'Third CSE Course'},
-            {name: 'CSE11', description: 'First CSE Course'},
-            {name: 'CSE12', description: 'Second CSE Course'},
-            {name: 'CSE13', description: 'Third CSE Course'},*/
-        ],
+        courseCatalog: [],
          //sidebar
         courseList: [],
         searchResults: [],
@@ -47,23 +31,15 @@ class MainPage extends Component {
     }
 
     //==================On Startup==============
-    getCourses(courseCatalog) {
-        console.log("TEST");
-        getNameAndTitle(this.props.db, this.getCoursesCallback);
-
-    }
-
-    getCoursesCallback = (course) => {
-        let courseCatalog = [...this.state.courseCatalog,course];
-        this.setState({courseCatalog: courseCatalog});
-        this.setState({searchResults: this.state.courseCatalog});  
-        this.setState({sidebarLoading: false}) ;
-    }
-
     componentDidMount() {
         this.setState({sidebarLoading: true}) ;
-        this.getCourses(this.state.courseCatalog);   
-        
+        getCourseNames(this.props.db, this.getCoursesCallback);   
+    }
+   
+    getCoursesCallback = (courses) => {
+        this.setState({courseCatalog: courses});
+        this.setState({searchResults: this.state.courseCatalog});  
+        this.setState({sidebarLoading: false}) ;
     }
 
     
@@ -102,20 +78,25 @@ class MainPage extends Component {
     }
 
     searchCourseHandler = (event) => {
-        //console.log(event.target.value);
         if (event.target.value === null) {
             {searchResults: this.state.courseCatalog}
         } else {
-        const condition = new RegExp(event.target.value, 'i');
-        const courses = this.state.courseCatalog.filter(course => {
-            return condition.test(course.name);
-        });
-        this.setState({searchResults: courses});
+            const condition = new RegExp(event.target.value, 'i');
+            const courses = this.state.courseCatalog.filter(course => {
+                return condition.test(course.name + course.description);
+            });
+            this.setState({searchResults: courses});
         }
     }
     
     //========================Displaying Course Information=============================
-    callbackSetState = (data) => {
+    //callback sent to getData to retrieve
+    callbackSetAllInfo = (data) => {
+        //make sure the sections are in the right order
+        data.sort(function(a,b){
+            if (a.course.id < b.course.id) return -1;
+            if (a.course.id > b.course.id) return 1;
+        });
         this.setState({allInfo: data});
         this.setState({loading: false});
     }
@@ -129,7 +110,7 @@ class MainPage extends Component {
         this.setState({courseID: courseID});
         this.setState({loading: true});
         getGeneralInfo(courseID, this.props.db, this.callbackSetGeneralInfo)
-        getData(courseID,this.props.db, this.callbackSetState);
+        getAllInfo(courseID,this.props.db, this.callbackSetAllInfo);
         this.setState({displayInfo: true});
     }
 
@@ -155,7 +136,6 @@ class MainPage extends Component {
             <div style={{display: 'inline-block'}}>
                 <div  className="sidebarcontainer">
                     <SideBar 
-                    courseCatalog={this.state.courseCatalog} 
                     courseList={this.state.courseList} 
                     searchResults={this.state.searchResults}  
                     loading={this.state.sidebarLoading} 

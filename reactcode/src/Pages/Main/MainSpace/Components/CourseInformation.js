@@ -7,42 +7,40 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     let DI = null;
     let FI = null;
     let LE = null;
-    let GPA = 'N/A';
-    let GPAExpected = 'N/A';
-    let PercentRecommend = 'N/A';
-    let StudyHours = 'N/A';
     let professorInfo = null;
 
     if (props.allInfo != null){
+
             //handle professor information
             if (section.professor != null) {
                 professorInfo = section.professor.map(professor => {
                     if(professor != null) {
-                    PercentRecommend = professor.score*100;
+                    let PercentRecommend = professor.score*100;
                      return(
-                        <tr>
+                        <tr key={index}>
                             <th style={{color: '#722'}}>Professor Info:</th>
                             <th style={{color: '#722'}}>GPA: {professor.gpaActual.toString().slice(0,4)} </th>
                             <th style={{color: '#722'}}>Expected GPA: {professor.gpaExpected.toString().slice(0,4)} </th>
                             <th style={{color: '#722'}}>Recommend: {PercentRecommend.toString().slice(0,4) + "%"} </th>
                             <th style={{color: '#722'}}>StudyHours: {professor.timeCommitment.toString().slice(0,4) + "hrs"} </th>
+                            <th></th>
                         </tr>);
 
                      } else {
-                         return <tr>
+                         return <tr key={index}>
                              <th style={{color: '#722'}}>Professor Info:</th>
                              <th style={{color: '#722'}}>Unknown</th>
+                             <th></th>
+                             <th></th>
+                             <th></th>
+                             <th></th>
                              </tr>
                      };
                 })
-                /*
-                GPA = section.professor.gpaActual.toString().slice(0,4);
-                GPAExpected = section.professor.gpaExpected.toString().slice(0,4);
-                PercentRecommend = section.professor.score*100;
-                PercentRecommend = PercentRecommend.toString().slice(0,4) + "%";
-                StudyHours = ;
-                */
             }
+
+            
+            //Create rows for each DISCUSSION
             if(section.course.DI != null) {
                 DI = section.course.DI.map((DI, index) => {
                     let weekdays = '';
@@ -58,24 +56,23 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     let formattedStartTime = formatTime(DI.start_time);
                     let formattedEndTime = formatTime(DI.end_time);
         
-                    return(<tr key={index}>
-                        <th>DISCUSSION</th>
-                        <th>{weekdays}</th>
-                        <th>{formattedStartTime}-{formattedEndTime}</th>
-                        
-                        <th>{DI.building}</th>
-                        <th>{DI.room}</th> 
-                        <th>{DI.section}</th>
-                        
-                    </tr>)
+                    return(
+                        <tr key={index}>
+                            <th>DISCUSSION</th>
+                            <th>{weekdays}</th>
+                            <th>{formattedStartTime}-{formattedEndTime}</th>
+                            
+                            <th>{DI.building}</th>
+                            <th>{DI.room}</th> 
+                            <th>{DI.section}</th>
+                        </tr>
+                        )
                 })
             }
+
+            //Create rows for each LECTURE
             if(section.course.LE != null) {
-                
                 LE = section.course.LE.map((LE, index) => {
-
-
-
                     let weekdays = '';
                     if (LE.day != null) {
                         LE.day.forEach(day => {
@@ -88,10 +85,18 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     }
                     let formattedStartTime = formatTime(LE.start_time);
                     let formattedEndTime = formatTime(LE.end_time);
-        
-                
-                    return(
-                        
+                    
+                    //handle co-taught classes, puts an & inbetween their names
+                    if (typeof LE.professor == "string") {
+                        LE.professor = LE.professor.split('\r\n');
+                        LE.professor.forEach( (professor,index) => {
+                            if (index > 0) {
+                                LE.professor[index] = "& " + LE.professor[index]; 
+                            }
+                        });
+                    }      
+                    
+                    return(    
                         <tr key={index}>
                             <th>LECTURE</th>
                             <th>{weekdays}</th>
@@ -104,6 +109,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                 })
             }
             
+            //Create a row for the FINAL
             if(section.course.FI != null) {
                 let formattedStartTime = formatTime(section.course.FI.start_time);
                 let formattedEndTime = formatTime(section.course.FI.end_time);
@@ -114,13 +120,12 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                         <th>{formattedStartTime}-{formattedEndTime}</th>
                         <th>{section.course.FI.building}</th>
                         <th>{section.course.FI.room}</th>
-                        <th> </th>
+                        <th></th>
                     </tr>   
             }
-        
         }
 
-            
+    //For formatting the time a class starts and ends        
     function formatTime(time) {
         let append = 'am';
         if (time !== "N/A" && time !== "TBA") {
@@ -137,6 +142,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
         return time;
     }
 
+    //Create a row saying what each column in the table is
     let LEGUIDE = <tr style={{color: '#349'}}>
                     <th>Type</th>
                     <th>Days</th>       
@@ -149,6 +155,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
         LEGUIDE = null;
     }
 
+    //Create a row saying what each column in the table is
     let DIGUIDE = <tr style={{color: '#349'}}>
                     <th>Type</th>
                     <th>Days</th>               
@@ -162,21 +169,21 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
         DIGUIDE = null;
     }
 
+    //Create a row saying what each column in the table is
     let FIGUIDE = <tr style={{color: '#349'}}>
                     <th>Type</th>
                     <th>Date</th>
                     <th>Time</th>
                     <th>Building</th>
                     <th>Room</th>
+                    <th></th>
                 </tr>
     if (FI === null) {
         FIGUIDE = null;
     }
     
     return(
-        <div style={{backgroundColor: '#DDD', paddingTop: '2vh'}}>
-            
-            
+        <div style={{backgroundColor: '#DDD', paddingTop: '2vh'}}> 
             <p style={{fontSize: '1.5vw', fontWeight: '400'}}>Section ID - {section.course.id}</p>
             <div style={{width: '80%', marginLeft: '10%'}}>
                 <table>
@@ -190,17 +197,13 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                         {FIGUIDE}
                         {FI}
                         
-                        {professorInfo}
-                        
+                        {professorInfo}   
                     </tbody>
-                </table>
-                
+                </table>          
             </div>
             <hr style={{marginTop: '-1px'}}/>
-            
         </div>
     )
-
 });
 
 

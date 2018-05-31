@@ -8,8 +8,8 @@ const sidebar = (props) => {
         var reA = /[^a-zA-Z]/g;
         var reN = /[^0-9]/g;
         
+        //Sorts the list of courses that appear in the sidebar in natural order
         let searchList = props.searchResults.sort(function naturalCompare(a, b) {
-
             var ax = [], bx = [];
             a.name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { ax.push([$1 || Infinity, $2 || ""]) });
             b.name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { bx.push([$1 || Infinity, $2 || ""]) });
@@ -20,11 +20,9 @@ const sidebar = (props) => {
                 var nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
                 if(nn) return nn;
             }
-        
             return ax.length - bx.length;
         });
 
-  
         return (
             <div style={{position: 'relative'}}>
                 <SearchBar 

@@ -7,8 +7,7 @@ const schedulecards = (props) => props.scheduleCards.map( (schedule, index) => {
         return (
                 <ScheduleCard
                 schedule={schedule}
-                index={index+1}/>
-                
+                index={index+1}/>               
         )
 
 });
