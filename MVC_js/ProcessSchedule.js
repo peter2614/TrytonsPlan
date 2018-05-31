@@ -19,16 +19,16 @@ function processSchedule (aSchedule, getScheduleData, cb){
 
     finalCallBack = cb;
     schedule = aSchedule;
-    var len = schedule.sections.length;
+    var len = schedule.getSections.length;
     numProf = len;
     var path, unitPath;
     var courseID;
 
 
     for (let i = 0; i < len; i++) {
-        let profName = schedule.sections[i].getProfessor;
+        let profName = schedule.getSections[i].getProfessor;
 
-        courseID = schedule.sections[i].getCourseID;
+        courseID = schedule.getSections[i].getCourseID;
         path =  "professor/" + profName.toString() + "/" + courseID.toString();
         unitPath = "course/" + courseID.toString();
 
@@ -57,9 +57,9 @@ function updateData (data){
 }
 
 function setInfo () {
-    schedule.profScore = sumProfScore / numProf;
-    schedule.timeCommitment = sumTimeCommitment;
-    schedule.GPA = sumGPA / schedule.getSections.length;
+    schedule.setProfScore = sumProfScore / numProf;
+    schedule.setTimeCommitment = sumTimeCommitment;
+    schedule.setGPA = sumGPA / schedule.getSections.length;
     infoSet = 1;
     if (unitsSet === 1){
         setTimeUsage();
@@ -78,7 +78,7 @@ function setInfo () {
 
 
 function setUnits() {
-    schedule.units = sumUnits;
+    schedule.setUnits = sumUnits;
     unitsSet = 1;
 
     if (infoSet === 1){
@@ -107,7 +107,7 @@ function unitsCallback (data){
     numUnitsValue++;
     sumUnits += data.units;
     //console.log (schedule.sections.length)
-    if (numUnitsValue === schedule.sections.length){
+    if (numUnitsValue === schedule.getSections.length){
         setUnits();
     }
 }
@@ -126,14 +126,14 @@ function setTimeUsage(){
     for (let j = 1; j <= 5; j++){
         let timeForCurrDay = 0;
         var startTime = 0, endTime = 0;
-        for (let k = 0; k < schedule.sections.length; k++) {
-            if (schedule.sections[k].getDay.indexOf(j) !== -1){
-                timeForCurrDay += timeBetween(schedule.sections[k].getStartingTime, schedule.sections[k].getEndingTime);
-                if (startTime === 0 || schedule.sections[k].getStartingTime < startTime){
-                    startTime = schedule.sections[k].getStartingTime;
+        for (let k = 0; k < schedule.getSections.length; k++) {
+            if (schedule.getSections[k].getDay.indexOf(j) !== -1){
+                timeForCurrDay += timeBetween(schedule.getSections[k].getStartingTime, schedule.getSections[k].getEndingTime);
+                if (startTime === 0 || schedule.getSections[k].getStartingTime < startTime){
+                    startTime = schedule.getSections[k].getStartingTime;
                 }
-                if (endTime === 0 || schedule.sections[k].getEndingTime > endTime){
-                    endTime = schedule.sections[k].getEndingTime;
+                if (endTime === 0 || schedule.getSections[k].getEndingTime > endTime){
+                    endTime = schedule.getSections[k].getEndingTime;
                 }
             }
         }
@@ -144,7 +144,7 @@ function setTimeUsage(){
         }
     }
     let aveTimeUsage = totalTimeUsage / dayGotoSchool;
-    schedule.timeUsage = aveTimeUsage;
+    schedule.setTimeUsage = aveTimeUsage;
 }
 
 

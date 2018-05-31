@@ -29,7 +29,7 @@ firebaseRef = firebase.database().ref(QUARTER + TO + TITLE);// + TO + SECTION);
 function retrieve(end) {
     firebaseRef.on("value", function(snapshot) {
         data = snapshot.val();
-
+        // firebase.database().goOffline();
         end();
     });
 }
@@ -60,6 +60,7 @@ function end() {
         console.log("\n\nThis is the end. Hold your breath and count to ten.");*/
 
         firebaseRef.off();
+        firebase.database().goOffline();
 
         // when have incorrect db referenct
     } else {

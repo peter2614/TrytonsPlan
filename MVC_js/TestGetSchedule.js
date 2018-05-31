@@ -1,8 +1,7 @@
 var Util = require ("./Utility");
 var getSchedule = Util.getSchedule;
 var getData = Util.getData;
-var getScheduleData = Util.getScheduleData;
-
+var turnOffDatabase = Util.turnOffDatabase;
 
 
 var dataSet = [];
@@ -25,4 +24,5 @@ for (let i = 0; i < courseList.length; i++){
 
 function callback2 (scheduleList){
    console.log (scheduleList);
+   turnOffDatabase(); // remember to turn off the database to avoid freezing!
 }

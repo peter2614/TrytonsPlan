@@ -12,6 +12,7 @@ var sections = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
 var getScheduleCB;
 var scheduleList;
 var numCBFromProcess = 0;
+var firebaseRef = null;
 
 // db setup
 var config = {
@@ -25,8 +26,10 @@ var config = {
 
 firebase.initializeApp(config);
 
+/*
 module.exports = {
     getData: getData,
+    filterByMaxUnits: filterByMaxUnits,
     rankByProfScore: rankByProfScore,
     rankByDistance: rankByDistance,
     rankByTimeCommitment: rankByTimeCommitment,
@@ -35,6 +38,7 @@ module.exports = {
     getSchedule: getSchedule,
     getScheduleData: getScheduleData
 };
+*/
 
 function getData (CourseID, cb) {
     let reference = QUARTER + TO + CourseID;  //Get the reference of the data
@@ -104,13 +108,36 @@ function processCallback (){
         callProcessor()
     }
 }
+
+function turnOffDatabase() {
+    firebase.database().goOffline();
+}
 //-------------------------------------------------------------------------------------------------------------------
 
 
+//-------------------------------------------------------------------------------------------------------------------
+/* Filter functions */
+
+var filterByMaxUnits = function(scheduleList, maxUnits) {
+
+    let newScheduleList = [];
+
+    for(let i = 0; i < scheduleList.length; i++) {
+        if(scheduleList[i].getUnits <= maxUnits)
+            newScheduleList.push(scheduleList[i]);
+    }
+
+    for(let i = 0; i < newScheduleList.length; i++) {
+        newScheduleList[i].setScheduleID = i;
+    }
+
+    return newScheduleList;
+}
+//-------------------------------------------------------------------------------------------------------------------
 
 
 //-------------------------------------------------------------------------------------------------------------------
-/* Rank functions*/
+/* Rank functions */
 /* All the ranking functions to rank a schedule list based on different criterion.*/
 
 // rank by professor score
@@ -302,7 +329,6 @@ function partitionGPA(list, pivot, left, right) {
     return partitionIndex;
 }
 
-
 // helper function for swap
 function swap(list, i, j) {
     var temp = list[i];
@@ -310,6 +336,15 @@ function swap(list, i, j) {
     list[j] = temp;
 }
 
-
-
-//module.exports = getData;
+module.exports = {
+    getData: getData,
+    filterByMaxUnits: filterByMaxUnits,
+    rankByProfScore: rankByProfScore,
+    rankByDistance: rankByDistance,
+    rankByTimeCommitment: rankByTimeCommitment,
+    rankByTimeUsage: rankByTimeUsage,
+    rankByGPA: rankByGPA,
+    getSchedule: getSchedule,
+    getScheduleData: getScheduleData,
+    turnOffDatabase: turnOffDatabase
+};

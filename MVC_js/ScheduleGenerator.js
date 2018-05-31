@@ -6,6 +6,9 @@ let Schedule = require("./Schedule")
 let ScheduledCourse = require("./ScheduledCourse")
 
 
+var YEAR = "2018";
+var QUARTER = "FA";
+
 var processedList;  //Global variable -- the list processed by processCourseList(). For helperGenerator().
 var scheduleID = 0;
 
@@ -36,7 +39,7 @@ var generateSchedule = function (courseList){
 
     for (let i = 0; i < processedSecList.length; i++){
         scheduleID = scheduleArr.length;
-        let initialSchedule = new Schedule(scheduleID, 0, 0, [], 0, 0, 0, 0);
+        let initialSchedule = new Schedule(scheduleID, YEAR, QUARTER, [], 0, 0, 0, 0, 0, 0);
         helperGenerator(initialSchedule, scheduleArr, i);
     }
 
@@ -71,14 +74,14 @@ var helperGenerator = function (currSchedule, scheduleList, slotIndex){
             if (i === 0) {
                 let newSchedule = new Schedule(currSchedule.getScheduleID, currSchedule.getYear, currSchedule.getQuarter,
                     currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
-                    currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA);
+                    currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA, currSchedule.getUnits);
                 newSchedule.getSections.push(processedList[slotIndex][i]);
                 helperGenerator(newSchedule, scheduleList, slotIndex + 1);
             }
             else{
                 let newSchedule = new Schedule(currSchedule.getScheduleID + 1, currSchedule.getYear, currSchedule.getQuarter,
                     currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
-                    currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA);
+                    currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA, currSchedule.getUnits);
                 newSchedule.getSections.push(processedList[slotIndex][i]);
                 helperGenerator(newSchedule, scheduleList, slotIndex + 1);
             }
