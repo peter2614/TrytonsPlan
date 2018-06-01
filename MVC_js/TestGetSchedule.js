@@ -23,6 +23,6 @@ for (let i = 0; i < courseList.length; i++){
 }
 
 function callback2 (scheduleList){
-   console.log (scheduleList);
-   turnOffDatabase(); // remember to turn off the database to avoid freezing!
+    console.log (scheduleList);
+    turnOffDatabase(); // remember to turn off the database to avoid freezing!
 }
