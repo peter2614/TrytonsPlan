@@ -66,6 +66,7 @@ function retrieve(end) {
 function getSchedule (courseIDList, dataSet, cb) {
     let courseList = [];
     getScheduleCB = cb;
+    numCBFromProcess = 0;
 
     //Build the array of ScheduledCourse
     for (let j = 0; j < dataSet.length; j++){
