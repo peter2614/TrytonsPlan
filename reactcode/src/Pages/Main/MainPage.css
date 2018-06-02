@@ -1,0 +1,11 @@
+.sidebar {
+    border-radius: 0px;
+    width: 320px;
+}
+
+.sidebarcontainer {
+    height: 95vh;
+    background-color: #307080;
+    width: 22vw;
+    float: left;
+}
