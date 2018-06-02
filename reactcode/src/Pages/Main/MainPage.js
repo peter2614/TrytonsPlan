@@ -4,7 +4,7 @@ import MainSpace from './MainSpace/MainSpace.js'
 import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
 import {getAllInfo, getGeneralInfo, getCourseNames, getCourseTitles} from './GetData.js';
-import {getData, filterByMaxUnits, filterByEndingTime, filterByStartingTime, rankByProfScore, rankByTimeCommitment, rankByTimeUsage, rankByGPA, getSchedule, getScheduleData, turnOffDatabase} from '../../Backend/Utility.js';
+import {getData, filterByMaxUnits, filterByMinUnits, filterByEndingTime, filterByStartingTime, rankByProfScore, rankByTimeCommitment, rankByTimeUsage, rankByGPA, getSchedule, getScheduleData, turnOffDatabase} from '../../Backend/Utility.js';
 
 
 class MainPage extends Component {
@@ -34,6 +34,7 @@ class MainPage extends Component {
         schedules: null,
         filteredSchedules: null,
         maxUnits: 16,
+        minUnits: 0,
         endingTime: 0,
         startingTime: 0,
     }
@@ -178,6 +179,7 @@ class MainPage extends Component {
     }
 
     maxUnitsHandler = (event) => {
+        console.log("INMAXUNITS");
         if (event.target.value != '') {  
         this.state.maxUnits = event.target.value;
         } else {
@@ -185,6 +187,16 @@ class MainPage extends Component {
         }
         this.filter();
     }
+
+    minUnitsHandler = (event) => {
+        if (event.target.value != '') {  
+        this.state.minUnits = event.target.value;
+        } else {
+        this.state.minUnits = 0;
+        }
+        this.filter();
+    }
+
     startingTimeHandler = (event) => {
         if (event.target.value != '') {  
         this.state.startingTime = event.target.value;
@@ -204,10 +216,21 @@ class MainPage extends Component {
     }
 
     filter = () => {
+        console.log("INFILTER");
+        console.log(this.state.endingTime);
+        console.log(this.state.startingTime);
         this.state.filteredSchedules = this.state.schedules;
-        this.state.filteredSchedules = filterByMaxUnits(this.state.filteredSchedules, this.state.maxUnits);
-        this.state.filteredSchedules = filterByEndingTime(this.state.filteredSchedules, this.state.endingTime);
-        this.state.filteredSchedules = filterByStartingTime(this.state.filteredSchedules, this.state.startingTime);
+        let filtered = [...this.state.filteredSchedules]
+        if(filtered != null) {
+            filtered = filterByMaxUnits(filtered, this.state.maxUnits);
+            filtered = filterByMinUnits(filtered, this.state.minUnits);
+            //filtered = filterByStartingTime(filtered, this.state.startingTime)
+            console.log(filtered);
+            //filtered = filterByEndingTime(filtered, this.state.endingTime);
+            console.log(filtered);
+            this.setState({filteredSchedules: filtered});
+        }
+        console.log(this.state.filteredSchedules);
     }
 
 
@@ -236,7 +259,7 @@ class MainPage extends Component {
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
-                        <OptionsBar generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
+                        <OptionsBar generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} minUnitsHandler={this.minUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
                     </div>
                     <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#345', overflowY: 'scroll'}}>
                         <MainSpace schedules={this.state.filteredSchedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>

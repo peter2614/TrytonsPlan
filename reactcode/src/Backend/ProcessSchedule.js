@@ -16,14 +16,14 @@ var numProf = 0;
     Helper function to set profScore, TimeCommitment, GPA for one schedule
  */
 function processSchedule (aSchedule, getScheduleData, cb){
-    
+
     finalCallBack = cb;
     schedule = aSchedule;
-    console.log(schedule);
     var len = schedule.getSections.length;
     numProf = len;
     var path, unitPath;
     var courseID;
+
 
     for (let i = 0; i < len; i++) {
         let profName = schedule.getSections[i].getProfessor;

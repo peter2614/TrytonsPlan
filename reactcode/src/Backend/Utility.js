@@ -66,10 +66,7 @@ function retrieve(end) {
 function getSchedule (courseIDList, dataSet, cb) {
     let courseList = [];
     getScheduleCB = cb;
-    //console.log("COURSEIDLIST");
-    //console.log(courseIDList);
-    //console.log("DATASET");
-    //console.log(dataSet);
+
     //Build the array of ScheduledCourse
     for (let j = 0; j < dataSet.length; j++){
         let courseData = dataSet[j];
@@ -92,8 +89,7 @@ function getSchedule (courseIDList, dataSet, cb) {
 
     var scheduleListLocal = generator(courseList);
     scheduleList = scheduleListLocal;
-    console.log("SCHEDULE LIST");
-    console.log(scheduleList);
+
     callProcessor();
 }
 
@@ -128,6 +124,22 @@ var filterByMaxUnits = function(scheduleList, maxUnits) {
 
     for(let i = 0; i < scheduleList.length; i++) {
         if(scheduleList[i].getUnits <= maxUnits)
+            newScheduleList.push(scheduleList[i]);
+    }
+
+    for(let i = 0; i < newScheduleList.length; i++) {
+        newScheduleList[i].setScheduleID = i;
+    }
+
+    return newScheduleList;
+}
+
+var filterByMinUnits = function(scheduleList, minUnits) {
+
+    let newScheduleList = [];
+
+    for(let i = 0; i < scheduleList.length; i++) {
+        if(scheduleList[i].getUnits >= minUnits)
             newScheduleList.push(scheduleList[i]);
     }
 
@@ -316,7 +328,7 @@ function partitionTimeCommitment(list, pivot, left, right) {
         partitionIndex = left;
 
     for(var i = left; i < right; i++) {
-        if(list[i].getTimeCommitment > pivotValue) {
+        if(list[i].getTimeCommitment < pivotValue) {
             swap(list, i, partitionIndex);
             partitionIndex++;
         }
@@ -397,6 +409,7 @@ function swap(list, i, j) {
 module.exports = {
     getData: getData,
     filterByMaxUnits: filterByMaxUnits,
+    filterByMinUnits: filterByMinUnits,
     filterByStartingTime: filterByStartingTime,
     filterByEndingTime: filterByEndingTime,
     rankByProfScore: rankByProfScore,
