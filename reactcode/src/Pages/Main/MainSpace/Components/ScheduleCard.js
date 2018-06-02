@@ -7,7 +7,8 @@ const schedulecard = (props) => {
         padding: '1vw',
         width: '47%',
         height: '40vh',
-        backgroundColor: '#258'
+        backgroundColor: '#258',
+        overflowY: 'auto',
     }
     //width: 47%
     let sections = props.sections.map(section => {

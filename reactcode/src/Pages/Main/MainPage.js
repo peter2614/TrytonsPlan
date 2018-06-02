@@ -220,11 +220,12 @@ class MainPage extends Component {
         console.log(this.state.endingTime);
         console.log(this.state.startingTime);
         this.state.filteredSchedules = this.state.schedules;
-        let filtered = [...this.state.filteredSchedules]
-        if(filtered != null) {
+        
+        if(this.state.filteredSchedules != null) {
+            let filtered = [...this.state.filteredSchedules]
             filtered = filterByMaxUnits(filtered, this.state.maxUnits);
             filtered = filterByMinUnits(filtered, this.state.minUnits);
-            //filtered = filterByStartingTime(filtered, this.state.startingTime)
+            //filtered = filterByStartingTime(filtered, this.state.startingTime);
             console.log(filtered);
             //filtered = filterByEndingTime(filtered, this.state.endingTime);
             console.log(filtered);
