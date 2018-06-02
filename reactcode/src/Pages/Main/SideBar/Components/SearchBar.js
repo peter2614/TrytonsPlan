@@ -48,7 +48,7 @@ const searchbar = (props) => {
         return (
             <div>
                 <div style={{height: '6vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <input style={{ backgroundColor: 'lightgrey', fontSize: '2vh', height: '3vh'}} type="search" onChange={(event) => props.searchCourseHandler(event)} placeholder="Search For Courses"/> 
+                    <input style={{ backgroundColor: 'lightgrey', fontSize: '2vh', height: '3vh'}} type="search" onChange={(event) => props.searchCourseHandler(event)} placeholder="Search Fall 18 Courses"/> 
                 </div>
                 {courses}
             </div>

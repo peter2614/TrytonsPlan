@@ -18,8 +18,8 @@ const OptionsBar = (props) => {
                     <p style={{paddingRight: '.5vw', marginTop: '.5vh', color: 'lightgrey', fontWeight: '800'}}>Sort: </p>
                     <button style={buttonStyleSmall} onClick={ event => props.rankScheduleHandler("GPA")}>GPA</button>
                     <button style={buttonStyleSmall} onClick={ event => props.rankScheduleHandler("PROF")}>Prof Score</button>
+                    <button style={buttonStyleSmall} onClick={ event => props.rankScheduleHandler("TIMECOMMITMENT")}>Study Hrs</button>
                     <button style={buttonStyle} onClick={ event => props.rankScheduleHandler("TIMEEFFICIENCY")}>Time Efficiency</button>
-                    <button style={buttonStyle} onClick={ event => props.rankScheduleHandler("TIMECOMMITMENT")}>Time Commitment</button>
                 </div>
             </div>
             <div style={{marginLeft: '.3vw', display: 'flex', float: 'left', marginTop: '1.6vh', fontSize: '.8vw'}}>
@@ -27,7 +27,7 @@ const OptionsBar = (props) => {
                 <input style={{height: '3vh', width: '2vw'}} onChange={event => props.minUnitsHandler(event)} type="number" />
                 <input style={{height: '3vh', width: '2vw'}} onChange={event => props.maxUnitsHandler(event)} type="number" />
                 <p style={{marginLeft: '.5vw', paddingRight: '.5vw', marginTop: '.2vh', color: 'lightgrey', fontWeight: '800'}}>Start/End: </p>
-                <input style={{height: '3vh', width: '5vw'}} onChange={event => props.startingTimeHandler(event)} type="time" />
+                <input style={{height: '3vh', width: '5vw'}} onChange={event => props.startingTimeHandler(event)} type="time"/>
                 <input style={{height: '3vh', width: '5vw'}} onChange={event => props.endingTimeHandler(event)} type="time"/>
             </div>
             <div>
