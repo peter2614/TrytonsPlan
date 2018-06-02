@@ -61,7 +61,7 @@ const schedulecard = (props) => {
                             <th style={{textAlign: 'center'}}>GPA</th>
                             <th style={{textAlign: 'center'}}>Prof Score</th>
                             <th style={{textAlign: 'center'}}>Time Efficiency</th>
-                            <th style={{textAlign: 'center'}}>Time Commitment</th>
+                            <th style={{textAlign: 'center'}}>Study Hrs</th>
                         </tr>
                         <tr>
                             <th style={{textAlign: 'center'}}>{props.GPA}</th>
