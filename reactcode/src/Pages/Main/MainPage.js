@@ -231,6 +231,9 @@ class MainPage extends Component {
         }
     }
 
+    switchViewHandler = () => {
+        this.setState({displayInfo: !this.state.displayInfo})
+    }
 
     render() {
     return (
@@ -256,7 +259,7 @@ class MainPage extends Component {
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
-                        <OptionsBar sizeOfCourseList={this.state.courseList.length} generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} minUnitsHandler={this.minUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
+                        <OptionsBar filteredSchedules={this.state.filteredSchedules} switchViewHandler={this.switchViewHandler} sizeOfCourseList={this.state.courseList.length} generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} minUnitsHandler={this.minUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
                     </div>
                     <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#345', overflowY: 'scroll'}}>
                         <MainSpace schedules={this.state.filteredSchedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>

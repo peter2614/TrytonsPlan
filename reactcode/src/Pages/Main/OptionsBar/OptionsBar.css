@@ -11,7 +11,7 @@ input::-webkit-inner-spin-button {
     border-color:#49B; 
     float: right; 
     margin: 1.2vh;
-    margin-right: 3vw; 
+    margin-right: .5vw; 
     font-size: 1vw;
     width: 12vw;
     height: 4vh;
@@ -23,7 +23,7 @@ input::-webkit-inner-spin-button {
     border-color:#49B; 
     float: right; 
     margin: 1.2vh;
-    margin-right: 3vw; 
+    margin-right: .5vw; 
     font-size: 1vw;
     width: 12vw;
     height: 4vh;
@@ -35,9 +35,46 @@ input::-webkit-inner-spin-button {
     border-color:#955; 
     float: right; 
     margin: 1.2vh;
-    margin-right: 3vw; 
+    margin-right: .5vw; 
     font-size: 1vw;
     width: 12vw;
+    height: 4vh;
+    cursor: not-allowed;
+}
+
+.switchButtonEnabled {
+    background-color: #49B;
+    color: white; 
+    border-color:#49B; 
+    float: right; 
+    margin: 1.2vh;
+    margin-right: .5vw; 
+    font-size: 1vw;
+    width: 2vw;
+    height: 4vh;
+}
+
+.switchButtonEnabled:hover {
+    background-color: #38A;
+    color: white; 
+    border-color:#49B; 
+    float: right; 
+    margin: 1.2vh;
+    margin-right: .5vw; 
+    font-size: 1vw;
+    width: 2vw;
+    height: 4vh;
+}
+
+.switchButtonDisabled:disabled {
+    background-color: #955;
+    color: black; 
+    border-color:#955; 
+    float: right; 
+    margin: 1.2vh;
+    margin-right: .5vw; 
+    font-size: 1vw;
+    width: 2vw;
     height: 4vh;
     cursor: not-allowed;
 }

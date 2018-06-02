@@ -10,7 +10,8 @@ const OptionsBar = (props) => {
         height: '4vh',
         width: '6vw',
     }
-
+    
+    
     let generateButtonStyle = "generateScheduleEnabled";
     let title = "Generate Schedules"
     let disabled = false;
@@ -18,12 +19,21 @@ const OptionsBar = (props) => {
         generateButtonStyle = "generateScheduleDisabled";
         title = "Need 2 more classes in your Course List."
         disabled = true;
+        switchButtonStyle = "switchButtonDisabled";
     } else if (props.sizeOfCourseList == 1) {
         title = "Need 1 more class in your Course List.";
         generateButtonStyle = "generateScheduleDisabled";
         disabled = true;
+        
     }
-    
+    let switchButtonDisabled = true;
+    let switchButtonStyle = "switchButtonDisabled";
+    let switchButtonTitle = "No Schedules to show!";
+    if(props.filteredSchedules != null) {
+        switchButtonDisabled = false;
+        switchButtonStyle = "switchButtonEnabled";
+        switchButtonTitle = "Switch views."
+    }
 
 
     return(
@@ -46,6 +56,7 @@ const OptionsBar = (props) => {
                 <input style={{height: '3vh', width: '5vw'}} onChange={event => props.endingTimeHandler(event)} type="time"/>
             </div>
             <div>
+            <button title = {switchButtonTitle} className={switchButtonStyle} disabled={switchButtonDisabled}  onClick={props.switchViewHandler}></button>
                 <button title = {title} className={generateButtonStyle} disabled={disabled}  onClick={props.generateScheduleHandler}>Generate Schedules</button>
             </div>
         </div>
