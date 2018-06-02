@@ -135,6 +135,22 @@ var filterByMaxUnits = function(scheduleList, maxUnits) {
     return newScheduleList;
 }
 
+var filterByMinUnits = function(scheduleList, minUnits) {
+
+    let newScheduleList = [];
+
+    for(let i = 0; i < scheduleList.length; i++) {
+        if(scheduleList[i].getUnits >= minUnits)
+            newScheduleList.push(scheduleList[i]);
+    }
+
+    for(let i = 0; i < newScheduleList.length; i++) {
+        newScheduleList[i].setScheduleID = i;
+    }
+
+    return newScheduleList;
+}
+
 var filterByStartingTime = function(scheduleList, startingTime) {
 
     let newScheduleList = [];
@@ -313,7 +329,7 @@ function partitionTimeCommitment(list, pivot, left, right) {
         partitionIndex = left;
 
     for(var i = left; i < right; i++) {
-        if(list[i].getTimeCommitment > pivotValue) {
+        if(list[i].getTimeCommitment < pivotValue) {
             swap(list, i, partitionIndex);
             partitionIndex++;
         }
@@ -394,6 +410,7 @@ function swap(list, i, j) {
 module.exports = {
     getData: getData,
     filterByMaxUnits: filterByMaxUnits,
+    filterByMinUnits: filterByMinUnits,
     filterByStartingTime: filterByStartingTime,
     filterByEndingTime: filterByEndingTime,
     rankByProfScore: rankByProfScore,

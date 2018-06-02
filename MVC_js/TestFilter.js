@@ -1,5 +1,6 @@
 var Util = require ("./Utility");
 var filterByMaxUnits = Util.filterByMaxUnits;
+var filterByMinUnits = Util.filterByMinUnits;
 var filterByStartingTime = Util.filterByStartingTime;
 var filterByEndingTime = Util.filterByEndingTime;
 var Schedule = require("./Schedule");
@@ -23,6 +24,20 @@ var newScheduleListFilteredByMaxUnit = filterByMaxUnits(scheduleList, 20);
 for(let i = 0; i < newScheduleListFilteredByMaxUnit.length; i++) {
     console.log(newScheduleListFilteredByMaxUnit[i].getYear);
 }
+// A B C E
+
+// ----------------------------------------------------------------------------------*/
+
+// ------------------------------------------------------------------------------------
+// Test filter by min units
+
+console.log("Test min units");
+var newScheduleListFilteredByMinUnit = filterByMinUnits(scheduleList, 16);
+
+for(let i = 0; i < newScheduleListFilteredByMinUnit.length; i++) {
+    console.log(newScheduleListFilteredByMinUnit[i].getYear);
+}
+// A B D
 
 // ----------------------------------------------------------------------------------*/
 
@@ -49,6 +64,7 @@ var newScheduleListFilteredByStartingTime = filterByStartingTime(scheduleList, s
 for(let i = 0; i < newScheduleListFilteredByStartingTime.length; i++) {
     console.log(newScheduleListFilteredByStartingTime[i].getYear);
 }
+// D E
 
 // ------------------------------------------------------------------------------------
 
@@ -63,5 +79,6 @@ var newScheduleListFilteredByEndingTime = filterByEndingTime(scheduleList, endin
 for(let i = 0; i < newScheduleListFilteredByEndingTime.length; i++) {
     console.log(newScheduleListFilteredByEndingTime[i].getYear);
 }
+// A B D
 
 // ------------------------------------------------------------------------------------
