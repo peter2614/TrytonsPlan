@@ -4,6 +4,7 @@ import MainSpace from './MainSpace/MainSpace.js'
 import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
 import {getAllInfo, getGeneralInfo, getCourseNames, getCourseTitles} from './GetData.js';
+import {getData, filterByMaxUnits, filterByEndingTime, filterByStartingTime, rankByProfScore, rankByTimeCommitment, rankByTimeUsage, rankByGPA, getSchedule, getScheduleData, turnOffDatabase} from '../../Backend/Utility.js';
 
 
 class MainPage extends Component {
@@ -27,7 +28,14 @@ class MainPage extends Component {
         professorInfo: null,
         allInfo: null,
 
-        schedules: [1,2,3,4,5,6,7],
+        //Schedules
+        courseNames: [],
+        courseData: [],
+        schedules: null,
+        filteredSchedules: null,
+        maxUnits: 16,
+        endingTime: 0,
+        startingTime: 0,
     }
 
     //==================On Startup==============
@@ -115,15 +123,95 @@ class MainPage extends Component {
     }
 
 
-
+    //==========================Schedules===========================
     generateScheduleHandler = () => {
-            console.log("GENERATE SCHEDULES");
-            this.setState({displayInfo: false});
+        this.state.loading = true;
+        this.state.courseNames = [];
+        this.state.courseData = [];
+        this.state.courseList.forEach( course => {
+                this.state.courseNames.push(course.name);
+                getData(course.name, this.getDataCallback);
+        });
+        //console.log("COURSE DATA")
+        //console.log(this.state.courseData);
+    
+        //getSchedule(courseNames, this.state.courseData, this.getScheduleCallback);
+        
+        
+    }
+
+    getDataCallback = (courseData) => {
+        this.state.courseData.push(courseData);
+        if(this.state.courseData.length == this.state.courseList.length && this.state.courseNames.length == this.state.courseList.length) {
+            //console.log("COURSENAMES");
+            //console.log(this.state.courseNames);
+            //console.log("COURSEDATA");
+            //console.log(this.state.courseData);
+            getSchedule(this.state.courseNames, this.state.courseData, this.getScheduleCallback);
+        }
+    }
+
+    getScheduleCallback = (listOfSchedules) => {
+
+        this.state.schedules = listOfSchedules;
+        console.log("LISTOFSCHEDULES");
+        console.log(listOfSchedules);
+        this.state.filteredSchedules = [...listOfSchedules];
+        //this.state.filteredSchedules = filterByMaxUnits(this.state.filteredSchedules, this.state.maxUnits);
+        //this.state.filteredSchedules = filterByEndingTime(this.state.filteredSchedules, this.state.endingTime);
+        //this.state.filteredSchedules = filterByStartingTime(this.state.filteredSchedules, this.state.startingTime);
+        console.log("filteredSchedules");
+        console.log(this.state.filteredSchedules);
+        this.state.loading = false;
+        this.setState({displayInfo: false});
+        
+
+    }
+
+    rankScheduleHandler = (label) => {
+        //console.log(label);
+        console.log(label);
+        if(label === "GPA") {this.setState({filteredSchedules: rankByGPA(this.state.filteredSchedules)});}
+        if(label === "PROF") {this.setState({filteredSchedules: rankByProfScore(this.state.filteredSchedules)});}
+        if(label === "TIMEEFFICIENCY") {this.setState({filteredSchedules: rankByTimeUsage(this.state.filteredSchedules)});}
+        if(label === "TIMECOMMITMENT") {this.setState({filteredSchedules: rankByTimeCommitment(this.state.filteredSchedules)});}
+    }
+
+    maxUnitsHandler = (event) => {
+        if (event.target.value != '') {  
+        this.state.maxUnits = event.target.value;
+        } else {
+        this.state.maxUnits = 16;
+        }
+        this.filter();
+    }
+    startingTimeHandler = (event) => {
+        if (event.target.value != '') {  
+        this.state.startingTime = event.target.value;
+        } else {
+        this.state.startingTime = 0;
+        }
+        this.filter();
+    }
+
+    endingTimeHandler = (event) => {
+        if (event.target.value != '') {  
+        this.state.endingTime = event.target.value;
+        } else {
+        this.state.endingTime = 0;
+        }
+        this.filter();
+    }
+
+    filter = () => {
+        this.state.filteredSchedules = this.state.schedules;
+        this.state.filteredSchedules = filterByMaxUnits(this.state.filteredSchedules, this.state.maxUnits);
+        this.state.filteredSchedules = filterByEndingTime(this.state.filteredSchedules, this.state.endingTime);
+        this.state.filteredSchedules = filterByStartingTime(this.state.filteredSchedules, this.state.startingTime);
     }
 
 
     render() {
-        
 
     return (
         <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: 'inherit', overflowX:'hidden'}}>
@@ -148,10 +236,10 @@ class MainPage extends Component {
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
-                        <OptionsBar generateScheduleHandler={this.generateScheduleHandler} />
+                        <OptionsBar generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
                     </div>
                     <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#345', overflowY: 'scroll'}}>
-                        <MainSpace scheduleCards={this.state.schedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>
+                        <MainSpace schedules={this.state.filteredSchedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>
                     </div>
                 </div>
             </div>

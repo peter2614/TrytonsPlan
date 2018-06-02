@@ -4,13 +4,15 @@ import CourseInformation from './Components/CourseInformation';
 import './MainSpace.css'
 
 const MainSpace = (props) => {
-
     let display = null;
     //Choose to display a course's information or the generate schedules when "Generate Schedules" is pressed in the options bar
-    if(props.displayInfo === false) {
+    if(props.displayInfo === false && props.schedules != null) {
+        console.log("INMAINSPACE");
+        console.log(props.schedules)
+        
         display = 
         <div style={{display: 'flex', flexWrap: 'wrap'}}>
-            <ScheduleCards scheduleCards={props.scheduleCards}/>
+            <ScheduleCards schedules={props.schedules}/>
         </div>
     } else {
         if (props.allInfo != null && props.generalInfo != null) { 
