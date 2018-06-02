@@ -66,6 +66,7 @@ function retrieve(end) {
 function getSchedule (courseIDList, dataSet, cb) {
     let courseList = [];
     getScheduleCB = cb;
+    numCBFromProcess = 0;
 
     //Build the array of ScheduledCourse
     for (let j = 0; j < dataSet.length; j++){
@@ -122,7 +123,7 @@ var filterByMaxUnits = function(scheduleList, maxUnits) {
 
     if(scheduleList == null)
         return [];
-    
+
     let newScheduleList = [];
 
     for(let i = 0; i < scheduleList.length; i++) {
