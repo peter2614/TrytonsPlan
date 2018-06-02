@@ -14,15 +14,15 @@ const schedulecard = (props) => {
     let sections = props.sections.map(section => {
         let days = '';
         section.day.forEach(day => {
-            if (day == 1) {days += "M"}
-            if (day == 2) {days += "T"}
-            if (day == 3) {days += "W"}
-            if (day == 4) {days += "Th"}
-            if (day == 5) {days += "F"}
+            if (day === 1) {days += "M"}
+            if (day === 2) {days += "T"}
+            if (day === 3) {days += "W"}
+            if (day === 4) {days += "Th"}
+            if (day === 5) {days += "F"}
         })
         
         return(
-        <tr>
+        <tr key={section.courseID}>
 
             <th style={{color: '#F97'}}>{section.courseID}</th>
             <th style={{color: 'lightgrey'}}>{days}</th>
@@ -56,22 +56,26 @@ const schedulecard = (props) => {
             <div style={{color: 'lightgrey', fontSize: '20px'}}>Schedule {props.scheduleID}</div>
             <div style={{display: 'flex', justifyContent:'center'}}>
                 <table style={{width: '25vw', color: 'lightgrey'}}>
-                    <tr >
-                        <th style={{textAlign: 'center'}}>GPA</th>
-                        <th style={{textAlign: 'center'}}>Prof Score</th>
-                        <th style={{textAlign: 'center'}}>Time Efficiency</th>
-                        <th style={{textAlign: 'center'}}>Time Commitment</th>
-                    </tr>
-                    <tr>
-                        <th style={{textAlign: 'center'}}>{props.GPA}</th>
-                        <th style={{textAlign: 'center'}}>{props.profScore}</th>
-                        <th style={{textAlign: 'center'}}>{props.timeUsage}</th>
-                        <th style={{textAlign: 'center'}}> {props.timeCommitment}</th>
-                    </tr>
+                    <tbody>
+                        <tr >
+                            <th style={{textAlign: 'center'}}>GPA</th>
+                            <th style={{textAlign: 'center'}}>Prof Score</th>
+                            <th style={{textAlign: 'center'}}>Time Efficiency</th>
+                            <th style={{textAlign: 'center'}}>Time Commitment</th>
+                        </tr>
+                        <tr>
+                            <th style={{textAlign: 'center'}}>{props.GPA}</th>
+                            <th style={{textAlign: 'center'}}>{props.profScore}</th>
+                            <th style={{textAlign: 'center'}}>{props.timeUsage}</th>
+                            <th style={{textAlign: 'center'}}> {props.timeCommitment}</th>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-            <table >
+            <table>
+                <tbody>
                 {sections}
+                </tbody>
             </table>
         </div>
     )

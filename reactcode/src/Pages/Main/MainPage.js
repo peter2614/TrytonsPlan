@@ -35,7 +35,7 @@ class MainPage extends Component {
         filteredSchedules: null,
         maxUnits: 16,
         minUnits: 0,
-        endingTime: 0,
+        endingTime: 2400,
         startingTime: 0,
     }
 
@@ -158,6 +158,7 @@ class MainPage extends Component {
         console.log("LISTOFSCHEDULES");
         console.log(listOfSchedules);
         this.state.filteredSchedules = [...listOfSchedules];
+        this.filter();
         //this.state.filteredSchedules = filterByMaxUnits(this.state.filteredSchedules, this.state.maxUnits);
         //this.state.filteredSchedules = filterByEndingTime(this.state.filteredSchedules, this.state.endingTime);
         //this.state.filteredSchedules = filterByStartingTime(this.state.filteredSchedules, this.state.startingTime);
@@ -179,7 +180,6 @@ class MainPage extends Component {
     }
 
     maxUnitsHandler = (event) => {
-        console.log("INMAXUNITS");
         if (event.target.value != '') {  
         this.state.maxUnits = event.target.value;
         } else {
@@ -199,7 +199,7 @@ class MainPage extends Component {
 
     startingTimeHandler = (event) => {
         if (event.target.value != '') {  
-        this.state.startingTime = event.target.value;
+        this.state.startingTime = parseInt(event.target.value.toString().replace(':',''));
         } else {
         this.state.startingTime = 0;
         }
@@ -208,30 +208,24 @@ class MainPage extends Component {
 
     endingTimeHandler = (event) => {
         if (event.target.value != '') {  
-        this.state.endingTime = event.target.value;
+        this.state.endingTime = parseInt(event.target.value.toString().replace(':',''));
         } else {
-        this.state.endingTime = 0;
+        this.state.endingTime = 2400;
         }
         this.filter();
     }
 
     filter = () => {
-        console.log("INFILTER");
-        console.log(this.state.endingTime);
-        console.log(this.state.startingTime);
         this.state.filteredSchedules = this.state.schedules;
         
         if(this.state.filteredSchedules != null) {
             let filtered = [...this.state.filteredSchedules]
             filtered = filterByMaxUnits(filtered, this.state.maxUnits);
             filtered = filterByMinUnits(filtered, this.state.minUnits);
-            //filtered = filterByStartingTime(filtered, this.state.startingTime);
-            console.log(filtered);
-            //filtered = filterByEndingTime(filtered, this.state.endingTime);
-            console.log(filtered);
+            filtered = filterByStartingTime(filtered, this.state.startingTime-1);
+            filtered = filterByEndingTime(filtered, this.state.endingTime+1);
             this.setState({filteredSchedules: filtered});
         }
-        console.log(this.state.filteredSchedules);
     }
 
 
