@@ -31,7 +31,7 @@ const OptionsBar = (props) => {
                 <input style={{height: '3vh', width: '5vw'}} onChange={event => props.endingTimeHandler(event)} type="time"/>
             </div>
             <div>
-                <button style={{float: 'right', margin: '1.2vh', marginRight: '3vw', fontSize: '1vw', width: '12vw', height: '4vh'}} onClick={props.generateScheduleHandler}>Generate Schedules</button>
+                <button style={{backgroundColor: '#49B', color:'white', borderColor:'#49B', float: 'right', margin: '1.2vh', marginRight: '3vw', fontSize: '1vw', width: '12vw', height: '4vh'}} onClick={props.generateScheduleHandler}>Generate Schedules</button>
             </div>
         </div>
     );
