@@ -6,7 +6,7 @@ var turnOffDatabase = Util.turnOffDatabase;
 
 var dataSet = [];
 var schedules;
-var courseList = ["CSE 100", "CSE 105", "CSE 110", "CSE 30", "CSE 11", "CSE 158", "CHEM 11", "COGS 15"];
+var courseList = ["CSE 21", "CSE 15L"];
 var numGet = 0;
 
 function callback (data){
