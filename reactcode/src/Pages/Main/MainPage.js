@@ -14,6 +14,9 @@ class MainPage extends Component {
     }
 
     state = {
+        //optionsbar
+        enabled: false,
+
         courseCatalog: [],
          //sidebar
         courseList: [],
@@ -230,7 +233,6 @@ class MainPage extends Component {
 
 
     render() {
-
     return (
         <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: 'inherit', overflowX:'hidden'}}>
             <div className={"NAVBAR"} style={{width:'100vw', height: '5vh', backgroundColor: '#333'}}>
@@ -254,7 +256,7 @@ class MainPage extends Component {
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
-                        <OptionsBar generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} minUnitsHandler={this.minUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
+                        <OptionsBar sizeOfCourseList={this.state.courseList.length} generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} minUnitsHandler={this.minUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
                     </div>
                     <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#345', overflowY: 'scroll'}}>
                         <MainSpace schedules={this.state.filteredSchedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>

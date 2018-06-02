@@ -11,6 +11,21 @@ const OptionsBar = (props) => {
         width: '6vw',
     }
 
+    let generateButtonStyle = "generateScheduleEnabled";
+    let title = "Generate Schedules"
+    let disabled = false;
+    if (props.sizeOfCourseList == 0) {
+        generateButtonStyle = "generateScheduleDisabled";
+        title = "Need 2 more classes in your Course List."
+        disabled = true;
+    } else if (props.sizeOfCourseList == 1) {
+        title = "Need 1 more class in your Course List.";
+        generateButtonStyle = "generateScheduleDisabled";
+        disabled = true;
+    }
+    
+
+
     return(
         <div>
             <div className="buttongroup" style={{float: 'left', margin: '1vh', fontSize: '.9vw'}}>
@@ -31,7 +46,7 @@ const OptionsBar = (props) => {
                 <input style={{height: '3vh', width: '5vw'}} onChange={event => props.endingTimeHandler(event)} type="time"/>
             </div>
             <div>
-                <button style={{backgroundColor: '#49B', color:'white', borderColor:'#49B', float: 'right', margin: '1.2vh', marginRight: '3vw', fontSize: '1vw', width: '12vw', height: '4vh'}} onClick={props.generateScheduleHandler}>Generate Schedules</button>
+                <button title = {title} className={generateButtonStyle} disabled={disabled}  onClick={props.generateScheduleHandler}>Generate Schedules</button>
             </div>
         </div>
     );
