@@ -4,13 +4,15 @@ import CourseInformation from './Components/CourseInformation';
 import './MainSpace.css'
 
 const MainSpace = (props) => {
-
     let display = null;
     //Choose to display a course's information or the generate schedules when "Generate Schedules" is pressed in the options bar
-    if(props.displayInfo === false) {
+    if(props.displayInfo === false && props.schedules != null) {
+        console.log("INMAINSPACE");
+        console.log(props.schedules)
+        
         display = 
         <div style={{display: 'flex', flexWrap: 'wrap'}}>
-            <ScheduleCards scheduleCards={props.scheduleCards}/>
+            <ScheduleCards schedules={props.schedules}/>
         </div>
     } else {
         if (props.allInfo != null && props.generalInfo != null) { 
@@ -18,7 +20,7 @@ const MainSpace = (props) => {
                             <div style={{minHeight: '5vh', maxHeight:'10vh', marginTop: '1vh'}}>
                                 <p style={{fontSize: '2vw', fontWeight: '700', margin: '0px', color: 'lightgrey'}}>{props.courseID} - {props.generalInfo.title} ({props.generalInfo.units})</p>
                             </div>
-                            <div style={{minHeight: '10vh', maxHeight:'30vh', display: 'flex', marginTop: '1.5vh'}}>
+                            <div style={{minHeight: '13vh', maxHeight:'30vh', display: 'flex', marginTop: '1.5vh'}}>
                                 <p style={{color: 'lightgrey', marginLeft: '10%', width: '80%', fontSize: '18px'}}>{props.generalInfo.description}</p>  
                             </div>
                             <hr style={{paddingTop: '.5vh', marginLeft: '0%', width: '100%'}}/>
@@ -35,12 +37,12 @@ const MainSpace = (props) => {
     if(props.displayInfo === true) {
         background =<div style={{overflow: 'hidden'}}> 
                             <div style={{position: 'absolute', backgroundColor: '#DDD', height: '89vh', width: '77.2vw'}}>
-                                <div style={{height: '18vh', backgroundColor: '#333'}}/>
+                                <div style={{height: '21vh', backgroundColor: '#333'}}/>
                                 <hr style={{paddingTop: '.5vh', marginLeft: '0%', width: '100%'}}/>
                             </div>
                         </div>
         loading =  <div className={props.loading?'loadingfadeIn':'loadingfadeOut'}style={{position: 'absolute', backgroundColor: '#DDD', height: '89vh', width: '78vw'}}>
-                        <div style={{height: '18vh', backgroundColor: '#333'}}>
+                        <div style={{height: '21vh', backgroundColor: '#333'}}>
                             <p style={{fontSize: '3vw', fontWeight: '700', margin: '0px', color: 'lightgrey'}}>LOADING - Fetching Data</p>
                             <p style={{color: 'lightgrey', marginLeft: '10%', width: '80%'}}>The connection seems a bit slow, we'll have your info in one moment!</p>
                         </div>

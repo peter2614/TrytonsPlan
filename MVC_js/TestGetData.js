@@ -8,4 +8,4 @@ function callback (d){
 }
 
 
-getData("CSE 30", callback);
+getData("CSE 100", callback);
