@@ -24,7 +24,7 @@ var config = {
     messagingSenderId: "242589223564"
 };
 
-//firebase.initializeApp(config);
+// firebase.initializeApp(config);
 
 /*
 module.exports = {
@@ -74,19 +74,30 @@ function getSchedule (courseIDList, dataSet, cb) {
         let k = 0;
         let sectionArr = [];
         while (courseData.hasOwnProperty(sections[k])){
-            let secID = sections[k];
+            // let secID = sections[k];
             let currSec = courseData[k];
+
+            // Class is TBA
+            if (currSec.LE[0].start_time === "TBA") {
+                // console.log("Skip this section");
+                // console.log(currSec);
+                k++;
+                continue;
+            }
+
             //console.log (currSec);
-            sectionArr[k] = new Section(currSec.id, courseIDList[j], currSec.LE[0].start_time, currSec.LE[0].end_time, currSec.LE[0].day,
-                                        currSec.LE[0].building, currSec.LE[0].professor, currSec.FI.start_time,
-                                        currSec.FI.end_time, currSec.FI.date, currSec.DI);
+            sectionArr.push(new Section(currSec.id, courseIDList[j], currSec.LE[0].start_time, currSec.LE[0].end_time, currSec.LE[0].day,
+                                        currSec.LE[0].building, currSec.LE[0].room , currSec.LE[0].professor, currSec.FI.start_time,
+                                        currSec.FI.end_time, currSec.FI.date, currSec.DI, currSec.LA, currSec.FI));
             k++;
         }
 
         if (sectionArr.length > 0){
-            courseList[j] = new ScheduledCourse(courseIDList[j], sectionArr);
+            courseList.push(new ScheduledCourse(courseIDList[j], sectionArr));
         }
     }
+
+    console.log(courseList);
 
     var scheduleListLocal = generator(courseList);
     scheduleList = scheduleListLocal;
