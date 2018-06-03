@@ -20,7 +20,7 @@ var scheduleID = 0;
  */
 var generateSchedule = function (courseList){
     let scheduleArr = [];
-    let numCourse = courseList.length;
+    // let numCourse = courseList.length;
 
 
     let sectionList  = new Array();
@@ -43,6 +43,8 @@ var generateSchedule = function (courseList){
         helperGenerator(initialSchedule, scheduleArr, i);
     }
 
+    //console.log (scheduleArr);
+
     return scheduleArr;
 }
 
@@ -64,17 +66,15 @@ var helperGenerator = function (currSchedule, scheduleList, slotIndex){
     var numSectionInSlot = slot.length;
 
     for (let i = 0; i < numSectionInSlot; i++) {
+       // console.log (processedList[slotIndex][i]);
 
         var retVal = addSection(currSchedule, processedList[slotIndex][i]);
+        //console.log (retVal);
         if (retVal === 1) {
             if (i === 0) {
-                var newSchedule = new Schedule(currSchedule.getScheduleID, currSchedule.getYear, currSchedule.getQuarter,
-                    [], currSchedule.getProfScore, currSchedule.getDistance,
+                let newSchedule = new Schedule(currSchedule.getScheduleID, currSchedule.getYear, currSchedule.getQuarter,
+                    currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
                     currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA, currSchedule.getUnits);
-                for (let j = 0; j < currSchedule.getSections.length; j++){  //Deep copy of the section[] in currSchedule
-                    let newSec = currSchedule.getSections[j];
-                    newSchedule.getSections.push(newSec);
-                }
                 newSchedule.getSections.push(processedList[slotIndex][i]);
                 helperGenerator(newSchedule, scheduleList, slotIndex + 1);
             }
@@ -168,6 +168,16 @@ var addSection = function (schedule, newSection){
                     return 0;
                 }
             }
+            /*else if (section.getDisDay === newSection.getDisDay && section.getDisDay !== 0){
+                if (section.getDisStartingTime < newSection.getDisStartingTime && section.getDisEndingTime > newSection.getDisEndingTime ||
+                    section.getDisStartingTime > newSection.getDisStartingTime && section.getDisStartingTime < newSection.getDisEndingTime){
+                    return 0;
+                }
+                else if (section.getStartingTime < newSection.getDisStartingTime && section.getEndingTime > newSection.getDisEndingTime ||
+                    section.getStartingTime > newSection.getDisStartingTime && section.getStartingTime < newSection.getDisEndingTime){
+                    return 0;
+                }
+            }*/
         }
     }
     return 1;  //No conflict
