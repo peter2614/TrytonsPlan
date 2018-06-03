@@ -222,8 +222,8 @@ class MainPage extends Component {
             filtered = filterByStartingTime(filtered, this.state.startingTime-1);
             filtered = filterByEndingTime(filtered, this.state.endingTime+1);     
             
-            this.state.filteredSchedules = filtered; 
-            //this.setState({filteredSchedules: filtered});
+            //this.state.filteredSchedules = filtered; 
+            this.setState({filteredSchedules: filtered});
             //remember last rank algorithm
             if(this.state.lastRank != null) {
                 this.rankScheduleHandler(this.state.lastRank);
@@ -266,7 +266,7 @@ class MainPage extends Component {
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
                         <OptionsBar filteredSchedules={this.state.filteredSchedules} switchViewHandler={this.switchViewHandler} sizeOfCourseList={this.state.courseList.length} generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} minUnitsHandler={this.minUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
                     </div>
-                    <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#345', overflowY: 'auto'}}>
+                    <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#444', overflowY: 'auto'}}>
                         <MainSpace displaySplashScreen={this.state.displaySplashScreen} scheduleLoading={this.state.scheduleLoading} schedules={this.state.filteredSchedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>
                     </div>
                 </div>

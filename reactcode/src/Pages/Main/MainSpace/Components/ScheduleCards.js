@@ -2,7 +2,14 @@ import React from 'react';
 import ScheduleCard from './ScheduleCard.js';
 
 const schedulecards = (props) => props.schedules.map( (schedule, index) => {
-    
+        //console.log("INSCHEDULECARDS")
+        //console.log(schedule);
+        console.log(props.schedules)
+        if(props.schedules == null) {
+                return( <div>
+                        NO RESULTS
+                        </div>)
+        }
         return (
                 <ScheduleCard
                 key = {index}

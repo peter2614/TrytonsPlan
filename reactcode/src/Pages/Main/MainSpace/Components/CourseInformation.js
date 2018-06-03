@@ -7,13 +7,24 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     let DI = null;
     let FI = null;
     let LE = null;
+    let LA = null;
     let professorInfo = null;
-
+    console.log(section);
     if (props.allInfo != null){
 
             //handle professor information
             if (section.professor != null) {
                 professorInfo = section.professor.map(professor => {
+                    if (section.course.LE[0].professor[0] == "Staff") {
+                        return <tr key={index}>
+                                    <th style={{color: '#722'}}>Professor Info:</th>
+                                    <th style={{color: '#722', position: 'absolute'}}>This class's professor is undecided.</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                    }
                     if(professor != null) {
                     let PercentRecommend = professor.score*100;
                      return(
@@ -29,7 +40,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                      } else {
                          return <tr key={index}>
                              <th style={{color: '#722'}}>Professor Info:</th>
-                             <th style={{color: '#722'}}>Unknown</th>
+                             <th style={{color: '#722', position: 'absolute'}}>This professor hasn't taught this class in the past 4 years.</th>
                              <th></th>
                              <th></th>
                              <th></th>
@@ -57,18 +68,44 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     let formattedEndTime = formatTime(DI.end_time);
         
                     return(
-                        <tr key={index}>
-                            <th>DISCUSSION</th>
-                            <th>{weekdays}</th>
-                            <th>{formattedStartTime}-{formattedEndTime}</th>
-                            
-                            <th>{DI.building}</th>
-                            <th>{DI.room}</th> 
-                            <th>{DI.section}</th>
+                        <tr key={index} >
+                            <th style={{color: '#228', paddingLeft: '1.5vw', fontSize: '17px'}} >DISCUSSION</th>
+                            <th style={{color: '#228', fontSize: '18px'}}>{weekdays}</th>
+                            <th style={{color: '#228', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>       
+                            <th style={{color: '#228', fontSize: '18px'}}>{DI.building} {DI.room}</th>
+                            <th style={{color: '#228', fontSize: '18px'}}>Section {DI.section}</th>
                         </tr>
                         )
                 })
             }
+
+                //Create rows for each LAB
+                if(section.course.LA != null) {
+                    LA = section.course.LA.map((LA, index) => {
+                        let weekdays = '';
+                        if (LA.day != null) {
+                        LA.day.forEach(day => {
+                                if (day === 1){weekdays += 'M'}
+                                if (day === 2){weekdays += 'T'}
+                                if (day === 3){weekdays += 'W'}
+                                if (day === 4){weekdays += 'Th'}
+                                if (day === 5){weekdays += 'F'}
+                            });
+                        }
+                        let formattedStartTime = formatTime(LA.start_time);
+                        let formattedEndTime = formatTime(LA.end_time);
+            
+                        return(
+                            <tr key={index} >
+                                <th style={{color: '#282', paddingLeft: '1.5vw', fontSize: '17px'}} >LAB</th>
+                                <th style={{color: '#282', fontSize: '18px'}}>{weekdays}</th>
+                                <th style={{color: '#282', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>       
+                                <th style={{color: '#282', fontSize: '18px'}}>{LA.building} {LA.room}</th>
+                                <th style={{color: '#282', fontSize: '18px'}}>Section {LA.section}</th>
+                            </tr>
+                            )
+                    })
+                }
 
             //Create rows for each LECTURE
             if(section.course.LE != null) {
@@ -101,8 +138,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                             <th>LECTURE</th>
                             <th>{weekdays}</th>
                             <th>{formattedStartTime}-{formattedEndTime}</th>  
-                            <th>{LE.building}</th>
-                            <th>{LE.room}</th>    
+                            <th>{LE.building} {LE.room}</th>    
                             <th>{LE.professor}</th>        
                         </tr> 
                     )
@@ -118,8 +154,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                         <th>FINAL</th>
                         <th>{section.course.FI.date}</th>
                         <th>{formattedStartTime}-{formattedEndTime}</th>
-                        <th>{section.course.FI.building}</th>
-                        <th>{section.course.FI.room}</th>
+                        <th>{section.course.FI.building} {section.course.FI.room}</th>
                         <th></th>
                     </tr>   
             }
@@ -188,13 +223,15 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
             <div style={{width: '80%', marginLeft: '10%'}}>
                 <table>
                     <tbody>
-                        {LEGUIDE}   
+                        
                         {LE}
                 
-                        {DIGUIDE}
+                        {LA}
+
+
                         {DI}
 
-                        {FIGUIDE}
+                   
                         {FI}
                         
                         {professorInfo}   

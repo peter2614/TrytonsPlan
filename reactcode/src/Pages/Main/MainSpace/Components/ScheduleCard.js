@@ -7,7 +7,7 @@ const schedulecard = (props) => {
         padding: '1vw',
         width: '47%',
         height: '40vh',
-        backgroundColor: '#258',
+        backgroundColor: '#468',
         overflowY: 'auto',
     }
     //width: 47%
@@ -27,6 +27,8 @@ const schedulecard = (props) => {
             <th style={{color: '#F97'}}>{section.courseID}</th>
             <th style={{color: 'lightgrey'}}>{days}</th>
             <th style={{color: 'lightgrey'}}>{formatTime(section.startingTime)}-{formatTime(section.endingTime)}</th>
+            <th style={{color: 'lightgrey'}}>{section.location}</th>
+            <th style={{color: 'lightgrey'}}>{section.professor}</th>
             <th style={{color: 'lightgrey'}}>{section.sectionID}</th>
             
 
@@ -53,21 +55,21 @@ const schedulecard = (props) => {
 
     return(
         <div style={scheduleCardStyle}>
-            <div style={{color: 'lightgrey', fontSize: '20px'}}>Schedule {props.scheduleID}</div>
+            <div style={{color: 'lightgrey', fontSize: '20px', float: 'left', fontSize: '1.5vw', fontWeight: '800'}}>{props.scheduleID}</div>
             <div style={{display: 'flex', justifyContent:'center'}}>
                 <table style={{width: '25vw', color: 'lightgrey'}}>
                     <tbody>
                         <tr >
                             <th style={{textAlign: 'center'}}>GPA</th>
                             <th style={{textAlign: 'center'}}>Prof Score</th>
-                            <th style={{textAlign: 'center'}}>Time Efficiency</th>
                             <th style={{textAlign: 'center'}}>Study Hrs</th>
+                            <th style={{textAlign: 'center'}}>Time Efficiency</th>
                         </tr>
                         <tr>
                             <th style={{textAlign: 'center'}}>{props.GPA}</th>
                             <th style={{textAlign: 'center'}}>{props.profScore}</th>
-                            <th style={{textAlign: 'center'}}>{props.timeUsage}</th>
                             <th style={{textAlign: 'center'}}> {props.timeCommitment}</th>
+                            <th style={{textAlign: 'center'}}>{props.timeUsage}</th>
                         </tr>
                     </tbody>
                 </table>

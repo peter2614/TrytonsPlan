@@ -6,7 +6,7 @@ import logo from '../../../Assets/TrytonsPlanLogo.png';
 
 const MainSpace = (props) => {
     let display = null;
-
+    console.log(props.schedules);
     //Choose to display a course's information or the generate schedules when "Generate Schedules" is pressed in the options bar
     if(props.displayInfo === false) {
         if(props.scheduleLoading == true) {
@@ -23,10 +23,23 @@ const MainSpace = (props) => {
                     </div>
         } else {
             //Display the Schedule Cards after they finish loading
+            if(props.schedules.length === 0) {
+                display = <div className="scheduleFadeIn">
+                            <div style={{height: '20vh', backgroundColor: '#666'}}/>
+                            <div style={{height: '25vh', backgroundColor: '#666', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <p style={{color:'lightgrey', fontSize: '5vw'}}>NO RESULTS</p>
+                            </div>
+                            <div style={{height: '5vh', backgroundColor: '#666', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                <p style={{color:'lightgrey', fontSize: '3vw'}}>Your filters might be too strict.</p>
+                            </div>
+                            <div style={{height: '39vh', backgroundColor: '#666'}}/>     
+                        </div>
+            } else {
             display = 
             <div className='scheduleFadeIn' style={{display: 'flex', flexWrap: 'wrap'}}>
-                <ScheduleCards schedules={props.schedules}/>
+                <ScheduleCards  db={props.db} schedules={props.schedules}/>
             </div>
+            }
         }
     } else {
         if (props.allInfo != null && props.generalInfo != null) { 
