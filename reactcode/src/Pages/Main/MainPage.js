@@ -96,7 +96,10 @@ class MainPage extends Component {
         if (event.target.value === null) {
             {searchResults: this.state.courseCatalog}
         } else {
-            const condition = new RegExp(event.target.value, 'i');
+            let searchString = event.target.value.replace(/[&\[\]\/\\#,+()$~%.'":*?<>{}]/g, '');
+
+
+            const condition = new RegExp(searchString, 'i');
             const courses = this.state.courseCatalog.filter(course => {
                 return condition.test(course.name + course.description);
             });
