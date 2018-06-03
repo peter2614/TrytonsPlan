@@ -50,6 +50,9 @@ function processSchedule (aSchedule, getScheduleData, cb){
         }
         else{
             numProf--;
+            if (i === len - 1) {
+                finalCallBack();
+            }
             continue;
         }
     }
