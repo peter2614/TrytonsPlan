@@ -56,7 +56,7 @@ const OptionsBar = (props) => {
                 <input style={{height: '3vh', width: '5vw'}} onChange={event => props.endingTimeHandler(event)} type="time"/>
             </div>
             <div>
-            <button title = {switchButtonTitle} className={switchButtonStyle} disabled={switchButtonDisabled}  onClick={props.switchViewHandler}></button>
+            <button title = {switchButtonTitle} className={switchButtonStyle} disabled={switchButtonDisabled}  onClick={props.switchViewHandler}>⇆</button>
                 <button title = {title} className={generateButtonStyle} disabled={disabled}  onClick={props.generateScheduleHandler}>Generate Schedules</button>
             </div>
         </div>

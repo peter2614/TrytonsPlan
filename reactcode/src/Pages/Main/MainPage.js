@@ -30,16 +30,19 @@ class MainPage extends Component {
         courseID: null,
         professorInfo: null,
         allInfo: null,
+        displaySplashScreen: true,
 
         //Schedules
         courseNames: [],
         courseData: [],
         schedules: null,
         filteredSchedules: null,
-        maxUnits: 16,
+        maxUnits: 22,
         minUnits: 0,
         endingTime: 2400,
         startingTime: 0,
+        lastRank: null,
+        scheduleLoading: true,
     }
 
     //==================On Startup==============
@@ -100,6 +103,10 @@ class MainPage extends Component {
             this.setState({searchResults: courses});
         }
     }
+
+    clearCourseListHandler = () => {
+        this.setState({courseList: []});
+    }
     
     //========================Displaying Course Information=============================
     //callback sent to getData to retrieve
@@ -118,7 +125,7 @@ class MainPage extends Component {
     }
 
     displayCourseInfoHandler = (event, courseID) => {
- 
+        this.setState({displaySplashScreen: false});
         this.setState({courseID: courseID});
         this.setState({loading: true});
         getGeneralInfo(courseID, this.props.db, this.callbackSetGeneralInfo)
@@ -129,28 +136,20 @@ class MainPage extends Component {
 
     //==========================Schedules===========================
     generateScheduleHandler = () => {
-        this.state.loading = true;
+        this.setState({displayInfo: false});
+        this.setState({displaySplashScreen: false});
+        this.setState({scheduleLoading: true});
         this.state.courseNames = [];
         this.state.courseData = [];
         this.state.courseList.forEach( course => {
                 this.state.courseNames.push(course.name);
                 getData(course.name, this.getDataCallback);
         });
-        //console.log("COURSE DATA")
-        //console.log(this.state.courseData);
-    
-        //getSchedule(courseNames, this.state.courseData, this.getScheduleCallback);
-        
-        
     }
 
     getDataCallback = (courseData) => {
         this.state.courseData.push(courseData);
         if(this.state.courseData.length == this.state.courseList.length && this.state.courseNames.length == this.state.courseList.length) {
-            //console.log("COURSENAMES");
-            //console.log(this.state.courseNames);
-            //console.log("COURSEDATA");
-            //console.log(this.state.courseData);
             getSchedule(this.state.courseNames, this.state.courseData, this.getScheduleCallback);
         }
     }
@@ -158,24 +157,16 @@ class MainPage extends Component {
     getScheduleCallback = (listOfSchedules) => {
 
         this.state.schedules = listOfSchedules;
-        console.log("LISTOFSCHEDULES");
-        console.log(listOfSchedules);
         this.state.filteredSchedules = [...listOfSchedules];
         this.filter();
-        //this.state.filteredSchedules = filterByMaxUnits(this.state.filteredSchedules, this.state.maxUnits);
-        //this.state.filteredSchedules = filterByEndingTime(this.state.filteredSchedules, this.state.endingTime);
-        //this.state.filteredSchedules = filterByStartingTime(this.state.filteredSchedules, this.state.startingTime);
-        console.log("filteredSchedules");
-        console.log(this.state.filteredSchedules);
         this.state.loading = false;
-        this.setState({displayInfo: false});
+        this.setState({scheduleLoading: false});
         
 
     }
 
     rankScheduleHandler = (label) => {
-        //console.log(label);
-        console.log(label);
+        this.setState({lastRank : label});
         if(label === "GPA") {this.setState({filteredSchedules: rankByGPA(this.state.filteredSchedules)});}
         if(label === "PROF") {this.setState({filteredSchedules: rankByProfScore(this.state.filteredSchedules)});}
         if(label === "TIMEEFFICIENCY") {this.setState({filteredSchedules: rankByTimeUsage(this.state.filteredSchedules)});}
@@ -226,13 +217,23 @@ class MainPage extends Component {
             filtered = filterByMaxUnits(filtered, this.state.maxUnits);
             filtered = filterByMinUnits(filtered, this.state.minUnits);
             filtered = filterByStartingTime(filtered, this.state.startingTime-1);
-            filtered = filterByEndingTime(filtered, this.state.endingTime+1);
-            this.setState({filteredSchedules: filtered});
+            filtered = filterByEndingTime(filtered, this.state.endingTime+1);     
+            
+            this.state.filteredSchedules = filtered; 
+            //this.setState({filteredSchedules: filtered});
+            //remember last rank algorithm
+            if(this.state.lastRank != null) {
+                this.rankScheduleHandler(this.state.lastRank);
+            }
         }
+
     }
 
     switchViewHandler = () => {
         this.setState({displayInfo: !this.state.displayInfo})
+        if(this.state.allInfo === null) {
+            this.setState({displaySplashScreen: true})
+        }
     }
 
     render() {
@@ -250,6 +251,7 @@ class MainPage extends Component {
                     courseList={this.state.courseList} 
                     searchResults={this.state.searchResults}  
                     loading={this.state.sidebarLoading} 
+                    clearCourseListHandler={this.clearCourseListHandler}
 
                     addCourseHandler={this.addCourseHandler} 
                     removeCourseHandler={this.removeCourseHandler}   
@@ -261,8 +263,8 @@ class MainPage extends Component {
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
                         <OptionsBar filteredSchedules={this.state.filteredSchedules} switchViewHandler={this.switchViewHandler} sizeOfCourseList={this.state.courseList.length} generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} minUnitsHandler={this.minUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
                     </div>
-                    <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#345', overflowY: 'scroll'}}>
-                        <MainSpace schedules={this.state.filteredSchedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>
+                    <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#345', overflowY: 'auto'}}>
+                        <MainSpace displaySplashScreen={this.state.displaySplashScreen} scheduleLoading={this.state.scheduleLoading} schedules={this.state.filteredSchedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>
                     </div>
                 </div>
             </div>
