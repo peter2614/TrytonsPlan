@@ -8,7 +8,7 @@ const schedulecard = (props) => {
         padding: '1vw',
         width: '47%',
         height: '40vh',
-        backgroundColor: '#468',
+        backgroundColor: '#268',
         overflowY: 'auto',
     }
     //width: 47%
@@ -21,16 +21,51 @@ const schedulecard = (props) => {
             if (day === 4) {days += "Th"}
             if (day === 5) {days += "F"}
         })
-        
+        let name = null;
+        if(section.courseID.includes("PHYS")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#99C'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("MATH")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#7D7'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("CSE")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#CA4'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("COGS")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#C7A'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("CHEM")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#7C7'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BILD")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#7CC'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BIBC")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#7AB'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BICD")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#3AA'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BIEB")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#4A8'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BIMM")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#4AA'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BIMM")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#48B'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BIPN")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#79C'}}>{section.courseID}</th>
+        }
         return(
         <tr key={section.courseID}>
-
-            <th style={{color: '#F97'}}>{section.courseID}</th>
-            <th style={{color: 'lightgrey'}}>{days}</th>
-            <th style={{color: 'lightgrey'}}>{formatTime(section.startingTime)}-{formatTime(section.endingTime)}</th>
-            <th style={{color: 'lightgrey'}}>{section.location}</th>
-            <th style={{color: 'lightgrey'}}>{section.professor}</th>
-            <th style={{color: 'lightgrey'}}>{section.sectionID}</th>
+            {name}
+            <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{days}</th>
+            <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{formatTime(section.startingTime)}-{formatTime(section.endingTime)}</th>
+            <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{section.location}</th>
+            <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{section.professor}</th>
+            <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{section.sectionID}</th>
             
 
         </tr>
@@ -62,16 +97,16 @@ const schedulecard = (props) => {
                 <table style={{width: '25vw', color: 'lightgrey'}}>
                     <tbody>
                         <tr >
-                            <th style={{textAlign: 'center'}}>GPA</th>
-                            <th style={{textAlign: 'center'}}>Prof Score</th>
-                            <th style={{textAlign: 'center'}}>Study Hrs</th>
-                            <th style={{textAlign: 'center'}}>Time Efficiency</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>GPA</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>Prof Score</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>Study Hrs</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>Time Efficiency</th>
                         </tr>
                         <tr>
-                            <th style={{textAlign: 'center'}}>{props.GPA}</th>
-                            <th style={{textAlign: 'center'}}>{props.profScore}</th>
-                            <th style={{textAlign: 'center'}}> {props.timeCommitment}</th>
-                            <th style={{textAlign: 'center'}}>{props.timeUsage}</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.GPA}</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.profScore}</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}> {props.timeCommitment}</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.timeUsage}</th>
                         </tr>
                     </tbody>
                 </table>
