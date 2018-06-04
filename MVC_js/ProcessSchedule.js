@@ -33,15 +33,15 @@ function processSchedule (aSchedule, getScheduleData, cb){
         unitPath = "course/" + courseID.toString();
 
         getScheduleData(unitPath, unitsCallback);
-
+        getScheduleData(path, callback);
         if (profName !== "Staff"){  //Skip this section if taught by staff
-            getScheduleData(path, callback);
+
         }
         else{
-            numProf--;
-            if (i === len - 1){
-                finalCallBack();
-            }
+            //numProf--;
+            //if (i === len - 1){
+              //  finalCallBack();
+            //}
             continue;
         }
     }
@@ -53,6 +53,9 @@ function updateData (data){
         sumProfScore += data.score;
         sumTimeCommitment += data.timeCommitment;
         sumGPA += data.gpaActual;
+    }
+    else {
+        numProf--;
     }
     if (numData === numProf){
         setInfo();
@@ -101,7 +104,9 @@ function setUnits() {
 
 
 function callback(data){
-    numData++;
+    if (data !== null) {
+        numData++;
+    }
     if (numData <= numProf)
         updateData(data);
 }

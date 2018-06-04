@@ -51,11 +51,32 @@ var generateSchedule = function (courseList){
     Recursive function for generating all possible schedules.
  */
 var helperGenerator = function (currSchedule, scheduleList, slotIndex){
-    //console.log (slotIndex);
     if (slotIndex === processedList.length){
         if (currSchedule.getSections.length > 1) {
-            scheduleList.push(currSchedule);
-            scheduleID++;
+            hashSchedule(currSchedule);
+            if (scheduleList.length === 0){
+                currSchedule.scheduleID = scheduleID;
+                scheduleList.push(currSchedule);
+                scheduleID++;
+                return;
+            }
+
+            for (let i = 0; i < scheduleList.length; i++){
+                var compareResult = compareSchedule(scheduleList[i], currSchedule);
+                if (compareResult === 1){
+                    break;
+                }
+            }
+
+            if (compareResult === 0){
+                currSchedule.scheduleID = scheduleID;
+                scheduleList.push(currSchedule);
+                scheduleID++;
+                return;
+            }
+            else{
+                return;
+            }
         }
         return;
     }
@@ -66,29 +87,44 @@ var helperGenerator = function (currSchedule, scheduleList, slotIndex){
     for (let i = 0; i < numSectionInSlot; i++) {
 
         var retVal = addSection(currSchedule, processedList[slotIndex][i]);
-        if (retVal === 1) {
-            if (i === 0) {
-                var newSchedule = new Schedule(currSchedule.getScheduleID, currSchedule.getYear, currSchedule.getQuarter,
-                    [], currSchedule.getProfScore, currSchedule.getDistance,
-                    currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA, currSchedule.getUnits);
-                for (let j = 0; j < currSchedule.getSections.length; j++){  //Deep copy of the section[] in currSchedule
-                    let newSec = currSchedule.getSections[j];
-                    newSchedule.getSections.push(newSec);
+
+        for (let j = 1; j < processedList.length - slotIndex + 1; j++) {
+            if (retVal === 1) {
+                /*if (j === 1) {
+                    var newSchedule = new Schedule(nextID, currSchedule.getYear, currSchedule.getQuarter,
+                        [], currSchedule.getProfScore, currSchedule.getDistance,
+                        currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA, currSchedule.getUnits);
+                    for (let k = 0; k < currSchedule.getSections.length; k++) {  //Deep copy of the section[] in currSchedule
+                        let newSec = currSchedule.getSections[k];
+                        newSchedule.getSections.push(newSec);
+                    }
+                    newSchedule.getSections.push(processedList[slotIndex][i]);
+                    helperGenerator(newSchedule, scheduleList, slotIndex + j);
                 }
-                newSchedule.getSections.push(processedList[slotIndex][i]);
-                helperGenerator(newSchedule, scheduleList, slotIndex + 1);
+                else {*/
+                    let newSchedule = new Schedule(scheduleID, currSchedule.getYear, currSchedule.getQuarter,
+                        [], currSchedule.getProfScore, currSchedule.getDistance,
+                        currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA, currSchedule.getUnits);
+                    for (let k = 0; k < currSchedule.getSections.length; k++) {  //Deep copy of the section[] in currSchedule
+                        let newSec = currSchedule.getSections[k];
+                        newSchedule.getSections.push(newSec);
+                    }
+                    newSchedule.getSections.push(processedList[slotIndex][i]);
+                    helperGenerator(newSchedule, scheduleList, slotIndex + j);
+                //}
             }
-            else{
-                let newSchedule = new Schedule(currSchedule.getScheduleID + 1, currSchedule.getYear, currSchedule.getQuarter,
-                    currSchedule.getSections, currSchedule.getProfScore, currSchedule.getDistance,
-                    currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA, currSchedule.getUnits);
-                newSchedule.getSections.push(processedList[slotIndex][i]);
-                helperGenerator(newSchedule, scheduleList, slotIndex + 1);
-            }
-        }
-        else{
-            if (i === numSectionInSlot - 1){
-                helperGenerator(currSchedule, scheduleList, slotIndex + 1);
+            else {
+                /*if (i === 0 && i === numSectionInSlot - 1){
+                    if (slotIndex === processedList.length){
+                        helperGenerator(currSchedule, scheduleList, slotIndex + j);
+                    }
+                    else{
+                        return;
+                    }
+                }*/
+                if (i === numSectionInSlot - 1) {
+                    helperGenerator(currSchedule, scheduleList, slotIndex + j);
+                }
             }
         }
     }
@@ -190,6 +226,49 @@ var checkDay = function (dayArr1, dayArr2){
                 return 0;
             }
         }
+    }
+    return 1;
+}
+
+function hashSchedule (schedule){
+    var hashVal = 0;
+    for (let i = 0; i < schedule.getSections.length; i++){
+        var sec = schedule.getSections[i];
+        var value = 0;
+        var courseID = sec.getCourseID;
+        for (let j = 0; j < sec.getCourseID.length; j++){
+            value += courseID.charCodeAt(j);
+        }
+        for (let j = 0; j < sec.getSectionID.length; j++){
+            value += sec.getSectionID.charCodeAt(j);
+        }
+        hashVal += value;
+    }
+    schedule.hashKey = hashVal;
+}
+
+
+/*
+ * Return 1 if two schedules contain same sections
+ * Return 0 if two schedules are different
+ */
+function compareSchedule (s1, s2){
+    if (s1.hashKey === s2.hashKey){
+        for (let i = 0; i < s1.getSections.length; i++){
+            var sec1 = s1.getSections[i];
+            for (let j = 0; j < s2.getSections.length; j++){
+                var sec2 = s2.getSections[j];
+                if (sec1.getCourseID === sec2.getCourseID && sec1.getSectionID === sec2.getSectionID){
+                    break;
+                }
+                else if (j === s2.getSections.length - 1){
+                    return 0;
+                }
+            }
+        }
+    }
+    else{
+        return 0;
     }
     return 1;
 }
