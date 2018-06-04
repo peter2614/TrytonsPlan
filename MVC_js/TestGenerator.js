@@ -9,7 +9,7 @@ let processor = require ("./ProcessSchedule")
 var QUARTER = "F18";
 var COURSEID1 = "CSE 100";
 var COURSEID2 = "MATH 18";
-var COURSEID = ["CSE 100", "CSE 105", "CSE 110", "CSE 30", "CSE 11", "CSE 101", "MATH 18", "CHEM 11"];
+var COURSEID = ["CSE 11", "CSE 21"];
 var TO = "/";
 var courseList = [];
 var sections = ['0', '1', '2', '3', '4', '5', '6'];
@@ -91,7 +91,7 @@ for (let i = 0; i < COURSEID.length; i++){
 
 function printSchedule (scheduleList){
     for (let i = 0; i < scheduleList.length; i++){
-        console.log (scheduleList[i].sections);
+        console.log (scheduleList[i]);
         console.log ("\n");
     }
 }

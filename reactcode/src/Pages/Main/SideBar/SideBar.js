@@ -34,7 +34,9 @@ const sidebar = (props) => {
                 <CourseList 
                 courses={props.courseList} 
                 courseHandler={props.removeCourseHandler} 
-                displayCourseInfoHandler={props.displayCourseInfoHandler}/>
+                displayCourseInfoHandler={props.displayCourseInfoHandler}
+                clearCourseListHandler={props.clearCourseListHandler}/>
+                
                 <hr className="hr1" style={{marginBottom: '10px'}}/>
             </div>
      

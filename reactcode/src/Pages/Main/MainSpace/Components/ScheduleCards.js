@@ -2,7 +2,10 @@ import React from 'react';
 import ScheduleCard from './ScheduleCard.js';
 
 const schedulecards = (props) => props.schedules.map( (schedule, index) => {
-    
+        //console.log("INSCHEDULECARDS")
+        //console.log(schedule);
+        console.log(props.schedules)
+        
         return (
                 <ScheduleCard
                 key = {index}
@@ -15,6 +18,7 @@ const schedulecards = (props) => props.schedules.map( (schedule, index) => {
                 timeCommitment = {schedule.timeCommitment}
                 timeUsage = {Math.ceil(schedule.timeUsage*100)}
                 scheduleID={schedule.scheduleID+1}
+                displayCalendarHandler = {props.displayCalendarHandler}
                 />            
         )
 

@@ -66,6 +66,7 @@ function retrieve(end) {
 function getSchedule (courseIDList, dataSet, cb) {
     let courseList = [];
     getScheduleCB = cb;
+    numCBFromProcess = 0;
 
     //Build the array of ScheduledCourse
     for (let j = 0; j < dataSet.length; j++){
@@ -120,6 +121,9 @@ function turnOffDatabase() {
 
 var filterByMaxUnits = function(scheduleList, maxUnits) {
 
+    if(scheduleList == null)
+        return [];
+
     let newScheduleList = [];
 
     for(let i = 0; i < scheduleList.length; i++) {
@@ -136,6 +140,9 @@ var filterByMaxUnits = function(scheduleList, maxUnits) {
 
 var filterByMinUnits = function(scheduleList, minUnits) {
 
+    if(scheduleList == null)
+        return [];
+
     let newScheduleList = [];
 
     for(let i = 0; i < scheduleList.length; i++) {
@@ -151,6 +158,9 @@ var filterByMinUnits = function(scheduleList, minUnits) {
 }
 
 var filterByStartingTime = function(scheduleList, startingTime) {
+
+    if(scheduleList == null)
+        return [];
 
     let newScheduleList = [];
     let isBad;
@@ -177,6 +187,9 @@ var filterByStartingTime = function(scheduleList, startingTime) {
 }
 
 var filterByEndingTime = function(scheduleList, endingTime) {
+
+    if(scheduleList == null)
+        return [];
 
     let newScheduleList = [];
     let isBad;
@@ -213,12 +226,18 @@ var filterByEndingTime = function(scheduleList, endingTime) {
 // rank by professor score
 var rankByProfScore = function(scheduleList) {
 
+    if(scheduleList == null)
+        return [];
+
     var len = scheduleList.length;
     return quickSortProfScore(scheduleList,0,len-1);
 }
 
 // rank by distance
 var rankByDistance = function(scheduleList) {
+
+    if(scheduleList == null)
+        return [];
 
     var len = scheduleList.length;
     return quickSortDistance(scheduleList,0,len-1);
@@ -227,6 +246,9 @@ var rankByDistance = function(scheduleList) {
 // rank by time commitment
 var rankByTimeCommitment = function(scheduleList) {
 
+    if(scheduleList == null)
+        return [];
+
     var len = scheduleList.length;
     return quickSortTimeCommitment(scheduleList,0,len-1);
 }
@@ -234,12 +256,18 @@ var rankByTimeCommitment = function(scheduleList) {
 // rank by time in school
 var rankByTimeUsage = function(scheduleList) {
 
+    if(scheduleList == null)
+        return [];
+
     var len = scheduleList.length;
     return quickSortTimeUsage(scheduleList,0,len-1);
 }
 
 // rank by GPA
 var rankByGPA = function(scheduleList) {
+
+    if(scheduleList == null)
+        return [];
 
     var len = scheduleList.length;
     return quickSortGPA(scheduleList,0,len-1);

@@ -9,3 +9,21 @@
     width: 22vw;
     float: left;
 }
+
+.MainSpaceCalendar{
+    height: '59vh';
+    transition: height 1s;
+}
+.MainSpace{
+    height: '88vh';
+    transition: height 1s;
+}
+
+.CalendarFull {
+    height: '30vh';
+    transition: height 1s;
+}
+.CalendarShrink {
+    height: '1vh';
+    transition: height 1s;
+}

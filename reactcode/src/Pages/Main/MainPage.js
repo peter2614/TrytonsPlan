@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SideBar from './SideBar/SideBar.js'
 import MainSpace from './MainSpace/MainSpace.js'
+import Calendar from './MainSpace/Calendar.js'
 import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
 import {getAllInfo, getGeneralInfo, getCourseNames, getCourseTitles} from './GetData.js';
@@ -14,6 +15,9 @@ class MainPage extends Component {
     }
 
     state = {
+        //optionsbar
+        enabled: false,
+
         courseCatalog: [],
          //sidebar
         courseList: [],
@@ -27,16 +31,25 @@ class MainPage extends Component {
         courseID: null,
         professorInfo: null,
         allInfo: null,
+        displaySplashScreen: true,
 
         //Schedules
         courseNames: [],
         courseData: [],
         schedules: null,
         filteredSchedules: null,
-        maxUnits: 16,
+        maxUnits: 22,
         minUnits: 0,
         endingTime: 2400,
         startingTime: 0,
+        lastRank: null,
+        scheduleLoading: true,
+
+        //calendar
+        displayCalendar: false,
+        heightOfMainSpace: '89vh',
+        lastSchedule: null,
+        currentSchedule: null,
     }
 
     //==================On Startup==============
@@ -90,12 +103,19 @@ class MainPage extends Component {
         if (event.target.value === null) {
             {searchResults: this.state.courseCatalog}
         } else {
-            const condition = new RegExp(event.target.value, 'i');
+            let searchString = event.target.value.replace(/[&\[\]\/\\#,+()$~%.'":*?<>{}]/g, '');
+
+
+            const condition = new RegExp(searchString, 'i');
             const courses = this.state.courseCatalog.filter(course => {
                 return condition.test(course.name + course.description);
             });
             this.setState({searchResults: courses});
         }
+    }
+
+    clearCourseListHandler = () => {
+        this.setState({courseList: []});
     }
     
     //========================Displaying Course Information=============================
@@ -115,7 +135,7 @@ class MainPage extends Component {
     }
 
     displayCourseInfoHandler = (event, courseID) => {
- 
+        this.setState({displaySplashScreen: false});
         this.setState({courseID: courseID});
         this.setState({loading: true});
         getGeneralInfo(courseID, this.props.db, this.callbackSetGeneralInfo)
@@ -126,59 +146,44 @@ class MainPage extends Component {
 
     //==========================Schedules===========================
     generateScheduleHandler = () => {
-        this.state.loading = true;
+        this.setState({displayInfo: false});
+        this.setState({displaySplashScreen: false});
+        this.setState({scheduleLoading: true});
         this.state.courseNames = [];
         this.state.courseData = [];
         this.state.courseList.forEach( course => {
                 this.state.courseNames.push(course.name);
                 getData(course.name, this.getDataCallback);
         });
-        //console.log("COURSE DATA")
-        //console.log(this.state.courseData);
-    
-        //getSchedule(courseNames, this.state.courseData, this.getScheduleCallback);
-        
-        
     }
 
     getDataCallback = (courseData) => {
         this.state.courseData.push(courseData);
         if(this.state.courseData.length == this.state.courseList.length && this.state.courseNames.length == this.state.courseList.length) {
-            //console.log("COURSENAMES");
-            //console.log(this.state.courseNames);
-            //console.log("COURSEDATA");
-            //console.log(this.state.courseData);
             getSchedule(this.state.courseNames, this.state.courseData, this.getScheduleCallback);
         }
     }
 
     getScheduleCallback = (listOfSchedules) => {
-
         this.state.schedules = listOfSchedules;
-        console.log("LISTOFSCHEDULES");
-        console.log(listOfSchedules);
         this.state.filteredSchedules = [...listOfSchedules];
         this.filter();
-        //this.state.filteredSchedules = filterByMaxUnits(this.state.filteredSchedules, this.state.maxUnits);
-        //this.state.filteredSchedules = filterByEndingTime(this.state.filteredSchedules, this.state.endingTime);
-        //this.state.filteredSchedules = filterByStartingTime(this.state.filteredSchedules, this.state.startingTime);
-        console.log("filteredSchedules");
-        console.log(this.state.filteredSchedules);
         this.state.loading = false;
-        this.setState({displayInfo: false});
-        
-
+        this.setState({scheduleLoading: false});
     }
 
+    //Rank Schedules
     rankScheduleHandler = (label) => {
-        //console.log(label);
-        console.log(label);
-        if(label === "GPA") {this.setState({filteredSchedules: rankByGPA(this.state.filteredSchedules)});}
-        if(label === "PROF") {this.setState({filteredSchedules: rankByProfScore(this.state.filteredSchedules)});}
-        if(label === "TIMEEFFICIENCY") {this.setState({filteredSchedules: rankByTimeUsage(this.state.filteredSchedules)});}
-        if(label === "TIMECOMMITMENT") {this.setState({filteredSchedules: rankByTimeCommitment(this.state.filteredSchedules)});}
+        if(this.state.schedules != null) {
+            this.setState({lastRank : label});
+            if(label === "GPA") {this.setState({filteredSchedules: rankByGPA(this.state.filteredSchedules)});}
+            if(label === "PROF") {this.setState({filteredSchedules: rankByProfScore(this.state.filteredSchedules)});}
+            if(label === "TIMEEFFICIENCY") {this.setState({filteredSchedules: rankByTimeUsage(this.state.filteredSchedules)});}
+            if(label === "TIMECOMMITMENT") {this.setState({filteredSchedules: rankByTimeCommitment(this.state.filteredSchedules)});}
+        }
     }
 
+    //Handlers for filterings
     maxUnitsHandler = (event) => {
         if (event.target.value != '') {  
         this.state.maxUnits = event.target.value;
@@ -223,42 +228,104 @@ class MainPage extends Component {
             filtered = filterByMaxUnits(filtered, this.state.maxUnits);
             filtered = filterByMinUnits(filtered, this.state.minUnits);
             filtered = filterByStartingTime(filtered, this.state.startingTime-1);
-            filtered = filterByEndingTime(filtered, this.state.endingTime+1);
+            filtered = filterByEndingTime(filtered, this.state.endingTime+1);     
+            
+            //this.state.filteredSchedules = filtered; 
             this.setState({filteredSchedules: filtered});
+            //remember last rank algorithm
+            if(this.state.lastRank != null) {
+                this.rankScheduleHandler(this.state.lastRank);
+            }
         }
+
+    }
+
+    //Switch Display handler
+    switchViewHandler = () => {
+        this.setState({displayInfo: !this.state.displayInfo})
+        if(this.state.allInfo === null) {
+            this.setState({displaySplashScreen: true})
+        }
+    }
+
+    //Calendar
+    displayCalendarHandler = (schedule, scheduleID, fromSchedule) => {
+        this.setState({currentSchedule: schedule});
+        if(fromSchedule && scheduleID !== this.state.lastSchedule){
+            this.setState({displayCalendar: true});
+            this.setState({heightOfMainSpace: '47vh'});
+        } else {
+            if(this.state.displayCalendar == true) {
+                this.setState({heightOfMainSpace: '89vh'});
+            } else {
+                this.setState({heightOfMainSpace: '47vh'});
+            }
+            this.setState({displayCalendar: !this.state.displayCalendar});
+            
+        }
+        this.setState({lastSchedule: scheduleID});
+        
     }
 
 
     render() {
-
     return (
-        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: 'inherit', overflowX:'hidden'}}>
+        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: '100vh', overflow:'hidden'}}>
+
             <div className={"NAVBAR"} style={{width:'100vw', height: '5vh', backgroundColor: '#333'}}>
                 <div style={{display: 'inline-block', float: 'left'}}>
                 <p style={{float: 'left', paddingLeft: '3vw', marginBottom:'0', marginTop: '-.7vh', fontSize: '4vh', color: '#49B', fontWeight: '900'}}>Trytons</p>
                 <p style={{float: 'left', paddingLeft: '0', marginBottom:'0', marginTop: '.5vh', fontSize: '3vh', color: '#BB0', fontWeight: '900'}}>Plan</p>
                 </div>
             </div>
+
             <div style={{display: 'inline-block'}}>
+
                 <div  className="sidebarcontainer">
                     <SideBar 
                     courseList={this.state.courseList} 
                     searchResults={this.state.searchResults}  
                     loading={this.state.sidebarLoading} 
+                    clearCourseListHandler={this.clearCourseListHandler}
 
                     addCourseHandler={this.addCourseHandler} 
                     removeCourseHandler={this.removeCourseHandler}   
                     searchCourseHandler={this.searchCourseHandler}
                     displayCourseInfoHandler={this.displayCourseInfoHandler}/>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
+
+                <div style={{overflow:'hidden', height: '95vh'}}>
                     
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
-                        <OptionsBar generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} minUnitsHandler={this.minUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
+                        <OptionsBar 
+                        filteredSchedules={this.state.filteredSchedules} 
+                        switchViewHandler={this.switchViewHandler} 
+                        sizeOfCourseList={this.state.courseList.length} 
+                        generateScheduleHandler={this.generateScheduleHandler} 
+                        rankScheduleHandler={this.rankScheduleHandler} 
+                        maxUnitsHandler={this.maxUnitsHandler} 
+                        minUnitsHandler={this.minUnitsHandler} 
+                        startingTimeHandler={this.startingTimeHandler} 
+                        endingTimeHandler={this.endingTimeHandler}/>
                     </div>
-                    <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#345', overflowY: 'scroll'}}>
-                        <MainSpace schedules={this.state.filteredSchedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>
+
+                    <div className={this.state.displayCalendar?'MainSpaceCalendar':'MainSpace'} style={{width:'78vw', height: this.state.heightOfMainSpace, backgroundColor: '#444', overflowY: 'auto'}}>
+                        <MainSpace 
+                            displaySplashScreen={this.state.displaySplashScreen} 
+                            scheduleLoading={this.state.scheduleLoading} 
+                            schedules={this.state.filteredSchedules} 
+                            allInfo={this.state.allInfo} 
+                            displayInfo={this.state.displayInfo} 
+                            courseID={this.state.courseID} 
+                            loading={this.state.loading} 
+                            generalInfo={this.state.generalInfo} 
+                            db={this.props.db}
+                            displayCalendarHandler={this.displayCalendarHandler}
+                            displayCalendar={this.state.displayCalendar}/>
+                        />   
+                        
                     </div>
+                        <Calendar schedule={this.state.currentSchedule} displayCalendarHandler={this.displayCalendarHandler} displayCalendar={this.state.displayCalendar}/>
                 </div>
             </div>
         </div>
