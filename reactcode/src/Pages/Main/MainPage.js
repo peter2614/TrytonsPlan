@@ -185,8 +185,9 @@ class MainPage extends Component {
 
     //Handlers for filterings
     maxUnitsHandler = (event) => {
-        if (event.target.value != '') {  
-        this.state.maxUnits = event.target.value;
+        let validated = event.target.value.replace(/\D/g,'');
+        if (validated != "") {  
+        this.state.maxUnits = validated;
         } else {
         this.state.maxUnits = 16;
         }
@@ -194,8 +195,9 @@ class MainPage extends Component {
     }
 
     minUnitsHandler = (event) => {
-        if (event.target.value != '') {  
-        this.state.minUnits = event.target.value;
+        let validated = event.target.value.replace(/\D/g,'');
+        if (validated != "") {  
+        this.state.minUnits = validated;
         } else {
         this.state.minUnits = 0;
         }
@@ -203,8 +205,30 @@ class MainPage extends Component {
     }
 
     startingTimeHandler = (event) => {
-        if (event.target.value != '') {  
-        this.state.startingTime = parseInt(event.target.value.toString().replace(':',''));
+        let validated = event.target.value;
+        
+        if (validated.includes("PM") || validated.includes("P") || validated.includes("p") || validated.includes("pm") ){
+            let test = parseInt(validated.replace(/\D/g,''));
+                if (test == 12 || test == 120 || test == 1200) {
+                    validated = "0";
+                }     
+            validated = validated.replace(/\D/g,'');
+            if (parseInt(validated) <= 24) {validated = validated * 100}
+            validated = parseInt(validated)+1200;
+        } else {
+            if(validated.includes("AM") || validated.includes("A") || validated.includes("a") || validated.includes("am")) {
+                let test = parseInt(validated.replace(/\D/g,''));
+                if (test == 12 || test == 120 || test == 1200) {
+                    validated = "0";
+                }     
+            }
+            validated = validated.replace(/\D/g,'');
+            if (parseInt(validated) <= 24) {validated = validated * 100}
+            validated = parseInt(validated);
+        }
+        
+        if (validated != "") {  
+        this.state.startingTime = validated;
         } else {
         this.state.startingTime = 0;
         }
@@ -212,7 +236,7 @@ class MainPage extends Component {
     }
 
     endingTimeHandler = (event) => {
-        if (event.target.value != '') {  
+        if (event.target.value != "") {  
         this.state.endingTime = parseInt(event.target.value.toString().replace(':',''));
         } else {
         this.state.endingTime = 2400;
@@ -230,7 +254,7 @@ class MainPage extends Component {
             filtered = filterByStartingTime(filtered, this.state.startingTime-1);
             filtered = filterByEndingTime(filtered, this.state.endingTime+1);     
             
-            //this.state.filteredSchedules = filtered; 
+            this.state.filteredSchedules = filtered; 
             this.setState({filteredSchedules: filtered});
             //remember last rank algorithm
             if(this.state.lastRank != null) {

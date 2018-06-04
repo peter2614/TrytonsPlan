@@ -106,7 +106,7 @@ const schedulecard = (props) => {
                             <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.GPA}</th>
                             <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.profScore}</th>
                             <th style={{textAlign: 'center', fontSize: '1.1vw'}}> {props.timeCommitment}</th>
-                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.timeUsage}</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.timeUsage}%</th>
                         </tr>
                     </tbody>
                 </table>

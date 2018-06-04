@@ -1,9 +1,13 @@
 import React from 'react';
-import 'react-week-calendar';
+import '../../../react-week-calendar';
 import 'react-week-calendar/dist/style.css';
-import WeekCalendar from 'react-week-calendar/dist/WeekCalendar';
+import WeekCalendar from '../../../react-week-calendar/dist/WeekCalendar';
 import moment from 'moment';
 const Calendar = (props) => {
+    let days = moment('20180603').format('dddd');
+    //console.log((0, moment.default)(days));
+
+
     console.log(props.schedule);
     let selectedIntervals = [];
     if(props.schedule != null && props.schedule.constructor === Array ) {
@@ -39,14 +43,15 @@ const Calendar = (props) => {
             console.log(endTimeHr)
             console.log(endTimeMin)
             */
+            console.log(endTimeHr);
             section.day.forEach(day =>{
                 let interval = {
-                    start: moment({h: startTimeHr, m: startTimeMin}),
-                    end: moment({h: endTimeHr, m: endTimeMin}),
+                    start: moment('20180514').hours(startTimeHr).minutes(startTimeMin),
+                    end: moment('20180514').hours(endTimeHr).minutes(endTimeMin),
                     value: value,
                 }
-                interval.start.add(day, 'd');
-                interval.end.add(day, 'd');
+                interval.start.add(day-1, 'd');
+                interval.end.add(day-1, 'd');
                 selectedIntervals.push(interval);
             });
             
@@ -55,7 +60,7 @@ const Calendar = (props) => {
     let calendar = null;
         calendar = <div  style={{width: '78vw', height: '80vh', backgroundColor: '#789'}}>
                         <button onClick={props.displayCalendarHandler} style={{marginLeft:'-39vw', position:'absolute', float:'left', height:'4vh', width:'4vw', marginTop:'-4vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.7vw'}}>Calendar</button>
-                        <WeekCalendar numberOfDays={7} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={10} cellHeight={12} selectedIntervals={selectedIntervals} useModal={false}/>        
+                        <WeekCalendar numberOfDays={5} firstDay={moment('20180514')} dayFormat={'dddd'} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={10} cellHeight={12} selectedIntervals={selectedIntervals} useModal={false}/>        
                     </div>
     
     return calendar;   
