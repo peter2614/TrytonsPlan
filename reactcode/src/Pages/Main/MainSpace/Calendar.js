@@ -53,9 +53,9 @@ const Calendar = (props) => {
 
     })}
     let calendar = null;
-        calendar = <div  style={{width: '78vw', height: '42vh', backgroundColor: '#789'}}>
+        calendar = <div  style={{width: '78vw', height: '80vh', backgroundColor: '#789'}}>
                         <button onClick={props.displayCalendarHandler} style={{marginLeft:'-39vw', position:'absolute', float:'left', height:'4vh', width:'4vw', marginTop:'-4vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.7vw'}}>Calendar</button>
-                        <WeekCalendar numberOfDays={7} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:0})} scaleUnit={15} cellHeight={15} selectedIntervals={selectedIntervals}/>        
+                        <WeekCalendar numberOfDays={7} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={10} cellHeight={12} selectedIntervals={selectedIntervals} useModal={false}/>        
                     </div>
     
     return calendar;   
