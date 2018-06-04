@@ -33,17 +33,20 @@ function processSchedule (aSchedule, getScheduleData, cb){
         unitPath = "course/" + courseID.toString();
 
         getScheduleData(unitPath, unitsCallback);
-        getScheduleData(path, callback);
-        if (profName !== "Staff"){  //Skip this section if taught by staff
+        //getScheduleData(path, callback);
 
-        }
-        else{
-            //numProf--;
-            //if (i === len - 1){
-              //  finalCallBack();
-            //}
-            continue;
-        }
+            if(profName.toString().includes(" \r\n")) { // if co-taught
+                let profArr = profName.toString().split(" \r\n");
+                numProf += profArr.length - 1;
+                for(let i = 0; i < profArr.length; i++) {
+                    path = "professor/" + profArr[i].toString() + "/" + courseID.toString();
+                    getScheduleData(path, callback);
+                }
+            }
+            else {
+                getScheduleData(path, callback);
+            }
+
     }
 }
 

@@ -20,7 +20,7 @@ var scheduleID = 0;
  */
 var generateSchedule = function (courseList){
     let scheduleArr = [];
-    let numCourse = courseList.length;
+    // let numCourse = courseList.length;
 
 
     let sectionList  = new Array();
@@ -102,15 +102,15 @@ var helperGenerator = function (currSchedule, scheduleList, slotIndex){
                     helperGenerator(newSchedule, scheduleList, slotIndex + j);
                 }
                 else {*/
-                    let newSchedule = new Schedule(scheduleID, currSchedule.getYear, currSchedule.getQuarter,
-                        [], currSchedule.getProfScore, currSchedule.getDistance,
-                        currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA, currSchedule.getUnits);
-                    for (let k = 0; k < currSchedule.getSections.length; k++) {  //Deep copy of the section[] in currSchedule
-                        let newSec = currSchedule.getSections[k];
-                        newSchedule.getSections.push(newSec);
-                    }
-                    newSchedule.getSections.push(processedList[slotIndex][i]);
-                    helperGenerator(newSchedule, scheduleList, slotIndex + j);
+                let newSchedule = new Schedule(scheduleID, currSchedule.getYear, currSchedule.getQuarter,
+                    [], currSchedule.getProfScore, currSchedule.getDistance,
+                    currSchedule.getTimeCommitment, currSchedule.getTimeUsage, currSchedule.getGPA, currSchedule.getUnits);
+                for (let k = 0; k < currSchedule.getSections.length; k++) {  //Deep copy of the section[] in currSchedule
+                    let newSec = currSchedule.getSections[k];
+                    newSchedule.getSections.push(newSec);
+                }
+                newSchedule.getSections.push(processedList[slotIndex][i]);
+                helperGenerator(newSchedule, scheduleList, slotIndex + j);
                 //}
             }
             else {
