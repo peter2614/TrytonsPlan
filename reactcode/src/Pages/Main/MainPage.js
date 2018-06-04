@@ -250,7 +250,9 @@ class MainPage extends Component {
 
     //Calendar
     displayCalendarHandler = (schedule, scheduleID, fromSchedule) => {
-        this.setState({currentSchedule: schedule});
+        if(fromSchedule) {
+            this.setState({currentSchedule: schedule});
+        }
         if(fromSchedule && scheduleID !== this.state.lastSchedule){
             this.setState({displayCalendar: true});
             this.setState({heightOfMainSpace: '47vh'});
