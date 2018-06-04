@@ -20,7 +20,7 @@ var scheduleID = 0;
  */
 var generateSchedule = function (courseList){
     let scheduleArr = [];
-    let numCourse = courseList.length;
+    // let numCourse = courseList.length;
 
 
     let sectionList  = new Array();
@@ -66,6 +66,7 @@ var helperGenerator = function (currSchedule, scheduleList, slotIndex){
     for (let i = 0; i < numSectionInSlot; i++) {
 
         var retVal = addSection(currSchedule, processedList[slotIndex][i]);
+
         if (retVal === 1) {
             if (i === 0) {
                 var newSchedule = new Schedule(currSchedule.getScheduleID, currSchedule.getYear, currSchedule.getQuarter,
