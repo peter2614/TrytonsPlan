@@ -16,7 +16,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
             if (section.professor != null) {
                 professorInfo = section.professor.map(professor => {
                     if (section.course.LE[0].professor[0] == "Staff") {
-                        return <tr key={index}>
+                        return <tr className="ctr" key={index}>
                                     <th style={{color: '#722'}}>Professor Info:</th>
                                     <th style={{color: '#722', position: 'absolute'}}>This class's professor is undecided.</th>
                                     <th></th>
@@ -28,7 +28,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     if(professor != null) {
                     let PercentRecommend = professor.score*100;
                      return(
-                        <tr key={index}>
+                        <tr className="ctr" key={index}>
                             <th style={{color: '#722'}}>Professor Info:</th>
                             <th style={{color: '#722'}}>GPA: {professor.gpaActual.toString().slice(0,4)} </th>
                             <th style={{color: '#722'}}>Expected GPA: {professor.gpaExpected.toString().slice(0,4)} </th>
@@ -38,7 +38,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                         </tr>);
 
                      } else {
-                         return <tr key={index}>
+                         return <tr className="ctr" key={index}>
                              <th style={{color: '#722'}}>Professor Info:</th>
                              <th style={{color: '#722', position: 'absolute'}}>This professor hasn't taught this class in the past 4 years.</th>
                              <th></th>
@@ -68,7 +68,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     let formattedEndTime = formatTime(DI.end_time);
         
                     return(
-                        <tr key={index} >
+                        <tr className="ctr" key={index} >
                             <th style={{color: '#228', paddingLeft: '1.5vw', fontSize: '17px'}} >DISCUSSION</th>
                             <th style={{color: '#228', fontSize: '18px'}}>{weekdays}</th>
                             <th style={{color: '#228', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>       
@@ -96,7 +96,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                         let formattedEndTime = formatTime(LA.end_time);
             
                         return(
-                            <tr key={index} >
+                            <tr className="ctr" key={index} >
                                 <th style={{color: '#282', paddingLeft: '1.5vw', fontSize: '17px'}} >LAB</th>
                                 <th style={{color: '#282', fontSize: '18px'}}>{weekdays}</th>
                                 <th style={{color: '#282', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>       
@@ -134,7 +134,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     }      
                     
                     return(    
-                        <tr key={index}>
+                        <tr className="ctr" key={index}>
                             <th>LECTURE</th>
                             <th>{weekdays}</th>
                             <th>{formattedStartTime}-{formattedEndTime}</th>  
@@ -150,7 +150,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                 let formattedStartTime = formatTime(section.course.FI.start_time);
                 let formattedEndTime = formatTime(section.course.FI.end_time);
                 FI = 
-                    <tr>
+                    <tr className="ctr">
                         <th>FINAL</th>
                         <th>{section.course.FI.date}</th>
                         <th>{formattedStartTime}-{formattedEndTime}</th>
@@ -178,7 +178,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     }
 
     //Create a row saying what each column in the table is
-    let LEGUIDE = <tr style={{color: '#349'}}>
+    let LEGUIDE = <tr className="ctr" style={{color: '#349'}}>
                     <th>Type</th>
                     <th>Days</th>       
                     <th>Time</th>          
@@ -191,7 +191,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     }
 
     //Create a row saying what each column in the table is
-    let DIGUIDE = <tr style={{color: '#349'}}>
+    let DIGUIDE = <tr className="ctr" style={{color: '#349'}}>
                     <th>Type</th>
                     <th>Days</th>               
                     <th>Time</th>            
@@ -205,7 +205,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     }
 
     //Create a row saying what each column in the table is
-    let FIGUIDE = <tr style={{color: '#349'}}>
+    let FIGUIDE = <tr className="ctr" style={{color: '#349'}}>
                     <th>Type</th>
                     <th>Date</th>
                     <th>Time</th>

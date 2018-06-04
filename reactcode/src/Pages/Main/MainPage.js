@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SideBar from './SideBar/SideBar.js'
 import MainSpace from './MainSpace/MainSpace.js'
+import Calendar from './MainSpace/Calendar.js'
 import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
 import {getAllInfo, getGeneralInfo, getCourseNames, getCourseTitles} from './GetData.js';
@@ -43,6 +44,12 @@ class MainPage extends Component {
         startingTime: 0,
         lastRank: null,
         scheduleLoading: true,
+
+        //calendar
+        displayCalendar: false,
+        heightOfMainSpace: '89vh',
+        lastSchedule: null,
+        currentSchedule: null,
     }
 
     //==================On Startup==============
@@ -158,24 +165,25 @@ class MainPage extends Component {
     }
 
     getScheduleCallback = (listOfSchedules) => {
-
         this.state.schedules = listOfSchedules;
         this.state.filteredSchedules = [...listOfSchedules];
         this.filter();
         this.state.loading = false;
         this.setState({scheduleLoading: false});
-        
-
     }
 
+    //Rank Schedules
     rankScheduleHandler = (label) => {
-        this.setState({lastRank : label});
-        if(label === "GPA") {this.setState({filteredSchedules: rankByGPA(this.state.filteredSchedules)});}
-        if(label === "PROF") {this.setState({filteredSchedules: rankByProfScore(this.state.filteredSchedules)});}
-        if(label === "TIMEEFFICIENCY") {this.setState({filteredSchedules: rankByTimeUsage(this.state.filteredSchedules)});}
-        if(label === "TIMECOMMITMENT") {this.setState({filteredSchedules: rankByTimeCommitment(this.state.filteredSchedules)});}
+        if(this.state.schedules != null) {
+            this.setState({lastRank : label});
+            if(label === "GPA") {this.setState({filteredSchedules: rankByGPA(this.state.filteredSchedules)});}
+            if(label === "PROF") {this.setState({filteredSchedules: rankByProfScore(this.state.filteredSchedules)});}
+            if(label === "TIMEEFFICIENCY") {this.setState({filteredSchedules: rankByTimeUsage(this.state.filteredSchedules)});}
+            if(label === "TIMECOMMITMENT") {this.setState({filteredSchedules: rankByTimeCommitment(this.state.filteredSchedules)});}
+        }
     }
 
+    //Handlers for filterings
     maxUnitsHandler = (event) => {
         if (event.target.value != '') {  
         this.state.maxUnits = event.target.value;
@@ -232,6 +240,7 @@ class MainPage extends Component {
 
     }
 
+    //Switch Display handler
     switchViewHandler = () => {
         this.setState({displayInfo: !this.state.displayInfo})
         if(this.state.allInfo === null) {
@@ -239,16 +248,39 @@ class MainPage extends Component {
         }
     }
 
+    //Calendar
+    displayCalendarHandler = (schedule, scheduleID, fromSchedule) => {
+        this.setState({currentSchedule: schedule});
+        if(fromSchedule && scheduleID !== this.state.lastSchedule){
+            this.setState({displayCalendar: true});
+            this.setState({heightOfMainSpace: '47vh'});
+        } else {
+            if(this.state.displayCalendar == true) {
+                this.setState({heightOfMainSpace: '89vh'});
+            } else {
+                this.setState({heightOfMainSpace: '47vh'});
+            }
+            this.setState({displayCalendar: !this.state.displayCalendar});
+            
+        }
+        this.setState({lastSchedule: scheduleID});
+        
+    }
+
+
     render() {
     return (
-        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: 'inherit', overflowX:'hidden'}}>
+        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: '100vh', overflow:'hidden'}}>
+
             <div className={"NAVBAR"} style={{width:'100vw', height: '5vh', backgroundColor: '#333'}}>
                 <div style={{display: 'inline-block', float: 'left'}}>
                 <p style={{float: 'left', paddingLeft: '3vw', marginBottom:'0', marginTop: '-.7vh', fontSize: '4vh', color: '#49B', fontWeight: '900'}}>Trytons</p>
                 <p style={{float: 'left', paddingLeft: '0', marginBottom:'0', marginTop: '.5vh', fontSize: '3vh', color: '#BB0', fontWeight: '900'}}>Plan</p>
                 </div>
             </div>
+
             <div style={{display: 'inline-block'}}>
+
                 <div  className="sidebarcontainer">
                     <SideBar 
                     courseList={this.state.courseList} 
@@ -261,14 +293,39 @@ class MainPage extends Component {
                     searchCourseHandler={this.searchCourseHandler}
                     displayCourseInfoHandler={this.displayCourseInfoHandler}/>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
+
+                <div style={{overflow:'hidden', height: '95vh'}}>
                     
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
-                        <OptionsBar filteredSchedules={this.state.filteredSchedules} switchViewHandler={this.switchViewHandler} sizeOfCourseList={this.state.courseList.length} generateScheduleHandler={this.generateScheduleHandler} rankScheduleHandler={this.rankScheduleHandler} maxUnitsHandler={this.maxUnitsHandler} minUnitsHandler={this.minUnitsHandler} startingTimeHandler={this.startingTimeHandler} endingTimeHandler={this.endingTimeHandler}/>
+                        <OptionsBar 
+                        filteredSchedules={this.state.filteredSchedules} 
+                        switchViewHandler={this.switchViewHandler} 
+                        sizeOfCourseList={this.state.courseList.length} 
+                        generateScheduleHandler={this.generateScheduleHandler} 
+                        rankScheduleHandler={this.rankScheduleHandler} 
+                        maxUnitsHandler={this.maxUnitsHandler} 
+                        minUnitsHandler={this.minUnitsHandler} 
+                        startingTimeHandler={this.startingTimeHandler} 
+                        endingTimeHandler={this.endingTimeHandler}/>
                     </div>
-                    <div className={"MAINSPACE CONTAINER"} style={{width:'78vw', height: '89vh', backgroundColor: '#444', overflowY: 'auto'}}>
-                        <MainSpace displaySplashScreen={this.state.displaySplashScreen} scheduleLoading={this.state.scheduleLoading} schedules={this.state.filteredSchedules} allInfo={this.state.allInfo} displayInfo={this.state.displayInfo} courseID={this.state.courseID} loading={this.state.loading} generalInfo={this.state.generalInfo} db={this.props.db}/>
+
+                    <div className={this.state.displayCalendar?'MainSpaceCalendar':'MainSpace'} style={{width:'78vw', height: this.state.heightOfMainSpace, backgroundColor: '#444', overflowY: 'auto'}}>
+                        <MainSpace 
+                            displaySplashScreen={this.state.displaySplashScreen} 
+                            scheduleLoading={this.state.scheduleLoading} 
+                            schedules={this.state.filteredSchedules} 
+                            allInfo={this.state.allInfo} 
+                            displayInfo={this.state.displayInfo} 
+                            courseID={this.state.courseID} 
+                            loading={this.state.loading} 
+                            generalInfo={this.state.generalInfo} 
+                            db={this.props.db}
+                            displayCalendarHandler={this.displayCalendarHandler}
+                            displayCalendar={this.state.displayCalendar}/>
+                        />   
+                        
                     </div>
+                        <Calendar schedule={this.state.currentSchedule} displayCalendarHandler={this.displayCalendarHandler} displayCalendar={this.state.displayCalendar}/>
                 </div>
             </div>
         </div>

@@ -48,7 +48,7 @@ const OptionsBar = (props) => {
                 <input style={{height: '3vh', width: '5vw'}} onChange={event => props.startingTimeHandler(event)} type="time"/>
                 <input style={{height: '3vh', width: '5vw'}} onChange={event => props.endingTimeHandler(event)} type="time"/>
             </div>
-            <div className="buttongroup" style={{float: 'right', margin: '1vh', fontSize: '.9vw'}}>
+            <div className="buttongroup" style={{float: 'right', margin: '1vh', fontSize: '.9vw', marginBottom: '0vh'}}>
                 <div style={{display: 'flex'}}>
                     <p style={{paddingRight: '.5vw', marginTop: '.7vh', color: 'lightgrey', fontWeight: '800'}}>Sort: </p>
                     <button style={buttonStyleSmall} onClick={ event => props.rankScheduleHandler("GPA")}>GPA</button>
@@ -58,8 +58,8 @@ const OptionsBar = (props) => {
                 </div>
             </div>
             <div>
-                <button title = {switchButtonTitle} className={switchButtonStyle}  style={{marginRight: '1vw'}} disabled={switchButtonDisabled}  onClick={props.switchViewHandler}>⇆</button>
-                <button title = {title} className={generateButtonStyle}  disabled={disabled}  onClick={props.generateScheduleHandler}>Generate Schedules</button>
+                <button title = {switchButtonTitle} className={switchButtonStyle}  style={{marginRight: '1vw', marginBottom: '-.1vh'}} disabled={switchButtonDisabled}  onClick={props.switchViewHandler}>⇆</button>
+                <button title = {title} className={generateButtonStyle}  disabled={disabled} style={{marginBottom: '-.1vh'}} onClick={props.generateScheduleHandler}>Generate Schedules</button>
             </div>
             
         </div>
