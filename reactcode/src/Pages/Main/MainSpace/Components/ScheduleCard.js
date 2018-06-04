@@ -92,7 +92,7 @@ const schedulecard = (props) => {
     return(
         <div style={scheduleCardStyle}>
             <div style={{color: 'lightgrey', fontSize: '20px', float: 'left', fontSize: '1.5vw', fontWeight: '800'}}>{props.scheduleID}</div>
-            <button id="close-CSS" style={{backgroundColor:'#49B', borderColor: '#49B', marginTop:'-.5vw', marginLeft:'-4vw', marginRight:'-.5vw', position:'relative', height: '2.2vw', width:'2.2vw', color: 'black', fontSize: '12px', float: 'right', fontSize: '1.5vw', fontWeight: '300'}} onClick={(event) => props.displayCalendarHandler(props.sections, props.scheduleID, true)}/>
+            <button id="close-CSS" style={{backgroundColor:'#49B', borderColor: '#49B', marginTop:'-.5vw', marginLeft:'-4vw', marginRight:'-.5vw', position:'relative', height: '2.3vw', width:'2.3vw', color: 'black', fontSize: '12px', float: 'right', fontSize: '1.5vw', fontWeight: '300'}} onClick={(event) => props.displayCalendarHandler(props.sections, props.scheduleID, true)}/>
             <div style={{display: 'flex', justifyContent:'center'}}>
                 <table style={{width: '25vw', color: 'lightgrey'}}>
                     <tbody>

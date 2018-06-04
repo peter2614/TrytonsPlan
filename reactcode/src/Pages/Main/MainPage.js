@@ -255,12 +255,12 @@ class MainPage extends Component {
         }
         if(fromSchedule && scheduleID !== this.state.lastSchedule){
             this.setState({displayCalendar: true});
-            this.setState({heightOfMainSpace: '47vh'});
+            this.setState({heightOfMainSpace: '44.5vh'});
         } else {
             if(this.state.displayCalendar == true) {
                 this.setState({heightOfMainSpace: '89vh'});
             } else {
-                this.setState({heightOfMainSpace: '47vh'});
+                this.setState({heightOfMainSpace: '44.5vh'});
             }
             this.setState({displayCalendar: !this.state.displayCalendar});
             
