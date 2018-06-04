@@ -30,10 +30,10 @@ const course = (props) => {
         name = <p style={{textAlign: 'left', margin: '0px', color: '#99C', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("MATH")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#9C9', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#7D7', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("CSE")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#C77', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#CA4', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("COGS")) {
         name = <p style={{textAlign: 'left', margin: '0px', color: '#C7A', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
@@ -44,6 +44,25 @@ const course = (props) => {
     if(props.name.includes("BILD")) {
         name = <p style={{textAlign: 'left', margin: '0px', color: '#7CC', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
+    if(props.name.includes("BIBC")) {
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#7AB', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+    }
+    if(props.name.includes("BICD")) {
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#3AA', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+    }
+    if(props.name.includes("BIEB")) {
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#4A8', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+    }
+    if(props.name.includes("BIMM")) {
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#4AA', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+    }
+    if(props.name.includes("BIMM")) {
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#48B', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+    }
+    if(props.name.includes("BIPN")) {
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#79C', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+    }
+
 
 
 
