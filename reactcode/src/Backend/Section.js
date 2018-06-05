@@ -15,6 +15,7 @@ class Section {
         this.finalTime = finalTime;
         this.finalEndTime = finalEndTime;
         this.finalDate = finalDate;
+        this.hashKey = 0;
         this.DI = DI;
         this.LA = LA;
         this.FI = FI;

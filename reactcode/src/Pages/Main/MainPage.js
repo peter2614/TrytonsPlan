@@ -185,7 +185,7 @@ class MainPage extends Component {
 
     //Handlers for filterings
     maxUnitsHandler = (event) => {
-        if (event.target.value != '') {  
+        if (event.target.value != "") {
         this.state.maxUnits = event.target.value;
         } else {
         this.state.maxUnits = 16;
@@ -194,7 +194,7 @@ class MainPage extends Component {
     }
 
     minUnitsHandler = (event) => {
-        if (event.target.value != '') {  
+        if (event.target.value != "") {
         this.state.minUnits = event.target.value;
         } else {
         this.state.minUnits = 0;
@@ -228,9 +228,8 @@ class MainPage extends Component {
             filtered = filterByMaxUnits(filtered, this.state.maxUnits);
             filtered = filterByMinUnits(filtered, this.state.minUnits);
             filtered = filterByStartingTime(filtered, this.state.startingTime-1);
-            filtered = filterByEndingTime(filtered, this.state.endingTime+1);     
-            
-            //this.state.filteredSchedules = filtered; 
+            filtered = filterByEndingTime(filtered, this.state.endingTime+1);
+            this.state.filteredSchedules = filtered;
             this.setState({filteredSchedules: filtered});
             //remember last rank algorithm
             if(this.state.lastRank != null) {
