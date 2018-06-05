@@ -1,118 +1,29 @@
 .sidebar {
-    border-radius: 0;
-    width: 25em;
-
+    border-radius: 0px;
+    width: 320px;
 }
 
 .sidebarcontainer {
-    float: left;
     height: 95vh;
-    width: 21vw;
-    background-color: #37506a;
-    max-width: 21vw;
-    max-height: 95vh;
+    background-color: #307080;
+    width: 22vw;
+    float: left;
 }
 
-.searchBar {
-    width: 100em;
-    height: auto;
-    text-align: center;    
-    margin: 0;
+.MainSpaceCalendar{
+    height: '59vh';
+    transition: height 1s;
 }
-.courseList {
-    height: auto;
-    width: 100em;
-    text-align: center;    
-    margin: 0;
+.MainSpace{
+    height: '88vh';
+    transition: height 1s;
 }
 
-.addButton {
-    position: absolute;
-    background: url(AddButton.png) no-repeat;
-    background-size: 2.5em;
-    width: 2em;
-    height: 3em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.CalendarFull {
+    height: '30vh';
+    transition: height 1s;
 }
-
-.navBar {
-    background-color: #3c3c3c;
-}
-
-/*
-.navbar-default {
-    background-color: #333;
-}
-*/
-
-.hr1 {
-    height: 1em;
-    border-top: 1vh solid #cccccc;
-    margin: 0;
-    padding: 0;
-}
-
-.mainSpace {
-    background-color: #3c3c3c;
-    height: 100%;
-    float: right;
-}
-
-.full-width-tabs > ul.nav.nav-tabs {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-.full-width-tabs > ul.nav.nav-tabs > li {
-    float: none;
-    display: table-cell;
-    width: 100%;
-}
-.full-width-tabs > ul.nav.nav-tabs > li > a {
-    text-align: center;
-    color: white;
-    background-color: #444;
-}
-
-.full-width-tabs > ul.nav.nav-tabs > li > a:hover {
-    text-align: center;
-    color: white;
-    background-color: #777;
-}
-
-
-.full-width-tabs > ul.nav.nav-tabs > li.active > a,
-.full-width-tabs > ul.nav.nav-tabs > li.active > a:hover,
-.full-width-tabs > ul.nav.nav-tabs > li.active > a:focus {
-    text-align: center;
-    color: black;
-    background-color: whitesmoke;
-}
-
-
-
-
-/* Inactive tab */
-.myClass > ul > li > a {
-    background-color: white;
-    color: red;
-}
-.myClass ul > li > a:hover {
-    background-color: pink;
-}
-
-/* Active tab */
-.myClass > ul > li.active > a,
-.myClass > ul > li.active > a:hover,
-.myClass > ul > li.active > a:focus {
-    background-color: red;
-    color: white;
-}
-
-/* Disabled tab */
-.myClass > ul > li.disabled > a {
-    background-color: lightgray;
-    color: darkgray;
+.CalendarShrink {
+    height: '1vh';
+    transition: height 1s;
 }

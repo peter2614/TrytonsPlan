@@ -1,0 +1,44 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+hr {
+    border: none;
+    background-color: #379;
+    margin: 0px;
+    height: 4px;
+    margin-left: 7%;
+    width: 86%;
+    
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    font-size: 20px;
+    
+}
+
+.ctr:hover {
+    background-color: #FFF;
+}
+
+.ctr:hover td {
+    background-color: transparent; /* or #000 */
+}
+
+#close-image img {
+    display: block;
+    height: 130px;  
+    width: 100px;
+}
+
+
+#close-CSS {
+    background-image: url( '../../../../Assets/calendarIcon.png' );
+    background-size: 2vw 2vw;
+    height: 2vw;  
+    width: 2vw;
+}
