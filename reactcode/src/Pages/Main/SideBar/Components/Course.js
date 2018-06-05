@@ -34,39 +34,6 @@ const course = (props) => {
     if(props.name.includes("PHYS")) {
         name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
-    if(props.name.includes("MATH")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("CSE")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("COGS")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("CHEM")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("BILD")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("BIBC")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("BICD")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("BIEB")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("BIMM")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("BIMM")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
-    if(props.name.includes("BIPN")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
-    }
 */
 
 
