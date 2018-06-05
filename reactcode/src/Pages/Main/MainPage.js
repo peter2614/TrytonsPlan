@@ -204,9 +204,34 @@ class MainPage extends Component {
         this.filter();
     }
 
+    
+    /* Simpler filter
     startingTimeHandler = (event) => {
         let validated = event.target.value;
-        
+    
+        if (validated.includes("PM") || validated.includes("P") || validated.includes("p") || validated.includes("pm") ){
+
+            let test = parseInt(validated.replace(/\D/g,''));
+            if (test == 1200) {
+                validated = "0";
+            }   
+            validated = validated.replace(/\D/g,'');
+            validated = parseInt(validated)+1200;
+        } else {
+            validated = validated.replace(/\D/g,'');
+            validated = parseInt(validated);
+        }
+        if (validated != "") {  
+            this.state.startingTime = validated;
+            } else {
+            this.state.startingTime = 0;
+            }
+            this.filter();
+    }*/
+    
+    startingTimeHandler = (event) => {
+        let validated = event.target.value;
+    
         if (validated.includes("PM") || validated.includes("P") || validated.includes("p") || validated.includes("pm") ){
             let test = parseInt(validated.replace(/\D/g,''));
                 if (test == 12 || test == 120 || test == 1200) {
@@ -234,10 +259,56 @@ class MainPage extends Component {
         }
         this.filter();
     }
-
+    /*
     endingTimeHandler = (event) => {
-        if (event.target.value != "") {  
-        this.state.endingTime = parseInt(event.target.value.toString().replace(':',''));
+        let validated = event.target.value;
+        this.state.startingTime = validated.replace(/(.{1})/g,"$1:").slice(0,-1).toUpperCase();
+        if (validated.includes("PM") || validated.includes("P") || validated.includes("p") || validated.includes("pm") ){
+
+            let test = parseInt(validated.replace(/\D/g,''));
+            if (test == 1200) {
+                validated = "0";
+            }   
+            validated = validated.replace(/\D/g,'');
+            validated = parseInt(validated)+1200;
+        } else {
+            validated = validated.replace(/\D/g,'');
+            validated = parseInt(validated);
+        }
+
+        if (validated != "") {  
+        this.state.endingTime = validated;
+        } else {
+        this.state.endingTime = 2400;
+        }
+        this.filter();
+    }*/
+    
+    endingTimeHandler = (event) => {
+        let validated = event.target.value;
+        
+        if (validated.includes("PM") || validated.includes("P") || validated.includes("p") || validated.includes("pm") ){
+            let test = parseInt(validated.replace(/\D/g,''));
+                if (test == 12 || test == 120 || test == 1200) {
+                    validated = "0";
+                }     
+            validated = validated.replace(/\D/g,'');
+            if (parseInt(validated) <= 24) {validated = validated * 100}
+            validated = parseInt(validated)+1200;
+        } else {
+            if(validated.includes("AM") || validated.includes("A") || validated.includes("a") || validated.includes("am")) {
+                let test = parseInt(validated.replace(/\D/g,''));
+                if (test == 12 || test == 120 || test == 1200) {
+                    validated = "0";
+                }     
+            }
+            validated = validated.replace(/\D/g,'');
+            if (parseInt(validated) <= 24) {validated = validated * 100}
+            validated = parseInt(validated);
+        }
+        
+        if (validated != "") {  
+        this.state.endingTime = validated;
         } else {
         this.state.endingTime = 2400;
         }
@@ -324,6 +395,7 @@ class MainPage extends Component {
                     
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
                         <OptionsBar 
+                        startingTime = {this.state.startingTime}
                         filteredSchedules={this.state.filteredSchedules} 
                         switchViewHandler={this.switchViewHandler} 
                         sizeOfCourseList={this.state.courseList.length} 

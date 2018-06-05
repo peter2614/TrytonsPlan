@@ -66,7 +66,7 @@ const OptionsBar = (props) => {
                 <input placeholder="16" class="arrow-togglable" tabIndex="2" style={{height: '3vh', width: '2vw'}} onChange={event => props.maxUnitsHandler(event)} />
                 <p style={{marginLeft: '.5vw', paddingRight: '.5vw', marginTop: '.2vh', color: 'lightgrey', fontWeight: '800'}}>Start/End: </p>
                 <input placeholder="Start Time" class="arrow-togglable" tabIndex="3" style={{height: '3vh', width: '5vw'}} onChange={event => props.startingTimeHandler(event)} />
-                <input  placeholder="End Time" class="arrow-togglable" tabIndex="4" style={{height: '3vh', width: '5vw'}} onChange={event => props.endingTimeHandler(event)} />
+                <input placeholder="End Time" class="arrow-togglable" tabIndex="4" style={{height: '3vh', width: '5vw'}} onChange={event => props.endingTimeHandler(event)} />
             </div>
             <div className="buttongroup" style={{float: 'right', margin: '1vh', fontSize: '.9vw', marginBottom: '0vh'}}>
                 <div style={{display: 'flex'}}>
@@ -74,7 +74,7 @@ const OptionsBar = (props) => {
                     <button style={buttonStyleSmall} onClick={ event => props.rankScheduleHandler("GPA")}>GPA</button>
                     <button style={buttonStyleSmall} onClick={ event => props.rankScheduleHandler("PROF")}>Prof Score</button>
                     <button style={buttonStyleSmall} onClick={ event => props.rankScheduleHandler("TIMECOMMITMENT")}>Study Hrs</button>
-                    <button title={"Calculated as time spent in lecture / (time last class ends - time first class starts)"} style={buttonStyle} onClick={ event => props.rankScheduleHandler("TIMEEFFICIENCY")}>Time Efficiency</button>
+                    <button title="Calculated as time spent in lecture / (time last class ends - time first class starts)" style={buttonStyle} onClick={ event => props.rankScheduleHandler("TIMEEFFICIENCY")}>Time Efficiency</button>
                 </div>
             </div>
             <div>
