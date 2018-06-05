@@ -6,15 +6,12 @@ import {ListGroupItem} from 'react-bootstrap';
 const courses = (props) => props.courses.map( (course, index) => {
     const courseStyle = {
         //margin: 'auto',
-        backgroundColor: '#222',
+        backgroundColor: '#37506a',
+        opacity: '70%',
         box: '1px',
         width: '100%',
-        minHeight: '4vh',
-        borderStyle: 'solid',
-        borderWidth: '1px',
-        borderColor: '#FFF',
-        borderRadius: '0px',
-    }
+        minHeight: '3.75vh',
+    };
     return <div
             key={course.name} 
             style={courseStyle}> 

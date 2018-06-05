@@ -6,87 +6,123 @@ const course = (props) => {
  
     //Styles
     const textStyle = {
+        fontFamily: 'Avenir',
         textAlign: 'left',
-        margin: '0px',
-        color: 'lightgrey',
-        fontSize: '120%',
-        paddingLeft: '1%', 
-    }
+        marginTop: '0.75vw',
+        marginLeft: '0.3vw',
+        color: '#c4c4c4',
+        fontSize: '115%'
+    };
    
     //Button + and - sign formatting
     let text = null;
     if (props.text === "+") {
-        text = <div style={{fontSize: '20px', fontWeight: '700', backgroundColor: ''}}>+</div>;
+        text = <div style={{fontSize: '20px', fontWeight: '500', color: '#dddddd', backgroundColor: ''}}>
+            <div class="listHandler">+</div>
+        </div>;
     } else {
-        text = <div style={{fontSize: '20px', fontWeight: '900', backgroundColor: ''}}>−</div>;
+        text = <div style={{fontSize: '30px', fontWeight: '400', color: '#dddddd', backgroundColor: ''}}>
+            <div className="listHandler">-</div>
+        </div>;
     }
     
-    let name = <p style={{textAlign: 'left', margin: '0px', color: 'lightgrey', fontSize: '120%', fontWeight: '650'}}>
+    let name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#c4c4c4', fontSize: '120%', fontWeight: '525'}}>
                     {props.name}
-                </p>
-
+                </p>;
+/*
     //Course Name Color Coding
     if(props.name.includes("PHYS")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#99C', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("MATH")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#7D7', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("CSE")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#CA4', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("COGS")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#C7A', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("CHEM")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#7C7', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("BILD")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#7CC', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("BIBC")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#7AB', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("BICD")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#3AA', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("BIEB")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#4A8', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("BIMM")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#4AA', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("BIMM")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#48B', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#4d7299', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
     if(props.name.includes("BIPN")) {
-        name = <p style={{textAlign: 'left', margin: '0px', color: '#79C', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0px', color: '#d8c98f', fontSize: '120%', fontWeight: '650'}}>{props.name}</p>
     }
-
+*/
 
 
 
 
     //RETURN
-    return (
-        <div className={"courseHover"} style={{width: '100%', minHeight:'4vh', display: 'flex', alignItems: 'center', backgroundColor: ''}}>
-            <div style={{paddingLeft: '1%', width: '25%', display: 'flex', backgroundColor: '', float: 'left', cursor: 'pointer', minHeight: '4vh', alignItems: 'center'}} onClick={props.displayCourseInfoHandler}>
-                {name} 
-            </div>
-            <div style={{width: '63%', backgroundColor: '', float: 'left', cursor: 'pointer', minHeight: '4vh', display: 'flex', alignItems: 'center'}} onClick={props.displayCourseInfoHandler}>
-                <p style={textStyle}>
-                    ({props.units}) {props.description}
-                </p>
-            
-            </div>
-            <span style={{width:'12%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: ''}}>
-            <button style={{width: '30px', height: '30px'}}
-            
-            onClick={props.courseHandler}>{text}</button>
-            </span>
+    return <div className={"courseHover"} style={{
+        width: '100%',
+        minHeight: '4vh',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: '',
+        borderWidth: '0.2px'
+    }}>
+
+        <div style={{
+            fontFamily: 'Avenir',
+            fontSize: '110%',
+            width: '20%',
+            display: 'flex',
+            backgroundColor: '',
+            float: 'left',
+            cursor: 'pointer',
+            minHeight: '4vh',
+            alignItems: 'center'
+        }} onClick={props.displayCourseInfoHandler}>
+            {name}
         </div>
-    )
-}
+
+        <div style={{
+            width: '67%',
+            marginLeft: '1vw',
+            backgroundColor: '',
+            float: 'left',
+            cursor: 'pointer',
+            minHeight: '4vh',
+            display: 'flex',
+            alignItems: 'center'
+        }} onClick={props.displayCourseInfoHandler}>
+            <p style={textStyle}>
+                {props.description} ({props.units})
+            </p>
+        </div>
+
+        <div style={{
+            width: '12%',
+            marginRight: '0.5vw',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: ''
+        }}>
+            <div onClick={props.courseHandler}>{text} </div>
+            </div>
+    </div>
+};
 
 
 export default course;
