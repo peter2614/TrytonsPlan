@@ -1,6 +1,6 @@
 var COURSE = "course";
 var QUARTER = "F18";
-var TITLE = "CSE 100";
+var TITLE = "CSE 21";
 var SECTION = "A00";
 var PREREQUISITES = "prerequisites";
 var TO = "/";
@@ -22,7 +22,8 @@ firebase.initializeApp(config);
 
 
 // get the reference of the data
-firebaseRef = firebase.database().ref(QUARTER + TO + TITLE);// + TO + SECTION);
+//firebaseRef = firebase.database().ref(QUARTER + TO + TITLE);// + TO + SECTION);
+firebaseRef = firebase.database().ref("F18/BIMM 140/0/LE/0/professor");
 /* course/CSE 100 */
 
 // get the data
@@ -40,7 +41,18 @@ function end() {
     if(data) {
         console.log("\n\n");
 
+        if(data.toString().includes(" \r\n")) {
+            console.log("THIS IS A CO-TAUGHT CLASS!");
+        }
+
         console.log(data);
+
+        console.log("\n");
+        let ProfArr = data.split(" \r\n");
+        console.log(ProfArr);
+        console.log(ProfArr[0]);
+        console.log(ProfArr[1]);
+
         //console.log (data.A00.LE[0]);
 
         console.log("\n\n");

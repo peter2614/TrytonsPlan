@@ -7,7 +7,6 @@
     opacity:1;
     transition: opacity 0.2s;
     transition-timing-function:  ease-in;
-
 }
 
 .loadingfadeOut{

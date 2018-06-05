@@ -271,68 +271,90 @@ class MainPage extends Component {
 
 
     render() {
-    return (
-        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: '100vh', overflow:'hidden'}}>
+        return <div className="container"
+                    style={{padding: '0px', margin: '0px', width: 'inherit', height: '100vh', overflow: 'hidden'}}>
 
-            <div className={"NAVBAR"} style={{width:'100vw', height: '5vh', backgroundColor: '#333'}}>
+            <div className={"NAVBAR"} style={{width: '100vw', height: '5vh', backgroundColor: '#333'}}>
                 <div style={{display: 'inline-block', float: 'left'}}>
-                <p style={{float: 'left', paddingLeft: '3vw', marginBottom:'0', marginTop: '-.7vh', fontSize: '4vh', color: '#49B', fontWeight: '900'}}>Trytons</p>
-                <p style={{float: 'left', paddingLeft: '0', marginBottom:'0', marginTop: '.5vh', fontSize: '3vh', color: '#BB0', fontWeight: '900'}}>Plan</p>
+                    <p style={{
+                        fontFamily: 'Avenir',
+                        float: 'left',
+                        paddingLeft: '3vw',
+                        marginBottom: '0',
+                        marginTop: '1.2vh',
+                        fontSize: '3vh',
+                        color: '#37506a',
+                        fontWeight: '700',
+                    }}>Trytons</p>
+                    <p style={{
+                        fontFamily: 'Avenir',
+                        float: 'left',
+                        paddingLeft: '0',
+                        marginBottom: '0',
+                        marginTop: '1.2vh',
+                        fontSize: '3vh',
+                        color: '#baac79',
+                        fontWeight: '700'
+                    }}>Plan</p>
                 </div>
             </div>
 
             <div style={{display: 'inline-block'}}>
 
-                <div  className="sidebarcontainer">
-                    <SideBar 
-                    courseList={this.state.courseList} 
-                    searchResults={this.state.searchResults}  
-                    loading={this.state.sidebarLoading} 
-                    clearCourseListHandler={this.clearCourseListHandler}
+                <div className="sidebarcontainer">
+                    <SideBar
+                        courseList={this.state.courseList}
+                        searchResults={this.state.searchResults}
+                        loading={this.state.sidebarLoading}
+                        clearCourseListHandler={this.clearCourseListHandler}
 
-                    addCourseHandler={this.addCourseHandler} 
-                    removeCourseHandler={this.removeCourseHandler}   
-                    searchCourseHandler={this.searchCourseHandler}
-                    displayCourseInfoHandler={this.displayCourseInfoHandler}/>
+                        addCourseHandler={this.addCourseHandler}
+                        removeCourseHandler={this.removeCourseHandler}
+                        searchCourseHandler={this.searchCourseHandler}
+                        displayCourseInfoHandler={this.displayCourseInfoHandler}/>
                 </div>
 
-                <div style={{overflow:'hidden', height: '95vh'}}>
-                    
-                    <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
-                        <OptionsBar 
-                        filteredSchedules={this.state.filteredSchedules} 
-                        switchViewHandler={this.switchViewHandler} 
-                        sizeOfCourseList={this.state.courseList.length} 
-                        generateScheduleHandler={this.generateScheduleHandler} 
-                        rankScheduleHandler={this.rankScheduleHandler} 
-                        maxUnitsHandler={this.maxUnitsHandler} 
-                        minUnitsHandler={this.minUnitsHandler} 
-                        startingTimeHandler={this.startingTimeHandler} 
-                        endingTimeHandler={this.endingTimeHandler}/>
+                <div style={{overflow: 'hidden', height: '95vh'}}>
+
+                    <div className={"GENERATE OPTIONS"} style={{width: '78vw', height: '6vh', backgroundColor: '#555'}}>
+                        <OptionsBar
+                            filteredSchedules={this.state.filteredSchedules}
+                            switchViewHandler={this.switchViewHandler}
+                            sizeOfCourseList={this.state.courseList.length}
+                            generateScheduleHandler={this.generateScheduleHandler}
+                            rankScheduleHandler={this.rankScheduleHandler}
+                            maxUnitsHandler={this.maxUnitsHandler}
+                            minUnitsHandler={this.minUnitsHandler}
+                            startingTimeHandler={this.startingTimeHandler}
+                            endingTimeHandler={this.endingTimeHandler}/>
                     </div>
 
-                    <div className={this.state.displayCalendar?'MainSpaceCalendar':'MainSpace'} style={{width:'78vw', height: this.state.heightOfMainSpace, backgroundColor: '#444', overflowY: 'auto'}}>
-                        <MainSpace 
-                            displaySplashScreen={this.state.displaySplashScreen} 
-                            scheduleLoading={this.state.scheduleLoading} 
-                            schedules={this.state.filteredSchedules} 
-                            allInfo={this.state.allInfo} 
-                            displayInfo={this.state.displayInfo} 
-                            courseID={this.state.courseID} 
-                            loading={this.state.loading} 
-                            generalInfo={this.state.generalInfo} 
+                    <div className={this.state.displayCalendar ? 'MainSpaceCalendar' : 'MainSpace'} style={{
+                        width: '78vw',
+                        height: this.state.heightOfMainSpace,
+                        backgroundColor: '#444',
+                        overflowY: 'auto'
+                    }}>
+                        <MainSpace
+                            displaySplashScreen={this.state.displaySplashScreen}
+                            scheduleLoading={this.state.scheduleLoading}
+                            schedules={this.state.filteredSchedules}
+                            allInfo={this.state.allInfo}
+                            displayInfo={this.state.displayInfo}
+                            courseID={this.state.courseID}
+                            loading={this.state.loading}
+                            generalInfo={this.state.generalInfo}
                             db={this.props.db}
                             displayCalendarHandler={this.displayCalendarHandler}
                             displayCalendar={this.state.displayCalendar}/>
-                        />   
-                        
+                        />
+
                     </div>
-                        <Calendar schedule={this.state.currentSchedule} displayCalendarHandler={this.displayCalendarHandler} displayCalendar={this.state.displayCalendar}/>
+                    <Calendar schedule={this.state.currentSchedule} displayCalendarHandler={this.displayCalendarHandler}
+                              displayCalendar={this.state.displayCalendar}/>
                 </div>
             </div>
-        </div>
-        
-    );
+        </div>;
   }
 }
 

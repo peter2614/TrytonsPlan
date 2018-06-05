@@ -1,14 +1,15 @@
 .hoverinfo {
-    
     font-size: 28px;
     color: #ffffff;
     cursor: pointer;
     float: right;
   }
+
   .hoverinfo p {
     display: none;
     color: #000000;
   }
+
   .hoverinfo:hover p {
     background-color: rgba(255, 255, 255, 1);
     position: absolute;
@@ -21,7 +22,14 @@
   }
 
   .courseHover:hover {
-      background-color:#542;
+      background-color: rgb(146, 133, 96);
+      color: #2c2c2c;
+      transition: background 0.05s;
+  }
+
+  .listHandler:hover {
+      color: #37506a;
+      transition: 0.05s;
   }
 
   .loader {
