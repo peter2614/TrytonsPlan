@@ -14,6 +14,7 @@ var scheduleList;
 var numCBFromProcess = 0;
 var firebaseRef = null;
 
+/* ---------------------------------------------------------
 // db setup
 var config = {
     apiKey: "AIzaSyDHND3EVIe-S8r0k_3DLf_GClaM2qazGMI",
@@ -24,21 +25,8 @@ var config = {
     messagingSenderId: "242589223564"
 };
 
-firebase.initializeApp(config);
-
-/*
-module.exports = {
-    getData: getData,
-    filterByMaxUnits: filterByMaxUnits,
-    rankByProfScore: rankByProfScore,
-    rankByDistance: rankByDistance,
-    rankByTimeCommitment: rankByTimeCommitment,
-    rankByTimeUsage: rankByTimeUsage,
-    rankByGPA: rankByGPA,
-    getSchedule: getSchedule,
-    getScheduleData: getScheduleData
-};
-*/
+    firebase.initializeApp(config);
+//--------------------------------------------------------- */
 
 function getData (CourseID, cb) {
     let reference = QUARTER + TO + CourseID;  //Get the reference of the data
@@ -79,13 +67,10 @@ function getSchedule (courseIDList, dataSet, cb) {
 
             // Class is TBA
             if (currSec.LE[0].start_time === "TBA") {
-                // console.log("Skip this section");
-                // console.log(currSec);
                 k++;
                 continue;
             }
 
-            //console.log (currSec);
             sectionArr.push(new Section(currSec.id, courseIDList[j], currSec.LE[0].start_time, currSec.LE[0].end_time, currSec.LE[0].day,
                                         currSec.LE[0].building, currSec.LE[0].room , currSec.LE[0].professor, currSec.FI.start_time,
                                         currSec.FI.end_time, currSec.FI.date, currSec.DI, currSec.LA, currSec.FI));
@@ -97,12 +82,12 @@ function getSchedule (courseIDList, dataSet, cb) {
         }
     }
 
-    console.log(courseList);
-
     var scheduleListLocal = generator(courseList);
     scheduleList = scheduleListLocal;
 
-    callProcessor();
+    if (scheduleList.length !== 0) {
+        callProcessor();
+    }
 }
 
 function callProcessor (){
@@ -132,7 +117,7 @@ function turnOffDatabase() {
 
 var filterByMaxUnits = function(scheduleList, maxUnits) {
 
-    if(scheduleList == null)
+    if(scheduleList === null)
         return [];
 
     let newScheduleList = [];
@@ -151,7 +136,7 @@ var filterByMaxUnits = function(scheduleList, maxUnits) {
 
 var filterByMinUnits = function(scheduleList, minUnits) {
 
-    if(scheduleList == null)
+    if(scheduleList === null)
         return [];
 
     let newScheduleList = [];
@@ -170,7 +155,7 @@ var filterByMinUnits = function(scheduleList, minUnits) {
 
 var filterByStartingTime = function(scheduleList, startingTime) {
 
-    if(scheduleList == null)
+    if(scheduleList === null)
         return [];
 
     let newScheduleList = [];
@@ -199,7 +184,7 @@ var filterByStartingTime = function(scheduleList, startingTime) {
 
 var filterByEndingTime = function(scheduleList, endingTime) {
 
-    if(scheduleList == null)
+    if(scheduleList === null)
         return [];
 
     let newScheduleList = [];
@@ -237,57 +222,57 @@ var filterByEndingTime = function(scheduleList, endingTime) {
 // rank by professor score
 var rankByProfScore = function(scheduleList) {
 
-    if(scheduleList == null)
+    if(scheduleList === null)
         return [];
 
-    var len = scheduleList.length;
+    let len = scheduleList.length;
     return quickSortProfScore(scheduleList,0,len-1);
-}
-
-// rank by distance
-var rankByDistance = function(scheduleList) {
-
-    if(scheduleList == null)
-        return [];
-
-    var len = scheduleList.length;
-    return quickSortDistance(scheduleList,0,len-1);
 }
 
 // rank by time commitment
 var rankByTimeCommitment = function(scheduleList) {
 
-    if(scheduleList == null)
+    if(scheduleList === null)
         return [];
 
-    var len = scheduleList.length;
+    /* // The quick sort algorithm somehow doesn't work
+    let len = scheduleList.length;
     return quickSortTimeCommitment(scheduleList,0,len-1);
+    */
+
+    let newScheduleList = scheduleList;
+    newScheduleList.sort(function (a,b) {
+        return a.getTimeCommitment - b.getTimeCommitment;
+    });
+
+    return newScheduleList;
+
 }
 
 // rank by time in school
 var rankByTimeUsage = function(scheduleList) {
 
-    if(scheduleList == null)
+    if(scheduleList === null)
         return [];
 
-    var len = scheduleList.length;
+    let len = scheduleList.length;
     return quickSortTimeUsage(scheduleList,0,len-1);
 }
 
 // rank by GPA
 var rankByGPA = function(scheduleList) {
 
-    if(scheduleList == null)
+    if(scheduleList === null)
         return [];
 
-    var len = scheduleList.length;
+    let len = scheduleList.length;
     return quickSortGPA(scheduleList,0,len-1);
 }
 
 // quick sort function for professor score
 function quickSortProfScore(list, left, right) {
 
-    var pivot, partitionIndex;
+    let pivot, partitionIndex;
 
     if(left < right) {
         pivot = right;
@@ -302,10 +287,10 @@ function quickSortProfScore(list, left, right) {
 
 // helper function for quick sort for professor score
 function partitionProfScore(list, pivot, left, right) {
-    var pivotValue = list[pivot].getProfScore,
+    let pivotValue = list[pivot].getProfScore,
         partitionIndex = left;
 
-    for(var i = left; i < right; i++) {
+    for(let i = left; i < right; i++) {
         if(list[i].getProfScore > pivotValue) {
             swap(list, i, partitionIndex);
             partitionIndex++;
@@ -315,40 +300,10 @@ function partitionProfScore(list, pivot, left, right) {
     return partitionIndex;
 }
 
-// quick sort function for distance
-function quickSortDistance(list, left, right) {
-
-    var pivot, partitionIndex;
-
-    if(left < right) {
-        pivot = right;
-        partitionIndex = partitionDistance(list, pivot, left, right);
-
-        quickSortDistance(list, left, partitionIndex - 1);
-        quickSortDistance(list, partitionIndex + 1, right);
-    }
-
-    return list;
-}
-
-// helper function for quick sort for distance
-function partitionDistance(list, pivot, left, right) {
-    var pivotValue = list[pivot].getDistance,
-        partitionIndex = left;
-
-    for(var i = left; i < right; i++) {
-        if(list[i].getDistance > pivotValue) {
-            swap(list, i, partitionIndex);
-            partitionIndex++;
-        }
-    }
-    swap(list,right,partitionIndex);
-    return partitionIndex;
-}
 // quick sort function for time commitment
 function quickSortTimeCommitment(list, left, right) {
 
-    var pivot, partitionIndex;
+    let pivot, partitionIndex;
 
     if(left < right) {
         pivot = right;
@@ -363,10 +318,10 @@ function quickSortTimeCommitment(list, left, right) {
 
 // helper function for quick sort for time commitment
 function partitionTimeCommitment(list, pivot, left, right) {
-    var pivotValue = list[pivot].getTimeCommitment,
+    let pivotValue = list[pivot].getTimeCommitment,
         partitionIndex = left;
 
-    for(var i = left; i < right; i++) {
+    for(let i = left; i < right; i++) {
         if(list[i].getTimeCommitment < pivotValue) {
             swap(list, i, partitionIndex);
             partitionIndex++;
@@ -379,7 +334,7 @@ function partitionTimeCommitment(list, pivot, left, right) {
 // quick sort function for time in school
 function quickSortTimeUsage(list, left, right) {
 
-    var pivot, partitionIndex;
+    let pivot, partitionIndex;
 
     if(left < right) {
         pivot = right;
@@ -394,10 +349,10 @@ function quickSortTimeUsage(list, left, right) {
 
 // helper function for quick sort for time in school
 function partitionTimeUsage(list, pivot, left, right) {
-    var pivotValue = list[pivot].getTimeUsage,
+    let pivotValue = list[pivot].getTimeUsage,
         partitionIndex = left;
 
-    for(var i = left; i < right; i++) {
+    for(let i = left; i < right; i++) {
         if(list[i].getTimeUsage > pivotValue) {
             swap(list, i, partitionIndex);
             partitionIndex++;
@@ -410,7 +365,7 @@ function partitionTimeUsage(list, pivot, left, right) {
 // quick sort function for GPA
 function quickSortGPA(list, left, right) {
 
-    var pivot, partitionIndex;
+    let pivot, partitionIndex;
 
     if(left < right) {
         pivot = right;
@@ -425,10 +380,10 @@ function quickSortGPA(list, left, right) {
 
 // helper function for quick sort for GPA
 function partitionGPA(list, pivot, left, right) {
-    var pivotValue = list[pivot].getGPA,
+    let pivotValue = list[pivot].getGPA,
         partitionIndex = left;
 
-    for(var i = left; i < right; i++) {
+    for(let i = left; i < right; i++) {
         if(list[i].getGPA > pivotValue) {
             swap(list, i, partitionIndex);
             partitionIndex++;
@@ -440,7 +395,7 @@ function partitionGPA(list, pivot, left, right) {
 
 // helper function for swap
 function swap(list, i, j) {
-    var temp = list[i];
+    let temp = list[i];
     list[i] = list[j];
     list[j] = temp;
 }
@@ -452,7 +407,6 @@ module.exports = {
     filterByStartingTime: filterByStartingTime,
     filterByEndingTime: filterByEndingTime,
     rankByProfScore: rankByProfScore,
-    rankByDistance: rankByDistance,
     rankByTimeCommitment: rankByTimeCommitment,
     rankByTimeUsage: rankByTimeUsage,
     rankByGPA: rankByGPA,
