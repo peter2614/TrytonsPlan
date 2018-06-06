@@ -8,7 +8,7 @@ const courselist = (props) => {
     const courseGroupStyle={
         display: 'block', 
         flexDirection: 'column', 
-        height: '35vh', 
+        height: '40vh', 
         overflowY: 'auto', 
         width: '100%', 
         marginBottom: '0px', 
