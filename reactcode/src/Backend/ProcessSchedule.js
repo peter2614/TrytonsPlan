@@ -33,7 +33,6 @@ function processSchedule (aSchedule, getScheduleData, cb){
         unitPath = "course/" + courseID.toString();
 
         getScheduleData(unitPath, unitsCallback);
-        //getScheduleData(path, callback);
 
             if(profName.toString().includes(" \r\n")) { // if co-taught
                 let profArr = profName.toString().split(" \r\n");
@@ -53,6 +52,7 @@ function processSchedule (aSchedule, getScheduleData, cb){
 function updateData (data){
     //console.log (data)
     if (data !== null) {
+
         sumProfScore += data.score;
         sumTimeCommitment += data.timeCommitment;
         sumGPA += data.gpaActual;
@@ -66,9 +66,22 @@ function updateData (data){
 }
 
 function setInfo () {
-    schedule.setProfScore = (sumProfScore / numProf).toFixed(2);
-    schedule.setTimeCommitment = sumTimeCommitment.toFixed(2);
-    schedule.setGPA = (sumGPA / schedule.getSections.length).toFixed(2);
+
+    if (sumProfScore == null || sumProfScore == 0)
+        schedule.setProfScore = 0.00;
+    else
+        schedule.setProfScore = (sumProfScore / numProf).toFixed(2);
+
+    if (sumTimeCommitment == null || sumTimeCommitment == 0)
+        schedule.setTimeCommitment = 999.99;
+    else
+        schedule.setTimeCommitment = sumTimeCommitment.toFixed(2);
+
+    if (sumGPA == null || sumGPA == 0)
+        schedule.setGPA = 0.00;
+    else
+        schedule.setGPA = (sumGPA / schedule.getSections.length).toFixed(2);
+
     infoSet = 1;
     if (unitsSet === 1){
         setTimeUsage();
@@ -117,7 +130,6 @@ function callback(data){
 function unitsCallback (data){
     numUnitsValue++;
     sumUnits += data.units;
-    //console.log (schedule.sections.length)
     if (numUnitsValue === schedule.getSections.length){
         setUnits();
     }
