@@ -1,11 +1,11 @@
 import React from 'react';
-import 'react-week-calendar/dist/style.css';
-//import './Calendar.css'
+//import 'react-week-calendar/dist/style.css';
+import './Calendar.css'
 import WeekCalendar from 'react-week-calendar';
 import moment from 'moment';
 
 const Calendar = (props) => {
-    console.log(props.showFinals);
+
     let selectedIntervals = [];
     let additionalIntervals = [];
     if(props.showFinals == false) {
@@ -48,11 +48,10 @@ const Calendar = (props) => {
         })}
 
         if(props.additionalIntervals != null && props.additionalIntervals.constructor === Array ) {
-            //console.log(props.additionalIntervals);
+    
             props.additionalIntervals.forEach(section => {
                 
                 if (section.startingTime == null || section.endingTime == null) {
-                    //console.log(section.startingTime, section.endingTime);
                     return;
                 }
             let startTimeHr = null;
@@ -87,7 +86,7 @@ const Calendar = (props) => {
             });    
         })}
     } else {
-        console.log("IN FINALS")
+
         selectedIntervals = [];
         additionalIntervals = [];
         if(props.finalIntervals != null && props.finalIntervals.constructor === Array ) {
@@ -128,8 +127,7 @@ const Calendar = (props) => {
         })}
     }
     let calendarHeight = (94-parseInt(props.heightOfMainSpace.replace("vh", ''))).toString() + "vh";
-    console.log(calendarHeight);
-   //console.log(selectedIntervals);
+
    let button = null; 
    if (props.displayCalendar) {
         button = <div>

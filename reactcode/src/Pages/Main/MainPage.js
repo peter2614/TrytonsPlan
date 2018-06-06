@@ -375,6 +375,7 @@ class MainPage extends Component {
         this.setState({lastSchedule: scheduleID});
     }
 
+    //up and down buttons next to calendar button
     raiseCalendarHandler = () => {
         if (this.state.calendarHeight < 3) {
             
@@ -393,9 +394,8 @@ class MainPage extends Component {
         }
     }
 
-
+    //change height of calendar
     getCalendarHeight = () => {
-        console.log(this.state.calendarHeight);
         switch(this.state.calendarHeight) {
             case 0: return '94vh';
                     break;
@@ -459,6 +459,7 @@ class MainPage extends Component {
         this.setState({additionalIntervals: copyOfIntervals});
     }
 
+    //show the finals for each class in the current schedule in the calendar
     showFinalsHandler = () => {
         
         if(this.state.currentSchedule != null) {
