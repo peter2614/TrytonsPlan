@@ -427,7 +427,7 @@ class MainPage extends Component {
     }
     //Allow the User to pick LABS, LECTURES, and Finals to add to calendar
     addIntervalHandler = (section, courseID, type) => {
-        if(this.state.displayCalendar == false) {
+        if(this.state.displayCalendar == false || this.state.showFinals == true) {
             return;
         }
         if(section.section == null) {
@@ -467,7 +467,7 @@ class MainPage extends Component {
     }
 
     showFinalsHandlerCallback = (data) => {
-        console.log("DATA", data);
+ 
         if(this.state.showFinals == false) {
             this.state.finalIntervals = [];
             let copyOfIntervals = [...this.state.finalIntervals];
@@ -479,9 +479,14 @@ class MainPage extends Component {
                     endingTime: section.section.FI.end_time,
                     value: section.courseID + " FINAL",
                     }
-                copyOfIntervals.push(interval);   
+               
+                //If the final has no time info
+                if (interval.startingTime != "N/A" && interval.startingTime != null) {
+                    copyOfIntervals.push(interval);  
+                }
+                 
             });
-            console.log(copyOfIntervals);
+   
             this.setState({finalIntervals: copyOfIntervals});
             
         }
