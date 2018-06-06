@@ -47,7 +47,7 @@ class MainPage extends Component {
 
         //calendar
         displayCalendar: false,
-        heightOfMainSpace: '89vh',
+        heightOfMainSpace: '94vh',
         lastSchedule: null,
         currentSchedule: null,
         additionalIntervals: [],
@@ -365,7 +365,7 @@ class MainPage extends Component {
             this.setState({heightOfMainSpace: this.getCalendarHeight()});
         } else {
             if(this.state.displayCalendar == true) {
-                this.setState({heightOfMainSpace: '89vh'});
+                this.setState({heightOfMainSpace: '94vh'});
             } else {
                 this.setState({heightOfMainSpace: this.getCalendarHeight()});
             }
@@ -397,13 +397,13 @@ class MainPage extends Component {
     getCalendarHeight = () => {
         console.log(this.state.calendarHeight);
         switch(this.state.calendarHeight) {
-            case 0: return '89vh';
+            case 0: return '94vh';
                     break;
-            case 1: return '60vh';
+            case 1: return '65vh';
                     break;
-            case 2: return '44.5vh';
+            case 2: return '45.5vh';
                     break;
-            case 3: return '27vh';
+            case 3: return '20vh';
                     break;
         }
     }
@@ -500,17 +500,19 @@ class MainPage extends Component {
         console.log("CLOSING");
         this.setState({showModal: false});
     }
-
-    render() {
-    return (
-        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: '100vh', overflow:'hidden'}}>
-
-            <div className={"NAVBAR"} style={{width:'100vw', height: '5vh', backgroundColor: '#333'}}>
+/*
+   <div className={"NAVBAR"} style={{width:'100vw', height: '5vh', backgroundColor: '#333'}}>
                 <div style={{display: 'inline-block', float: 'left'}}>
                 <p style={{float: 'left', paddingLeft: '3vw', marginBottom:'0', marginTop: '-.7vh', fontSize: '4vh', color: '#49B', fontWeight: '900'}}>Trytons</p>
                 <p style={{float: 'left', paddingLeft: '0', marginBottom:'0', marginTop: '.5vh', fontSize: '3vh', color: '#BB0', fontWeight: '900'}}>Plan</p>
                 </div>
             </div>
+            */
+    render() {
+    return (
+        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: '100vh', overflow:'hidden'}}>
+
+         
 
             <div style={{display: 'inline-block'}}>
 
@@ -527,7 +529,7 @@ class MainPage extends Component {
                     displayCourseInfoHandler={this.displayCourseInfoHandler}/>
                 </div>
                 
-                <div style={{overflow:'hidden', height: '95vh'}}>
+                <div style={{overflow:'hidden', height: '100vh'}}>
                     
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
                         <OptionsBar 

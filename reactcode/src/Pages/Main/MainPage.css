@@ -4,26 +4,22 @@
 }
 
 .sidebarcontainer {
-    height: 95vh;
+    height: 100vh;
     background-color: #307080;
     width: 22vw;
     float: left;
 }
 
 .MainSpaceCalendar{
-    height: '59vh';
     transition: height 1s;
 }
 .MainSpace{
-    height: '88vh';
     transition: height 1s;
 }
 
 .CalendarFull {
-    height: '30vh';
     transition: height 1s;
 }
 .CalendarShrink {
-    height: '1vh';
     transition: height 1s;
 }

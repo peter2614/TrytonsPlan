@@ -127,7 +127,7 @@ const Calendar = (props) => {
                 
         })}
     }
-    let calendarHeight = (89-parseInt(props.heightOfMainSpace.replace("vh", ''))).toString() + "vh";
+    let calendarHeight = (94-parseInt(props.heightOfMainSpace.replace("vh", ''))).toString() + "vh";
     console.log(calendarHeight);
    //console.log(selectedIntervals);
    let button = null; 
@@ -143,7 +143,7 @@ const Calendar = (props) => {
         calendar = <div className="transition" style={{width: '78vw', height: calendarHeight, backgroundColor: '#FF'}}>
                         <button onClick={props.displayCalendarHandler} style={{marginLeft:'-39vw', position:'absolute', float:'left', height:'4vh', width:'5vw', marginTop:'-4vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.7vw'}}>Calendar</button>
                         {button}
-                        <WeekCalendar numberOfDays={5} firstDay={moment('20180514')} dayFormat={'dddd'} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={15} cellHeight={12} selectedIntervals={selectedIntervals} onEventClick={props.deleteIntervalHandler} useModal={false}/>        
+                        <WeekCalendar numberOfDays={5} firstDay={moment('20180514')} dayFormat={'dddd'} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={10} cellHeight={12} selectedIntervals={selectedIntervals} onEventClick={props.deleteIntervalHandler} useModal={false}/>        
                     </div>
                     
     return calendar;   

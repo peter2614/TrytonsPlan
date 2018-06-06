@@ -49,7 +49,7 @@ const MainSpace = (props) => {
     } else {
         //Display a course's information
         if (props.allInfo != null && props.generalInfo != null) { 
-            display =   <div className={props.loading?'fadeOut':'fadeIn'} style={{position: 'relative', backgroundColor: '#333', marginTop:'-89vh'}}>
+            display =   <div className={props.loading?'fadeOut':'fadeIn'} style={{position: 'relative', backgroundColor: '#333', marginTop:'-94vh'}}>
                             <div style={{minHeight: '5vh', maxHeight:'10vh'}}>
                                 <p style={{fontSize: '2vw', fontWeight: '700', margin: '0px', color: 'lightgrey'}}>{props.courseID} - {props.generalInfo.title} ({props.generalInfo.units})</p>
                             </div>
@@ -66,7 +66,7 @@ const MainSpace = (props) => {
     let background = null;
     if(props.displayInfo === true) {
         background =<div style={{overflow: 'hidden'}}> 
-                            <div style={{position: 'relative', backgroundColor: '#DDD', height: '89vh', width: '78vw'}}>
+                            <div style={{position: 'relative', backgroundColor: '#DDD', height: '94vh', width: '78vw'}}>
                                 <div style={{height: '20vh', backgroundColor: '#333'}}>
                                     <p className={props.loading?'loadingfadeIn':'loadingfadeOut'} style={{fontSize: '3vw', fontWeight: '700', margin: '0px', color: 'lightgrey'}}>LOADING - Fetching Data</p>
                                     <p className={props.loading?'loadingfadeIn':'loadingfadeOut'} style={{color: 'lightgrey', marginLeft: '10%', width: '80%'}}>The connection seems a bit slow, we'll have your info in one moment!</p>
