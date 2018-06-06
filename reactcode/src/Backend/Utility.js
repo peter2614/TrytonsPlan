@@ -14,6 +14,7 @@ var scheduleList;
 var numCBFromProcess = 0;
 var firebaseRef = null;
 
+/* ---------------------------------------------------------
 // db setup
 var config = {
     apiKey: "AIzaSyDHND3EVIe-S8r0k_3DLf_GClaM2qazGMI",
@@ -24,21 +25,8 @@ var config = {
     messagingSenderId: "242589223564"
 };
 
-// firebase.initializeApp(config);
-
-/*
-module.exports = {
-    getData: getData,
-    filterByMaxUnits: filterByMaxUnits,
-    rankByProfScore: rankByProfScore,
-    rankByDistance: rankByDistance,
-    rankByTimeCommitment: rankByTimeCommitment,
-    rankByTimeUsage: rankByTimeUsage,
-    rankByGPA: rankByGPA,
-    getSchedule: getSchedule,
-    getScheduleData: getScheduleData
-};
-*/
+    firebase.initializeApp(config);
+//--------------------------------------------------------- */
 
 function getData (CourseID, cb) {
     let reference = QUARTER + TO + CourseID;  //Get the reference of the data
@@ -247,8 +235,18 @@ var rankByTimeCommitment = function(scheduleList) {
     if(scheduleList === null)
         return [];
 
+    /* // The quick sort algorithm somehow doesn't work
     let len = scheduleList.length;
     return quickSortTimeCommitment(scheduleList,0,len-1);
+    */
+
+    let newScheduleList = scheduleList;
+    newScheduleList.sort(function (a,b) {
+        return a.getTimeCommitment - b.getTimeCommitment;
+    });
+
+    return newScheduleList;
+
 }
 
 // rank by time in school
