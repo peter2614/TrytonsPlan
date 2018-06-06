@@ -458,6 +458,7 @@ class MainPage extends Component {
         this.setState({additionalIntervals: []});
         this.setState({lastSchedule: null});
         this.setState({currentSchedule: null});
+        this.setState({finalIntervals: []});
     }
 
     //=========Modal===========
