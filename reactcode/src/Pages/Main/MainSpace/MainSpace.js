@@ -3,6 +3,7 @@ import ScheduleCards from './Components/ScheduleCards.js';
 import CourseInformation from './Components/CourseInformation';
 import './MainSpace.css'
 import logo from '../../../Assets/TrytonsPlanLogo.png';
+import {Modal} from 'react-bootstrap';
 
 const MainSpace = (props) => {
     
@@ -46,7 +47,7 @@ const MainSpace = (props) => {
             }
         }
     } else {
-        //Displat a course's information
+        //Display a course's information
         if (props.allInfo != null && props.generalInfo != null) { 
             display =   <div className={props.loading?'fadeOut':'fadeIn'} style={{position: 'relative', backgroundColor: '#333', marginTop:'-89vh'}}>
                             <div style={{minHeight: '5vh', maxHeight:'10vh'}}>
@@ -56,7 +57,7 @@ const MainSpace = (props) => {
                                 <p style={{color: 'lightgrey', marginLeft: '10%', width: '80%', fontSize: '18px'}}>{props.generalInfo.description}</p>  
                             </div>
                             <hr style={{paddingTop: '.5vh', marginLeft: '0%', width: '100%'}}/>
-                            <CourseInformation key={props.courseID} allInfo={props.allInfo} courseID={props.courseID} generalInfo={props.generalInfo} db={props.db}/>
+                            <CourseInformation addIntervalHandler={props.addIntervalHandler} key={props.courseID} allInfo={props.allInfo} courseID={props.courseID} generalInfo={props.generalInfo} db={props.db}/>
                         </div> 
         }
     }
@@ -75,12 +76,14 @@ const MainSpace = (props) => {
                         </div>
     }
     
-
+   
 
     //What we're actually going to display to the user
     let finalDisplay = <div>
+                            
                             {background}
-                            {display}                 
+                            {display}   
+                                       
                         </div>
     
     //switch between splash screen and everything else
@@ -91,8 +94,20 @@ const MainSpace = (props) => {
     }
 
     return (
-            finalDisplay
-            
+            <div>
+                <div className="modal-container" onClick={props.closeModalHandler}>
+                    <Modal show={props.showModal}>
+                        <Modal.Header style={{display: 'flex', justifyContent: 'center'}}>
+                            <Modal.Title >Can't Add Another Course</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body style={{display: 'flex', justifyContent: 'center'}}>
+                            <text>You can only add up to 7 courses to your Course List.</text>
+                        </Modal.Body>
+                    </Modal>
+                </div>
+            {finalDisplay}
+
+            </div>
     )
 }
 

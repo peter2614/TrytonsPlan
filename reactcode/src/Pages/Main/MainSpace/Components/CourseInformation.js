@@ -68,7 +68,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     let formattedEndTime = formatTime(DI.end_time);
         
                     return(
-                        <tr className="ctr" key={index} >
+                        <tr className="ctr" key={index} onClick={(event) => props.addIntervalHandler(DI, props.courseID, "DI")}>
                             <th style={{color: '#228', paddingLeft: '1.5vw', fontSize: '17px'}} >DISCUSSION</th>
                             <th style={{color: '#228', fontSize: '18px'}}>{weekdays}</th>
                             <th style={{color: '#228', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>       
@@ -96,8 +96,8 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                         let formattedEndTime = formatTime(LA.end_time);
             
                         return(
-                            <tr className="ctr" key={index} >
-                                <th style={{color: '#282', paddingLeft: '1.5vw', fontSize: '17px'}} >LAB</th>
+                            <tr className="ctr" key={index} onClick={(event) => props.addIntervalHandler(LA, props.courseID, "LAB")}>
+                                <th style={{color: '#282', paddingLeft: '1.5vw', fontSize: '17px'}}>LAB</th>
                                 <th style={{color: '#282', fontSize: '18px'}}>{weekdays}</th>
                                 <th style={{color: '#282', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>       
                                 <th style={{color: '#282', fontSize: '18px'}}>{LA.building} {LA.room}</th>
@@ -134,7 +134,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     }      
                     
                     return(    
-                        <tr className="ctr" key={index}>
+                        <tr className="ctr" key={index} onClick={(event) => props.addIntervalHandler(LE, props.courseID, "LE")}>
                             <th>LECTURE</th>
                             <th>{weekdays}</th>
                             <th>{formattedStartTime}-{formattedEndTime}</th>  
@@ -150,7 +150,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                 let formattedStartTime = formatTime(section.course.FI.start_time);
                 let formattedEndTime = formatTime(section.course.FI.end_time);
                 FI = 
-                    <tr className="ctr">
+                    <tr className="ctr" onClick={(event) => props.addIntervalHandler(section.course.FI, props.courseID, "FI")}>
                         <th>FINAL</th>
                         <th>{section.course.FI.date}</th>
                         <th>{formattedStartTime}-{formattedEndTime}</th>

@@ -4,7 +4,7 @@ import MainSpace from './MainSpace/MainSpace.js'
 import Calendar from './MainSpace/Calendar.js'
 import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
-import {getAllInfo, getGeneralInfo, getCourseNames, getCourseTitles} from './GetData.js';
+import {getAllInfo, getAllInfoCalendar, getGeneralInfo, getCourseNames, getCourseTitles} from './GetData.js';
 import {getData, filterByMaxUnits, filterByMinUnits, filterByEndingTime, filterByStartingTime, rankByProfScore, rankByTimeCommitment, rankByTimeUsage, rankByGPA, getSchedule, getScheduleData, turnOffDatabase} from '../../Backend/Utility.js';
 
 
@@ -50,6 +50,12 @@ class MainPage extends Component {
         heightOfMainSpace: '89vh',
         lastSchedule: null,
         currentSchedule: null,
+        additionalIntervals: [],
+        finalIntervals: [],
+        showFinals: false,
+
+        //Modal
+        showModal: false,
     }
 
     //==================On Startup==============
@@ -67,6 +73,10 @@ class MainPage extends Component {
     
     //========================Sidebar Event Handlers=============================
     addCourseHandler = (event, name) => {
+        if (this.state.courseList.length == 7) {
+            this.setState({showModal: true});
+            return;
+        }
         const alreadyExists = this.state.courseList.find(c => {
             return c.name === name;
         });
@@ -187,9 +197,9 @@ class MainPage extends Component {
     maxUnitsHandler = (event) => {
         let validated = event.target.value.replace(/\D/g,'');
         if (validated != "") {  
-        this.state.maxUnits = validated;
+            this.state.maxUnits = validated;
         } else {
-        this.state.maxUnits = 16;
+            this.state.maxUnits = 16;
         }
         this.filter();
     }
@@ -197,9 +207,9 @@ class MainPage extends Component {
     minUnitsHandler = (event) => {
         let validated = event.target.value.replace(/\D/g,'');
         if (validated != "") {  
-        this.state.minUnits = validated;
+            this.state.minUnits = validated;
         } else {
-        this.state.minUnits = 0;
+            this.state.minUnits = 0;
         }
         this.filter();
     }
@@ -253,9 +263,9 @@ class MainPage extends Component {
         }
         
         if (validated != "") {  
-        this.state.startingTime = validated;
+            this.state.startingTime = validated;
         } else {
-        this.state.startingTime = 0;
+            this.state.startingTime = 0;
         }
         this.filter();
     }
@@ -349,6 +359,7 @@ class MainPage extends Component {
             this.setState({currentSchedule: schedule});
         }
         if(fromSchedule && scheduleID !== this.state.lastSchedule){
+            this.setState({showFinals: false});
             this.setState({displayCalendar: true});
             this.setState({heightOfMainSpace: '44.5vh'});
         } else {
@@ -361,9 +372,99 @@ class MainPage extends Component {
             
         }
         this.setState({lastSchedule: scheduleID});
-        
     }
 
+    //delete an interval when you click on it
+    deleteIntervalHandler = (event) => {
+        const alreadyExists = this.state.additionalIntervals.find(addInterval => {
+            return addInterval.value === event.value;
+        });
+        if(alreadyExists) {
+            const index = this.state.additionalIntervals.findIndex(addInterval => {
+                return addInterval.value === event.value;
+            });
+            // create copies
+            let copyOfIntervals = [...this.state.additionalIntervals]
+
+    
+            copyOfIntervals.splice(index, 1);
+            this.setState({additionalIntervals: copyOfIntervals});
+        }
+    }
+    //Allow the User to pick LABS, LECTURES, and Finals to add to calendar
+    addIntervalHandler = (section, courseID, type) => {
+        if(this.state.displayCalendar == false) {
+            return;
+        }
+        if(section.section == null) {
+            section.section = '';
+        }
+        let interval = {
+            day: section.day,
+            startingTime: section.start_time,
+            endingTime: section.end_time,
+            value: courseID + " - " + type + "   " + section.section,
+            }
+
+        const alreadyExists = this.state.additionalIntervals.find(addInterval => {
+            return addInterval.value === interval.value;
+        });
+        if(alreadyExists) {
+            const index = this.state.additionalIntervals.findIndex(addInterval => {
+                return addInterval.value === interval.value;
+            });
+            // create copies
+            let copyOfIntervals = [...this.state.additionalIntervals]
+
+    
+            copyOfIntervals.splice(index, 1);
+            this.setState({additionalIntervals: copyOfIntervals});
+            return;
+        }
+        let copyOfIntervals = [...this.state.additionalIntervals, interval];
+        this.setState({additionalIntervals: copyOfIntervals});
+    }
+
+    showFinalsHandler = () => {
+        
+        if(this.state.currentSchedule != null) {
+            getAllInfoCalendar(this.state.currentSchedule ,this.props.db , this.showFinalsHandlerCallback);
+        }
+    }
+
+    showFinalsHandlerCallback = (data) => {
+        console.log("DATA", data);
+        if(this.state.showFinals == false) {
+            this.state.finalIntervals = [];
+            let copyOfIntervals = [...this.state.finalIntervals];
+            data.forEach(section => {
+                
+                let interval = {
+                    day: section.section.FI.day,
+                    startingTime: section.section.FI.start_time,
+                    endingTime: section.section.FI.end_time,
+                    value: section.courseID + " FINAL",
+                    }
+                copyOfIntervals.push(interval);   
+            });
+            console.log(copyOfIntervals);
+            this.setState({finalIntervals: copyOfIntervals});
+            
+        }
+        this.setState({showFinals: !this.state.showFinals});
+    }
+
+    clearCalendarHandler= () => {
+        this.setState({additionalIntervals: []});
+        this.setState({lastSchedule: null});
+        this.setState({currentSchedule: null});
+    }
+
+    //=========Modal===========
+    closeModalHandler = () => {
+        console.log("CLOSING");
+        this.setState({showModal: false});
+    }
 
     render() {
     return (
@@ -390,7 +491,7 @@ class MainPage extends Component {
                     searchCourseHandler={this.searchCourseHandler}
                     displayCourseInfoHandler={this.displayCourseInfoHandler}/>
                 </div>
-
+                
                 <div style={{overflow:'hidden', height: '95vh'}}>
                     
                     <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
@@ -419,11 +520,26 @@ class MainPage extends Component {
                             generalInfo={this.state.generalInfo} 
                             db={this.props.db}
                             displayCalendarHandler={this.displayCalendarHandler}
-                            displayCalendar={this.state.displayCalendar}/>
+                            displayCalendar={this.state.displayCalendar}
+                            closeModalHandler={this.closeModalHandler}
+                            showModal={this.state.showModal}
+                            addIntervalHandler={this.addIntervalHandler}/>
+                            
+                            
                         />   
                         
                     </div>
-                        <Calendar schedule={this.state.currentSchedule} displayCalendarHandler={this.displayCalendarHandler} displayCalendar={this.state.displayCalendar}/>
+                        <Calendar 
+                        showFinalsHandler={this.showFinalsHandler}
+                        deleteIntervalHandler={this.deleteIntervalHandler} 
+                        additionalIntervals={this.state.additionalIntervals} 
+                        clearCalendarHandler={this.clearCalendarHandler}
+                        schedule={this.state.currentSchedule} 
+                        displayCalendarHandler={this.displayCalendarHandler} 
+                        displayCalendar={this.state.displayCalendar}
+                        finalIntervals={this.state.finalIntervals}
+                        showFinals={this.state.showFinals}/>
+                        
                 </div>
             </div>
         </div>
