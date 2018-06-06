@@ -53,6 +53,7 @@ class MainPage extends Component {
         additionalIntervals: [],
         finalIntervals: [],
         showFinals: false,
+        calendarHeight: 2,
 
         //Modal
         showModal: false,
@@ -361,17 +362,50 @@ class MainPage extends Component {
         if(fromSchedule && scheduleID !== this.state.lastSchedule){
             this.setState({showFinals: false});
             this.setState({displayCalendar: true});
-            this.setState({heightOfMainSpace: '44.5vh'});
+            this.setState({heightOfMainSpace: this.getCalendarHeight()});
         } else {
             if(this.state.displayCalendar == true) {
                 this.setState({heightOfMainSpace: '89vh'});
             } else {
-                this.setState({heightOfMainSpace: '44.5vh'});
+                this.setState({heightOfMainSpace: this.getCalendarHeight()});
             }
             this.setState({displayCalendar: !this.state.displayCalendar});
             
         }
         this.setState({lastSchedule: scheduleID});
+    }
+
+    raiseCalendarHandler = () => {
+        if (this.state.calendarHeight < 3) {
+            
+            this.state.calendarHeight++;
+        }
+        if(this.state.displayCalendar == true) {
+            this.setState({heightOfMainSpace: this.getCalendarHeight()});
+        }
+    }
+    lowerCalendarHandler = () => {
+        if (this.state.calendarHeight > 1) {
+            this.state.calendarHeight--;
+        }
+        if(this.state.displayCalendar == true) {
+            this.setState({heightOfMainSpace: this.getCalendarHeight()});
+        }
+    }
+
+
+    getCalendarHeight = () => {
+        console.log(this.state.calendarHeight);
+        switch(this.state.calendarHeight) {
+            case 0: return '89vh';
+                    break;
+            case 1: return '60vh';
+                    break;
+            case 2: return '44.5vh';
+                    break;
+            case 3: return '27vh';
+                    break;
+        }
     }
 
     //delete an interval when you click on it
@@ -530,17 +564,21 @@ class MainPage extends Component {
                         />   
                         
                     </div>
+        
                         <Calendar 
+                        heightOfMainSpace={this.state.heightOfMainSpace}
                         showFinalsHandler={this.showFinalsHandler}
                         deleteIntervalHandler={this.deleteIntervalHandler} 
                         additionalIntervals={this.state.additionalIntervals} 
                         clearCalendarHandler={this.clearCalendarHandler}
+                        raiseCalendarHandler={this.raiseCalendarHandler}
+                        lowerCalendarHandler={this.lowerCalendarHandler}
                         schedule={this.state.currentSchedule} 
                         displayCalendarHandler={this.displayCalendarHandler} 
                         displayCalendar={this.state.displayCalendar}
                         finalIntervals={this.state.finalIntervals}
                         showFinals={this.state.showFinals}/>
-                        
+                    
                 </div>
             </div>
         </div>

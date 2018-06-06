@@ -1,5 +1,6 @@
 import React from 'react';
-import 'react-week-calendar/dist/style.css';
+//import 'react-week-calendar/dist/style.css';
+import './Calendar.css'
 import WeekCalendar from 'react-week-calendar';
 import moment from 'moment';
 
@@ -126,14 +127,23 @@ const Calendar = (props) => {
                 
         })}
     }
-
+    let calendarHeight = (89-parseInt(props.heightOfMainSpace.replace("vh", ''))).toString() + "vh";
+    console.log(calendarHeight);
    //console.log(selectedIntervals);
-    let calendar = null;
-        calendar = <div  style={{width: '78vw', height: '80vh', backgroundColor: '#789'}}>
-                        <button onClick={props.displayCalendarHandler} style={{marginLeft:'-39vw', position:'absolute', float:'left', height:'4vh', width:'5vw', marginTop:'-4vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.7vw'}}>Calendar</button>
+   let button = null; 
+   if (props.displayCalendar) {
+        button = <div>
+                        <button onClick={props.raiseCalendarHandler} style={{marginLeft:'-26vw', position:'absolute', float:'left', height:'2vh', width:'1vw', marginTop:'-4vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.4vw'}}><text style={{marginLeft: '-.2vw'}}>▲</text></button>
+                        <button onClick={props.lowerCalendarHandler} style={{marginLeft:'-26vw', position:'absolute', float:'left', height:'2vh', width:'1vw', marginTop:'-2vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.4vw'}}><text style={{marginLeft: '-.2vw'}}>▼</text></button>
                         <button onClick={props.showFinalsHandler} style={{marginLeft:'-34vw', position:'absolute', float:'left', height:'4vh', width:'5vw', marginTop:'-4vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.7vw'}}>Finals</button>
                         <button onClick={props.clearCalendarHandler} style={{marginLeft:'-29vw', position:'absolute', float:'left', height:'4vh', width:'3vw', marginTop:'-4vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.7vw'}}>CLR</button>
-                        <WeekCalendar numberOfDays={5} firstDay={moment('20180514')} dayFormat={'dddd'} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={10} cellHeight={12} selectedIntervals={selectedIntervals} onEventClick={props.deleteIntervalHandler} useModal={false}/>        
+                </div>
+    }
+    let calendar = null;
+        calendar = <div className="transition" style={{width: '78vw', height: calendarHeight, backgroundColor: '#FF'}}>
+                        <button onClick={props.displayCalendarHandler} style={{marginLeft:'-39vw', position:'absolute', float:'left', height:'4vh', width:'5vw', marginTop:'-4vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.7vw'}}>Calendar</button>
+                        {button}
+                        <WeekCalendar numberOfDays={5} firstDay={moment('20180514')} dayFormat={'dddd'} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={15} cellHeight={12} selectedIntervals={selectedIntervals} onEventClick={props.deleteIntervalHandler} useModal={false}/>        
                     </div>
                     
     return calendar;   
