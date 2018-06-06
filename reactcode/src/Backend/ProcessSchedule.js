@@ -67,20 +67,20 @@ function updateData (data){
 
 function setInfo () {
 
-    if (sumProfScore == null || sumProfScore == 0)
+    if (sumProfScore === null || sumProfScore === 0)
         schedule.setProfScore = 0.00;
     else
         schedule.setProfScore = (sumProfScore / numProf).toFixed(2);
 
-    if (sumTimeCommitment == null || sumTimeCommitment == 0)
+    if (sumTimeCommitment === null || sumTimeCommitment === 0)
         schedule.setTimeCommitment = 999.99;
     else
         schedule.setTimeCommitment = sumTimeCommitment.toFixed(2);
 
-    if (sumGPA == null || sumGPA == 0)
+    if (sumGPA === null || sumGPA === 0)
         schedule.setGPA = 0.00;
     else
-        schedule.setGPA = (sumGPA / schedule.getSections.length).toFixed(2);
+        schedule.setGPA = (sumGPA / numProf).toFixed(2);
 
     infoSet = 1;
     if (unitsSet === 1){
