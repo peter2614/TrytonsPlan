@@ -1,6 +1,6 @@
 import React from 'react';
-//import 'react-week-calendar/dist/style.css';
-import './Calendar.css'
+import 'react-week-calendar/dist/style.css';
+//import './Calendar.css'
 import WeekCalendar from 'react-week-calendar';
 import moment from 'moment';
 
