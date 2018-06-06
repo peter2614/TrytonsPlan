@@ -20,7 +20,7 @@ const MainSpace = (props) => {
                             <div style={{height: '5vh', backgroundColor: '#666', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                 <p style={{color:'lightgrey', fontSize: '3vw'}}>Generating Schedules...</p>
                             </div>
-                        <div style={{height: '34vh', backgroundColor: '#666'}}/>     
+                        <div style={{height: '39vh', backgroundColor: '#666'}}/>     
                     </div>
         } else {
             //Display the Schedule Cards after they finish loading
