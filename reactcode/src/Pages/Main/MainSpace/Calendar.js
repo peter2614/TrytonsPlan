@@ -1,7 +1,7 @@
 import React from 'react';
 //import 'react-week-calendar/dist/style.css';
 import './Calendar.css'
-import WeekCalendar from 'react-week-calendar';
+import WeekCalendar from './Components/dist/';
 import moment from 'moment';
 
 const Calendar = (props) => {
