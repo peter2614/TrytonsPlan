@@ -12,6 +12,33 @@ export function getAllInfo(courseName, db, callback) {
     });
 }
 
+export function getAllInfoCalendar(schedule, db, callback) {
+    let info = [];
+    schedule.forEach(course => {
+        let f18ref = db.database().ref("F18/" + course.courseID);
+        f18ref.on("value", snapshot => {
+            snapshot.val().forEach(section => {
+                
+                if(section.id === course.sectionID) {
+                    console.log("SECTIONID", section.id);
+                    console.log("COURSESECTIONDI", course.sectionID);
+                    console.log("SECTION", section);
+                    let sectionWithCourse = {
+                        section: section,
+                        courseID: course.courseID,
+                    }
+                    info.push(sectionWithCourse);
+                }
+                if(info.length === schedule.length) {
+                    callback(info);
+                }    
+            });
+        });
+
+    })
+   
+}
+
 //For getting a professor's information, called from getAllInfo
 function getProfessors(db, professor, section, data, courseName, callback) {
     let professorPath = professor;
@@ -23,9 +50,10 @@ function getProfessors(db, professor, section, data, courseName, callback) {
         professorPath[index] = professorPath[index].replace('.', '');
         }});
         professorPath.forEach((path, index) => {
-            if(path[path.length-1] == " ") {
+            if(path[path.length-1] === " ") {
                 professorPath[index] = path.slice(0,path.length-1);
             }
+            
         });
   
         //what we want to return is both course information and professor information
@@ -33,15 +61,16 @@ function getProfessors(db, professor, section, data, courseName, callback) {
             course: section,
             professor: [],
         }
-
+        
         //in order to get professor information, we need to query the database again
         professorPath.forEach((path, index) => {
             let profref = db.database().ref("professor/" + path + "/" + courseName);
             profref.on("value",snapshot => {
                 amalgamation.professor.push(snapshot.val());
                 //if a section has multiple lectures for a single professor, don't push multiple copies of the section, just push 1
-                if (index == professorPath.length-1) {
+                if (index === professorPath.length-1) {
                     data.push(amalgamation);
+                    console.log("AMAL", amalgamation);
                     callback(data);
                 }
             })});
@@ -90,7 +119,7 @@ function getCourseTitles(db, courseNames, callback) {
                 courses.push(course);
             }
 
-            if (count == courseNames.length-1) {callback(courses);}
+            if (count === courseNames.length-1) {callback(courses);}
         });
         
     });

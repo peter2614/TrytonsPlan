@@ -1,0 +1,19 @@
+.Tree {
+    height: 750px;
+    width: 1500px;
+    position: relative;
+    overflow: hidden; 
+    zoom: 125%;
+}
+
+.SideBar {
+    height:100%;
+    width: 25%;
+    position: absolute;
+    overflow: hidden; 
+}
+
+.Logo {
+    font-size: 20px;
+    zoom: 1.25;
+}

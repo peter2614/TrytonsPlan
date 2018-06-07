@@ -21,10 +21,24 @@ th, td {
     
 }
 
-tr:hover {
+.ctr:hover {
     background-color: #FFF;
 }
 
-tr:hover td {
+.ctr:hover td {
     background-color: transparent; /* or #000 */
+}
+
+#close-image img {
+    display: block;
+    height: 130px;  
+    width: 100px;
+}
+
+
+#close-CSS {
+    background-image: url( '../../../../Assets/calendarIcon.png' );
+    background-size: 2vw 2vw;
+    height: 2vw;  
+    width: 2vw;
 }

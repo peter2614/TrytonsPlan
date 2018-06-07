@@ -1,19 +1,22 @@
 class Section {
 
-    constructor(sectionID, courseID, startingTime, endingTime, day, location, professor, finalTime, finalEndTime, finalDate,
-                disArr) {
+    constructor(sectionID, courseID, startingTime, endingTime, day, location, room, professor, finalTime, finalEndTime, finalDate,
+                DI, LA, FI) {
         this.sectionID = sectionID;
         this.courseID = courseID;
-        /*this.year = year;
-        this.quarter = quarter;*/
         this.startingTime = startingTime;
         this.endingTime = endingTime;
         this.day = day;
         this.location = location;
+        this.room = room;
         this.professor = professor;
         this.finalTime = finalTime;
         this.finalEndTime = finalEndTime;
         this.finalDate = finalDate;
+        this.hashKey = 0;
+        this.DI = DI;
+        this.LA = LA;
+        this.FI = FI;
     }
 
     get getSectionID() {
@@ -31,23 +34,7 @@ class Section {
     set setCourseID(courseID) {
         this.courseID = courseID;
     }
-/*
-    get getYear() {
-        return this.year;
-    }
 
-    set setYear(year) {
-        this.year = year;
-    }
-
-    get getQuarter() {
-        return this.quarter;
-    }
-
-    set setQuarter(quarter) {
-        this.quarter = quarter;
-    }
-*/
     get getStartingTime() {
         return this.startingTime;
     }
@@ -78,6 +65,14 @@ class Section {
 
     set setLocation(location) {
         this.location = location;
+    }
+
+    get getRoom() {
+        return this.room;
+    }
+
+    set setRoom(room) {
+        this.room = room;
     }
 
     get getProfessor() {
@@ -112,13 +107,31 @@ class Section {
         this.finalDate = finalDate;
     }
 
-    get getDisArr(){
-        return this.disArr;
+    get getDI() {
+        return this.DI;
     }
 
-    set setDisArr (disArr){
-        this.disArr = disArr;
+    set setDI(DI) {
+        this.DI = DI;
+    }
+
+    get getLA() {
+        return this.LA;
+    }
+
+    set setLA(LA) {
+        this.LA = LA;
+    }
+
+    get getFI() {
+        return this.FI;
+    }
+
+    set setFI(FI) {
+        this.FI = FI;
     }
 }
+
+
 
 module.exports = Section;
