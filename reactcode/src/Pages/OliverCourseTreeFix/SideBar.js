@@ -15,7 +15,9 @@ const Sidebar = (props) => {
         >
             <h3
                 style = {{
-                    paddingTop: "200px"
+                    paddingTop: "200px",
+                    color: "#dddddd",
+                    fontFamily: "Avenir"
                 }}
             >
                 Click on a node to see the information.
@@ -52,13 +54,14 @@ const Sidebar = (props) => {
                 onClick={props.handleButton}
             />
 
-            <div className = "Logo">
+            <div className = "Logo" style={{marginTop: '1.5vh'}}>
                 <p
                     style={{
                         float: 'left',
                         paddingLeft: "80px",
-                        color: '#49B',
-                        fontWeight: '900'
+                        color: '#5186ae',
+                        fontWeight: '900',
+                        fontFamily: 'Avenir'
                     }}
                 >
                     Trytons
@@ -68,8 +71,9 @@ const Sidebar = (props) => {
                     style={{
                         float: 'left',
                         paddingLeft: '0px',
-                        color: '#BB0',
-                        fontWeight: '900'
+                        color: '#dacb94',
+                        fontWeight: '900',
+                        fontFamily: 'Avenir'
                     }}
                 >
                     Plan
@@ -117,9 +121,10 @@ const Sidebar = (props) => {
                 />
 
                 <text
+                    fontFamily= "Avenir"
                     text-anchor = "middle"
                     y="4" 
-                    style = {{stroke:"#000"}}
+                    style = {{stroke:"#dddddd"}}
                     fontSize="18"
                     transform = "translate(180, 40)"
                 >
@@ -127,9 +132,10 @@ const Sidebar = (props) => {
                 </text>
 
                 <text
+                    fontFamily= "Avenir"
                     text-anchor = "middle"
                     y="4" 
-                    style = {{stroke:"#000"}}
+                    style = {{stroke:"#dddddd"}}
                     fontSize="18"
                     transform = "translate(200, 80)"
                 >
@@ -137,9 +143,10 @@ const Sidebar = (props) => {
                 </text>
 
                 <text
+                    fontFamily= "Avenir"
                     text-anchor = "middle"
                     y="4" 
-                    style = {{stroke:"#000"}}
+                    style = {{stroke:"#dddddd"}}
                     fontSize="18"
                     transform = "translate(250, 125)"
                 >

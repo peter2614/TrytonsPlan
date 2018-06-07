@@ -53,10 +53,10 @@ const course = (props) => {
         name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#1c7768', fontSize: '120%', fontWeight: '525', backgroundColor: 'transparent'}}>{props.name}</p>
     }
     if(props.name.includes("COGS")) {
-        name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#22889d', fontSize: '120%', fontWeight: '525', backgroundColor: 'transparent'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#34caea', fontSize: '120%', fontWeight: '525', backgroundColor: 'transparent'}}>{props.name}</p>
     }
     if(props.name.includes("CSE")) {
-        name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#356a7f', fontSize: '120%', fontWeight: '525', backgroundColor: 'transparent'}}>{props.name}</p>
+        name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#54abcb', fontSize: '120%', fontWeight: '525', backgroundColor: 'transparent'}}>{props.name}</p>
     }
     if(props.name.includes("MATH")) {
         name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#1777bc', fontSize: '120%', fontWeight: '525', backgroundColor: 'transparent'}}>{props.name}</p>

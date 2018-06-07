@@ -123,16 +123,13 @@
 }
 
 
-
-
 .generateCalendarStyle {
-    font-size: 0.7vw;
+    font-size: 0.8vw;
     margin-left: -39vw;
     position: absolute;
-    float: left;
     height: 3.5vh;
     width: 4vw;
-    margin-top: -4vh;
+    margin-top: -6vh;
     background-color: transparent;
     color: #DDDDDD;
     border-width: 0.1rem;
@@ -141,13 +138,13 @@
 }
 
 .generateCalendarStyle:hover {
-    font-size: 0.7vw;
+    font-size: 0.8vw;
     margin-left: -39vw;
     position: absolute;
     float: left;
     height: 3.5vh;
     width: 4vw;
-    margin-top: -4vh;
+    margin-top: -6vh;
     background-color: #37506a;
     color: #f2f2f2;
     border-width: 0.1rem;
@@ -157,26 +154,18 @@
 
 
 .calendarButtonStyle {
-    margin-left:-26vw;
     position:absolute;
     float:left;
-    height: 2vh;
-    width: 1vw;
-    margin-top: -4vh;
     background-color: transparent;
     color: #dddddd;
     border-width: 0.1rem;
     border-color: #37506a;
-    font-size: 0.4vw;
+    font-size: 1.5vw;
 }
 
 .calendarButtonStyle:hover {
-    margin-left:-26vw;
     position:absolute;
     float:left;
-    height: 2vh;
-    width: 1vw;
-    margin-top: -4vh;
     background-color: #37506a;
     color: #f2f2f2;
     border-width: 0.1rem;

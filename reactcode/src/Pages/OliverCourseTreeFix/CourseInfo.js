@@ -12,6 +12,11 @@ const CourseInfo = (props) => {
     return(
         <div 
             style = {{
+                backgroundColor: '#dddddd',
+                marginLeft: '1.5vw',
+                padding: '1vh',
+                fontFamily: 'Avenir',
+                opacity: 0.95,
                 height: "65%",
                 width: "95%",
                 overflowY: "scroll",

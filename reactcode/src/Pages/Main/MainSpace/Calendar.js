@@ -133,10 +133,10 @@ const Calendar = (props) => {
     let button = null;
     if (props.displayCalendar) {
         button = <div>
-            <button className={calendarButton} onClick={props.raiseCalendarHandler}><text style={{fontFamily: 'Avenir', margin: '-.2vw'}}>▲</text></button>
-            <button className={calendarButton} onClick={props.lowerCalendarHandler}><text style={{fontFamily: 'Avenir', margin: '-.2vw'}}>▼</text></button>
-            <button className={calendarButton} onClick={props.showFinalsHandler}><text style={{fontFamily: 'Avenir', margin: '-.2vw'}}>FINALS</text></button>
-            <button className={calendarButton} onClick={props.clearCalendarHandler}><text style={{fontFamily: 'Avenir', margin: '-.2vw'}}>CLR</text></button>
+            <button className={calendarButton} onClick={props.raiseCalendarHandler}style={{marginLeft:'-28vw', height: '1.75vh', width: '1vw',   marginTop: '-6vh' }}><text style={{fontFamily: 'Avenir', margin: '-.2vw'}}>▲</text></button>
+            <button className={calendarButton} onClick={props.lowerCalendarHandler}style={{marginLeft:'-28vw', height: '1.75vh', width: '1vw',   marginTop: '-4.25vh' }}><text style={{fontFamily: 'Avenir', margin: '-.2vw'}}>▼</text></button>
+            <button className={calendarButton} onClick={props.showFinalsHandler}   style={{marginLeft:'-31.5vw', height: '3.5vh', width: '3.5vw', marginTop: '-6vh' }}><text style={{fontFamily: 'Avenir', margin: '-.2vw'}}>FINALS</text></button>
+            <button className={calendarButton} onClick={props.clearCalendarHandler}style={{marginLeft:'-35vw', height: '3.5vh', width: '3.5vw', marginTop: '-6vh' }}><text style={{fontFamily: 'Avenir', margin: '-.2vw'}}>CLR</text></button>
         </div>
     }
     let calendar = null;
