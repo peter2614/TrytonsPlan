@@ -43,9 +43,9 @@ const Sidebar = (props) => {
                 id="tree-CSS2" 
                 style={{
                     position:"absolute",
-                    left: "30px",
-                    top: "30px",
-                    height: '28px', width: '28px',
+                    left: "15px",
+                    top: "15px",
+                    height: '3vh', width: '3vh',
                     backgroundColor: '#49B',
                     borderColor: '#49B'
                 }} 

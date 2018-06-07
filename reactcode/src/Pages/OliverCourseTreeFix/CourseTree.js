@@ -153,9 +153,9 @@ class CourseTree extends Component {
                     handleButton = {this.props.displayCourseTreeHandler}
                 />
                 <svg
-                    height="750" width="1200"
+                    height="750" width="1300"
                     style = {{
-                        paddingLeft:"320px"
+                        paddingLeft:"180px"
                     }}
                 >
                     <DisplayEdges
