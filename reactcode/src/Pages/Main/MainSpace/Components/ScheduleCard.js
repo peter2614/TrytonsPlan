@@ -23,13 +23,41 @@ const schedulecard = (props) => {
             if (day === 5) {days += "F"}
         })
         let name = null;
-        name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#dddddd'}}>{section.courseID}</th>
-        
-        /*
-        if(section.courseID.includes("PHYS")) {
-            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#99C'}}>{section.courseID}</th>
+        if(section.courseID.includes("BIBC")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#997f44'}}>{section.courseID}</th>
         }
-        */
+        if(section.courseID.includes("BICD")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#b4ac3e'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BIEB")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#7d8d39'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BILD")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#5d902f'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BIMM")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#2c992c'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("BIPN")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#37a97a'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("CHEM")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#1c7768'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("COGS")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#22889d'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("CSE")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#356a7f'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("MATH")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#1777bc'}}>{section.courseID}</th>
+        }
+        if(section.courseID.includes("PHYS")) {
+            name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#1a4db7'}}>{section.courseID}</th>
+        }
+
+
 
         return(
             <tr key={section.courseID}>

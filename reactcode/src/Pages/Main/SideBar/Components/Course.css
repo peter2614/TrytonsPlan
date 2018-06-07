@@ -3,14 +3,13 @@
     color: #ffffff;
     cursor: pointer;
     float: right;
-  }
+}
 
-  .hoverinfo p {
+.hoverinfo p {
     display: none;
     color: #000000;
-  }
-
-  .hoverinfo:hover p {
+}
+.hoverinfo:hover p {
     background-color: rgba(255, 255, 255, 1);
     position: absolute;
     z-index: 99 !important;
@@ -19,20 +18,20 @@
     font-size: 10px;
     display: inline-block;
     cursor: none;
-  }
+}
 
-  .courseHover:hover {
-      background-color: #555555;
-      transition: background 0.05s;
-      opacity: 1;
-  }
+.courseHover:hover {
+    background-color: #555555;
+    transition: background 0.05s;
+    opacity: 1;
+}
 
-  .listHandler:hover {
-      color: #37506a;
-      transition: 0.05s;
-  }
+.listHandler:hover {
+    color: #37506a;
+    transition: 0.05s;
+}
 
-  .loader {
+.loader {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */
     border-radius: 50%;
@@ -40,6 +39,7 @@
     height: 120px;
     animation: spin 2s linear infinite;
 }
+
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -50,11 +50,11 @@
 
 
 #tree-CSS {
-  background-image: url( '../../../../Assets/CourseTreeIcon.png' );
-  background-size: 3.5vh 3.5vh;
+    background-image: url( '../../../../Assets/CourseTreeIcon.png' );
+    background-size: 3.5vh 3.5vh;
 }
 
 #tree-CSS2 {
-  background-image: url( '../../../../Assets/CourseTreeIcon.png' );
-  background-size: 2.4vh 2.4vh;
+    background-image: url( '../../../../Assets/CourseTreeIcon.png' );
+    background-size: 2.4vh 2.4vh;
 }

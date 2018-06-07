@@ -5,13 +5,13 @@ class navbar extends Component {
 
     render() {
         return (
-        <Navbar default collapseOnSelect>
-            <Navbar.Header>
-                <Navbar.Brand>
-                    TrytonsPlan
-                </Navbar.Brand>
-            </Navbar.Header>
-        </Navbar>
+            <Navbar default collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        TrytonsPlan
+                    </Navbar.Brand>
+                </Navbar.Header>
+            </Navbar>
         )}
 
 }

@@ -12,17 +12,17 @@ const courses = (props) => props.courses.map( (course, index) => {
         minHeight: '3.75vh',
     };
     return <div
-            key={course.name} 
-            style={courseStyle}> 
-            <Course 
-            name={course.name} 
-            description={course.description} 
+        key={course.name}
+        style={courseStyle}>
+        <Course
+            name={course.name}
+            description={course.description}
             units={course.units}
-            courseHandler={(event) => props.courseHandler(event, course.name)} 
+            courseHandler={(event) => props.courseHandler(event, course.name)}
             displayCourseInfoHandler={(event) => props.displayCourseInfoHandler(event, course.name)}
             text={props.text}
-            sections={course.sections}/> 
-            </div>
+            sections={course.sections}/>
+    </div>
 });
 
 export default courses;

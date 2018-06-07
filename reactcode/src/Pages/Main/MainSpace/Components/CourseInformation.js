@@ -24,7 +24,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                                     <th></th>
                                     <th></th>
                                 </tr>
-                    }
+                    } else
                     if(professor != null) {
                     let PercentRecommend = professor.score*100;
                      return(
@@ -62,16 +62,16 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     }
                     let formattedStartTime = formatTime(DI.start_time);
                     let formattedEndTime = formatTime(DI.end_time);
-        
-                    return(
-                        <tr className="ctr" key={index} style={{fontFamily: 'Avenir'}}>
-                            <th style={{color: '#37506a', paddingLeft: '1.5vw', fontSize: '17px'}} >DISCUSSION</th>
-                            <th style={{color: '#37506a', fontSize: '18px'}}>{weekdays}</th>
-                            <th style={{color: '#37506A', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>
-                            <th style={{color: '#37506A', fontSize: '18px'}}>{DI.building} {DI.room}</th>
-                            <th style={{color: '#37506A', fontSize: '18px'}}>Section {DI.section}</th>
-                        </tr>
-                        )
+
+                    return (<tr className="ctr" key={index} style={{fontFamily: 'Avenir'}}
+                               onClick={(event) => props.addIntervalHandler(DI, props.courseID, "DI")}>
+                        <th style={{color: '#37506a', paddingLeft: '1.5vw', fontSize: '17px'}}>DISCUSSION</th>
+                        <th style={{color: '#37506a', fontSize: '18px'}}>{weekdays}</th>
+                        <th style={{color: '#37506A', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>
+                        <th style={{color: '#37506A', fontSize: '18px'}}>{DI.building} {DI.room}</th>
+                        <th style={{color: '#37506A', fontSize: '18px'}}>Section {DI.section}</th>
+                    </tr>
+                    )
                 })
             }
 
@@ -90,16 +90,19 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                         }
                         let formattedStartTime = formatTime(LA.start_time);
                         let formattedEndTime = formatTime(LA.end_time);
-            
-                        return(
-                            <tr className="ctr" key={index} style={{fontFamily: 'Avenir'}}>
-                                <th style={{color: '#1b681b', paddingLeft: '1.5vw', fontSize: '17px'}} >LAB</th>
-                                <th style={{color: '#1b681b', fontSize: '18px'}}>{weekdays}</th>
-                                <th style={{color: '#1b681b', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>
-                                <th style={{color: '#1b681b', fontSize: '18px'}}>{LA.building} {LA.room}</th>
-                                <th style={{color: '#1b681b', fontSize: '18px'}}>Section {LA.section}</th>
-                            </tr>
-                            )
+
+                        return (<tr className="ctr" key={index} style={{fontFamily: 'Avenir'}}
+                                   onClick={(event) => props.addIntervalHandler(LA, props.courseID, "LAB")}>
+                            <th style={{color: '#1b681b', paddingLeft: '1.5vw', fontSize: '17px'}}>LAB</th>
+                            <th style={{color: '#1b681b', fontSize: '18px'}}>{weekdays}</th>
+                            <th style={{
+                                color: '#1b681b',
+                                fontSize: '18px'
+                            }}>{formattedStartTime}-{formattedEndTime}</th>
+                            <th style={{color: '#1b681b', fontSize: '18px'}}>{LA.building} {LA.room}</th>
+                            <th style={{color: '#1b681b', fontSize: '18px'}}>Section {LA.section}</th>
+                        </tr>
+                        )
                     })
                 }
 
@@ -127,26 +130,27 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                                 LE.professor[index] = "& " + LE.professor[index]; 
                             }
                         });
-                    }      
-                    
-                    return(    
-                        <tr className="ctr" key={index}>
-                            <th>LECTURE</th>
-                            <th>{weekdays}</th>
-                            <th>{formattedStartTime}-{formattedEndTime}</th>  
-                            <th>{LE.building} {LE.room}</th>    
-                            <th>{LE.professor}</th>        
-                        </tr> 
+                    }
+
+                    return (
+                        <tr className="ctr" key={index}
+                               onClick={(event) => props.addIntervalHandler(LE, props.courseID, "LE")}>
+                        <th>LECTURE</th>
+                        <th>{weekdays}</th>
+                        <th>{formattedStartTime}-{formattedEndTime}</th>
+                        <th>{LE.building} {LE.room}</th>
+                        <th>{LE.professor}</th>
+                    </tr>
                     )
                 })
             }
-            
-            //Create a row for the FINAL
+
+        //Create a row for the FINAL
             if(section.course.FI != null) {
                 let formattedStartTime = formatTime(section.course.FI.start_time);
                 let formattedEndTime = formatTime(section.course.FI.end_time);
                 FI = 
-                    <tr className="ctr">
+                    <tr className="ctr" onClick={(event) => props.addIntervalHandler(section.course.FI, props.courseID, "FI")}>
                         <th>FINAL</th>
                         <th>{section.course.FI.date}</th>
                         <th>{formattedStartTime}-{formattedEndTime}</th>

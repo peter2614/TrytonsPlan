@@ -7,6 +7,7 @@ input::-webkit-inner-spin-button {
 
 .generateScheduleEnabled {
     background-color: transparent;
+    display: block;
     color: #dddddd;
     border-width: 0.1rem;
     border-color: #37506a;
@@ -31,7 +32,7 @@ input::-webkit-inner-spin-button {
 
 .generateScheduleDisabled:disabled {
     background-color: #DDD;
-    color: #555; 
+    color: #555;
     border-color:#555;
     float: left;
     margin-right: 0.6vw;
@@ -42,7 +43,6 @@ input::-webkit-inner-spin-button {
 }
 
 .switchButtonEnabled {
-
     background-color: transparent;
     color: #dddddd;
     border-width: 0.1rem;
@@ -55,11 +55,10 @@ input::-webkit-inner-spin-button {
 }
 
 .switchButtonEnabled:hover {
-
     background-color: #37506a;
     color: #f2f2f2;
     border-width: 0.1rem;
-    border-color:#37506a;
+    border-color: #37506a;
     float: right;
     margin-right: 0.6vw;
     font-size: 1vw;
@@ -69,7 +68,7 @@ input::-webkit-inner-spin-button {
 
 .switchButtonDisabled:disabled {
     background-color: #DDD;
-    color: #555; 
+    color: #555;
     border-color:#555;
     float: right;
     margin-right: 0.6vw;
