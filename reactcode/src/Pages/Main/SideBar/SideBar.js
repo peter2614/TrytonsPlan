@@ -24,7 +24,7 @@ const sidebar = (props) => {
         });
 
         return (
-            <div style={{position: 'relative'}}>
+            <div style={{position: 'relative', backgroundColor: '#dddddd', opacity: '0.85'}}>
                 <SearchBar 
                 loading={props.loading}
                 searchResults={searchList} 
@@ -37,7 +37,7 @@ const sidebar = (props) => {
                 displayCourseInfoHandler={props.displayCourseInfoHandler}
                 clearCourseListHandler={props.clearCourseListHandler}/>
                 
-                <hr className="hr1" style={{marginBottom: '10px'}}/>
+                <hr className="hr1" style={{marginBottom: '1vh'}}/>
             </div>
      
         ) 

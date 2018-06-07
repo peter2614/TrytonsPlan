@@ -10,23 +10,23 @@ const course = (props) => {
         textAlign: 'left',
         marginTop: '0.75vw',
         marginLeft: '0.3vw',
-        color: '#c4c4c4',
+        color: '#9a9a9a',
         fontSize: '115%'
     };
    
     //Button + and - sign formatting
     let text = null;
     if (props.text === "+") {
-        text = <div style={{fontSize: '20px', fontWeight: '500', color: '#dddddd', backgroundColor: ''}}>
+        text = <div style={{fontSize: '20px', fontWeight: '500', color: '#9a9a9a', backgroundColor: 'transparent'}}>
             <div class="listHandler">+</div>
         </div>;
     } else {
-        text = <div style={{fontSize: '30px', fontWeight: '400', color: '#dddddd', backgroundColor: ''}}>
+        text = <div style={{fontSize: '30px', fontWeight: '400', color: '#9a9a9a', backgroundColor: 'transparent'}}>
             <div className="listHandler">-</div>
         </div>;
     }
     
-    let name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#c4c4c4', fontSize: '120%', fontWeight: '525'}}>
+    let name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#9a9a9a', fontSize: '120%', fontWeight: '525', backgroundColor: 'transparent'}}>
                     {props.name}
                 </p>;
 /*
@@ -45,8 +45,8 @@ const course = (props) => {
         minHeight: '4vh',
         display: 'flex',
         alignItems: 'center',
+        borderWidth: '0.2px',
         backgroundColor: '',
-        borderWidth: '0.2px'
     }}>
 
         <div style={{
@@ -54,11 +54,10 @@ const course = (props) => {
             fontSize: '110%',
             width: '20%',
             display: 'flex',
-            backgroundColor: '',
             float: 'left',
             cursor: 'pointer',
             minHeight: '4vh',
-            alignItems: 'center'
+            alignItems: 'center',
         }} onClick={props.displayCourseInfoHandler}>
             {name}
         </div>
@@ -66,7 +65,6 @@ const course = (props) => {
         <div style={{
             width: '67%',
             marginLeft: '1vw',
-            backgroundColor: '',
             float: 'left',
             cursor: 'pointer',
             minHeight: '4vh',
@@ -84,7 +82,6 @@ const course = (props) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: ''
         }}>
             <div onClick={props.courseHandler}>{text} </div>
             </div>

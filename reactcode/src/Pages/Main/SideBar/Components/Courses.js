@@ -6,8 +6,8 @@ import {ListGroupItem} from 'react-bootstrap';
 const courses = (props) => props.courses.map( (course, index) => {
     const courseStyle = {
         //margin: 'auto',
-        backgroundColor: '#37506a',
-        opacity: '70%',
+        backgroundColor: 'transparent',
+        opacity: 1,
         box: '1px',
         width: '100%',
         minHeight: '3.75vh',

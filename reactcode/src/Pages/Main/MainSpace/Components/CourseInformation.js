@@ -17,8 +17,8 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                 professorInfo = section.professor.map(professor => {
                     if (section.course.LE[0].professor[0] == "Staff") {
                         return <tr className="ctr" key={index}>
-                                    <th style={{color: '#722'}}>Professor Info:</th>
-                                    <th style={{color: '#722', position: 'absolute'}}>This class's professor is undecided.</th>
+                                    <th style={{color: '#641c1c', fontFamily: 'Avenir'}}>Professor Info:</th>
+                                    <th style={{color: '#641c1c', position: 'absolute', fontFamily: 'Avenir'}}>This class's professor is undecided.</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -28,25 +28,21 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     if(professor != null) {
                     let PercentRecommend = professor.score*100;
                      return(
-                        <tr className="ctr" key={index}>
-                            <th style={{color: '#722'}}>Professor Info:</th>
-                            <th style={{color: '#722'}}>GPA: {professor.gpaActual.toString().slice(0,4)} </th>
-                            <th style={{color: '#722'}}>Expected GPA: {professor.gpaExpected.toString().slice(0,4)} </th>
-                            <th style={{color: '#722'}}>Recommend: {PercentRecommend.toString().slice(0,4) + "%"} </th>
-                            <th style={{color: '#722'}}>StudyHours: {professor.timeCommitment.toString().slice(0,4) + "hrs"} </th>
+                        <tr className="ctr" key={index} style={{fontFamily: 'Avenir', color: '#641c1c'}}>
+                            <th>Professor Info:</th>
+                            <th>GPA: {professor.gpaActual.toString().slice(0,4)} </th>
+                            <th>Expected GPA: {professor.gpaExpected.toString().slice(0,4)} </th>
+                            <th>Recommend: {PercentRecommend.toString().slice(0,4) + "%"} </th>
+                            <th>Study Hours: {professor.timeCommitment.toString().slice(0,4) + "hrs"} </th>
                             <th></th>
                         </tr>);
 
                      } else {
-                         return <tr className="ctr" key={index}>
-                             <th style={{color: '#722'}}>Professor Info:</th>
-                             <th style={{color: '#722', position: 'absolute'}}>This professor hasn't taught this class in the past 4 years.</th>
-                             <th></th>
-                             <th></th>
-                             <th></th>
-                             <th></th>
+                         return <tr className="ctr" key={index} style={{fontFamily: 'Avenir', color: '#641c1c'}}>
+                             <th>Professor Info:</th>
+                             <th style={{position: 'absolute'}}>This professor hasn't taught this class in the past 4 years.</th>
                              </tr>
-                     };
+                    }
                 })
             }
 
@@ -68,12 +64,12 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                     let formattedEndTime = formatTime(DI.end_time);
         
                     return(
-                        <tr className="ctr" key={index} >
-                            <th style={{color: '#228', paddingLeft: '1.5vw', fontSize: '17px'}} >DISCUSSION</th>
-                            <th style={{color: '#228', fontSize: '18px'}}>{weekdays}</th>
-                            <th style={{color: '#228', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>       
-                            <th style={{color: '#228', fontSize: '18px'}}>{DI.building} {DI.room}</th>
-                            <th style={{color: '#228', fontSize: '18px'}}>Section {DI.section}</th>
+                        <tr className="ctr" key={index} style={{fontFamily: 'Avenir'}}>
+                            <th style={{color: '#37506a', paddingLeft: '1.5vw', fontSize: '17px'}} >DISCUSSION</th>
+                            <th style={{color: '#37506a', fontSize: '18px'}}>{weekdays}</th>
+                            <th style={{color: '#37506A', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>
+                            <th style={{color: '#37506A', fontSize: '18px'}}>{DI.building} {DI.room}</th>
+                            <th style={{color: '#37506A', fontSize: '18px'}}>Section {DI.section}</th>
                         </tr>
                         )
                 })
@@ -96,12 +92,12 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                         let formattedEndTime = formatTime(LA.end_time);
             
                         return(
-                            <tr className="ctr" key={index} >
-                                <th style={{color: '#282', paddingLeft: '1.5vw', fontSize: '17px'}} >LAB</th>
-                                <th style={{color: '#282', fontSize: '18px'}}>{weekdays}</th>
-                                <th style={{color: '#282', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>       
-                                <th style={{color: '#282', fontSize: '18px'}}>{LA.building} {LA.room}</th>
-                                <th style={{color: '#282', fontSize: '18px'}}>Section {LA.section}</th>
+                            <tr className="ctr" key={index} style={{fontFamily: 'Avenir'}}>
+                                <th style={{color: '#1b681b', paddingLeft: '1.5vw', fontSize: '17px'}} >LAB</th>
+                                <th style={{color: '#1b681b', fontSize: '18px'}}>{weekdays}</th>
+                                <th style={{color: '#1b681b', fontSize: '18px'}}>{formattedStartTime}-{formattedEndTime}</th>
+                                <th style={{color: '#1b681b', fontSize: '18px'}}>{LA.building} {LA.room}</th>
+                                <th style={{color: '#1b681b', fontSize: '18px'}}>Section {LA.section}</th>
                             </tr>
                             )
                     })
@@ -178,7 +174,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     }
 
     //Create a row saying what each column in the table is
-    let LEGUIDE = <tr className="ctr" style={{color: '#349'}}>
+    let LEGUIDE = <tr className="ctr" style={{color: '#37506a'}}>
                     <th>Type</th>
                     <th>Days</th>       
                     <th>Time</th>          
@@ -191,7 +187,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     }
 
     //Create a row saying what each column in the table is
-    let DIGUIDE = <tr className="ctr" style={{color: '#349'}}>
+    let DIGUIDE = <tr className="ctr" style={{color: '#37506a'}}>
                     <th>Type</th>
                     <th>Days</th>               
                     <th>Time</th>            
@@ -205,7 +201,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     }
 
     //Create a row saying what each column in the table is
-    let FIGUIDE = <tr className="ctr" style={{color: '#349'}}>
+    let FIGUIDE = <tr className="ctr" style={{color: '#37506a'}}>
                     <th>Type</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -218,8 +214,8 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
     }
     
     return(
-        <div style={{backgroundColor: '#DDD', paddingTop: '2vh'}}> 
-            <p style={{fontSize: '1.5vw', fontWeight: '400'}}>Section ID - {section.course.id}</p>
+        <div style={{backgroundColor: '#dddddd', paddingTop: '2vh'}}>
+            <p style={{fontSize: '1.5vw', fontWeight: '500'}}>Section ID - {section.course.id}</p>
             <div style={{width: '80%', marginLeft: '10%'}}>
                 <table>
                     <tbody>

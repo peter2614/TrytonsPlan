@@ -34,36 +34,31 @@ function processSchedule (aSchedule, getScheduleData, cb){
 
         getScheduleData(unitPath, unitsCallback);
 
-        if (profName !== "Staff"){  //Skip this section if taught by staff
-
-            if(profName.toString().includes(" \r\n")) { // if co-taught
-                let profArr = profName.toString().split(" \r\n");
-                numProf += profArr.length - 1;
-                for(let i = 0; i < profArr.length; i++) {
-                    path = "professor/" + profArr[i].toString() + "/" + courseID.toString();
-                    getScheduleData(path, callback);
-                }
-            }
-            else {
+        if(profName.toString().includes(" \r\n")) { // if co-taught
+            let profArr = profName.toString().split(" \r\n");
+            numProf += profArr.length - 1;
+            for(let i = 0; i < profArr.length; i++) {
+                path = "professor/" + profArr[i].toString() + "/" + courseID.toString();
                 getScheduleData(path, callback);
             }
         }
-        else{
-            numProf--;
-            if (i === len - 1) {
-                finalCallBack();
-            }
-            continue;
+        else {
+            getScheduleData(path, callback);
         }
+
     }
 }
 
 function updateData (data){
     //console.log (data)
     if (data !== null) {
+
         sumProfScore += data.score;
         sumTimeCommitment += data.timeCommitment;
         sumGPA += data.gpaActual;
+    }
+    else {
+        numProf--;
     }
     if (numData === numProf){
         setInfo();
@@ -71,9 +66,22 @@ function updateData (data){
 }
 
 function setInfo () {
-    schedule.setProfScore = (sumProfScore / numProf).toFixed(2);
-    schedule.setTimeCommitment = sumTimeCommitment.toFixed(2);
-    schedule.setGPA = (sumGPA / schedule.getSections.length).toFixed(2);
+
+    if (sumProfScore === null || sumProfScore === 0)
+        schedule.setProfScore = 0.00;
+    else
+        schedule.setProfScore = (sumProfScore / numProf).toFixed(2);
+
+    if (sumTimeCommitment === null || sumTimeCommitment === 0)
+        schedule.setTimeCommitment = 999.99;
+    else
+        schedule.setTimeCommitment = sumTimeCommitment.toFixed(2);
+
+    if (sumGPA === null || sumGPA === 0)
+        schedule.setGPA = 0.00;
+    else
+        schedule.setGPA = (sumGPA / numProf).toFixed(2);
+
     infoSet = 1;
     if (unitsSet === 1){
         setTimeUsage();
@@ -112,7 +120,9 @@ function setUnits() {
 
 
 function callback(data){
-    numData++;
+    if (data !== null) {
+        numData++;
+    }
     if (numData <= numProf)
         updateData(data);
 }
@@ -120,7 +130,6 @@ function callback(data){
 function unitsCallback (data){
     numUnitsValue++;
     sumUnits += data.units;
-    //console.log (schedule.sections.length)
     if (numUnitsValue === schedule.getSections.length){
         setUnits();
     }

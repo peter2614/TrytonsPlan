@@ -6,24 +6,24 @@ input::-webkit-inner-spin-button {
 }
 
 .generateScheduleEnabled {
-    background-color: #49B;
-    color: white; 
-    border-color:#49B; 
-    float: right; 
-    margin: 1.2vh;
-    margin-right: .5vw; 
+    background-color: transparent;
+    color: #dddddd;
+    border-width: 0.1rem;
+    border-color: #37506a;
+    float: left;
+    margin-right: 0.6vw;
     font-size: 1vw;
     width: 12vw;
     height: 4vh;
 }
 
 .generateScheduleEnabled:hover {
-    background-color: #38A;
-    color: white; 
-    border-color:#49B; 
-    float: right; 
-    margin: 1.2vh;
-    margin-right: .5vw; 
+    background-color: #37506a;
+    color: #f2f2f2;
+    border-width: 0.1rem;
+    border-color:#37506a;
+    float: left;
+    margin-right: 0.6vw;
     font-size: 1vw;
     width: 12vw;
     height: 4vh;
@@ -32,10 +32,9 @@ input::-webkit-inner-spin-button {
 .generateScheduleDisabled:disabled {
     background-color: #DDD;
     color: #555; 
-    border-color:#555; 
-    float: right; 
-    margin: 1.2vh;
-    margin-right: .5vw; 
+    border-color:#555;
+    float: left;
+    margin-right: 0.6vw;
     font-size: 1vw;
     width: 12vw;
     height: 4vh;
@@ -43,24 +42,26 @@ input::-webkit-inner-spin-button {
 }
 
 .switchButtonEnabled {
-    background-color: #49B;
-    color: white; 
-    border-color:#49B; 
-    float: right; 
-    margin: 1.2vh;
-    margin-right: .5vw; 
+
+    background-color: transparent;
+    color: #dddddd;
+    border-width: 0.1rem;
+    border-color: #37506a;
+    float: right;
+    margin-right: 0.6vw;
     font-size: 1vw;
     width: 3vw;
     height: 4vh;
 }
 
 .switchButtonEnabled:hover {
-    background-color: #38A;
-    color: white; 
-    border-color:#49B; 
-    float: right; 
-    margin: 1.2vh;
-    margin-right: .5vw; 
+
+    background-color: #37506a;
+    color: #f2f2f2;
+    border-width: 0.1rem;
+    border-color:#37506a;
+    float: right;
+    margin-right: 0.6vw;
     font-size: 1vw;
     width: 3vw;
     height: 4vh;
@@ -69,10 +70,9 @@ input::-webkit-inner-spin-button {
 .switchButtonDisabled:disabled {
     background-color: #DDD;
     color: #555; 
-    border-color:#555; 
-    float: right; 
-    margin: 1.2vh;
-    margin-right: .5vw; 
+    border-color:#555;
+    float: right;
+    margin-right: 0.6vw;
     font-size: 1vw;
     width: 3vw;
     height: 4vh;

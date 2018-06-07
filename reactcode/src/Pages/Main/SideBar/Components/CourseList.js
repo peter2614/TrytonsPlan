@@ -9,12 +9,12 @@ const courselist = (props) => {
     const courseGroupStyle={
         display: 'block',
         flexDirection: 'column',
-        height: '35vh',
+        height: '30vh',
         overflowY: 'auto',
         width: '100%',
-        marginBottom: '0px',
+        marginBottom: '2vh',
         marginLeft: '0px',
-        backgroundColor: '#333'}
+        backgroundColor: '#3c3c3c'}
     let courses =
         <div
         style={courseGroupStyle}>
