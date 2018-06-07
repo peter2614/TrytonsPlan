@@ -6,7 +6,7 @@ import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
 import {getAllInfo, getAllInfoCalendar, getGeneralInfo, getCourseNames, getCourseTitles} from './GetData.js';
 import {getData, filterByMaxUnits, filterByMinUnits, filterByEndingTime, filterByStartingTime, rankByProfScore, rankByTimeCommitment, rankByTimeUsage, rankByGPA, getSchedule, getScheduleData, turnOffDatabase} from '../../Backend/Utility.js';
-import CourseTree from '../OliverCourseTree/CourseTree.js';
+import CourseTree from '../OliverCourseTreeFix/CourseTree.js';
 
 class MainPage extends Component {
     constructor(props) {
