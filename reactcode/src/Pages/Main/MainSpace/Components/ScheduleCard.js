@@ -1,5 +1,4 @@
 import React from 'react';
-import CalendarIcon from '../../../../Assets/calendarIcon.png';
 
 const schedulecard = (props) => {
     const scheduleCardStyle = {
@@ -66,8 +65,6 @@ const schedulecard = (props) => {
             <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{section.location}</th>
             <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{section.professor}</th>
             <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{section.sectionID}</th>
-            
-
         </tr>
         )
     });
@@ -106,7 +103,7 @@ const schedulecard = (props) => {
                             <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.GPA}</th>
                             <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.profScore}</th>
                             <th style={{textAlign: 'center', fontSize: '1.1vw'}}> {props.timeCommitment}</th>
-                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.timeUsage}</th>
+                            <th style={{textAlign: 'center', fontSize: '1.1vw'}}>{props.timeUsage}%</th>
                         </tr>
                     </tbody>
                 </table>

@@ -11,6 +11,7 @@ class Schedule {
         this.timeUsage = timeUsage;
         this.GPA = GPA;
         this.units = units;
+        this.hashKey = 0;
     }
 
     get getScheduleID() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Courses from './Courses.js';
-import {ListGroup} from 'react-bootstrap';
 import './Course.css';
+
 
 const searchbar = (props) => {
 
@@ -34,7 +34,7 @@ const searchbar = (props) => {
                         <p style={{marginTop: '10px', fontSize: '2vw', color:'lightgrey'}}>Loading up Course Offerings...</p>
                     </div>
 
-    if(props.loading == false) {
+    if(props.loading === false) {
         courses =   <div
                         style={courseGroupStyle}>
                         <Courses 
@@ -47,6 +47,7 @@ const searchbar = (props) => {
 
         return (
             <div>
+                <button id="tree-CSS" style={{position: 'relative', height: '4vh', width: '4vh', marginLeft: '-19vw', marginTop: '1vh', backgroundColor: '#49B', borderColor: '#49B'}} onClick={props.displayCourseTreeHandler}></button>
                 <div style={{height: '6vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <input style={{ backgroundColor: 'lightgrey', fontSize: '2vh', height: '3vh'}} type="search" onChange={(event) => props.searchCourseHandler(event)} placeholder="Search Fall 18 Courses"/> 
                 </div>

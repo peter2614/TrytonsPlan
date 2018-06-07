@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MainPage from './Pages/Main/MainPage';
 import firebase from 'firebase';
+import CourseTree from './Pages/OliverCourseTree/CourseTree';
 
 class App extends Component {
   
@@ -18,11 +19,33 @@ class App extends Component {
     firebase.initializeApp(config);
   }
 
-  render() {
+  state = {
+    displayCourseTree: false
+  }
 
+  displayCourseTreeHandler = () => {
+    this.setState({displayCourseTree: !this.state.displayCourseTree});
+  }
+
+
+
+  render() {
+    let heightOfMainSpace = '100vh';
+    let heightOfCourseTree = '0vh'
+    if (this.state.displayCourseTree == true) {
+      heightOfMainSpace = '0vh';
+      heightOfCourseTree = '100vh'
+    }
     return (
-      <div className="App" style={{minHeight: '1rem', minWidth:'1rem', backgroundColor: '#AAA', overflow:'hidden'}}>
-        <MainPage db={firebase}/>
+      <div className="App" style={{height: '100vh', width:'100vw', overflow:'hidden'}}>
+        <div style={{height: heightOfMainSpace, width: '100vw', marginTop: '0vhh', overflow: 'hidden'}}>
+          <MainPage db={firebase} displayCourseTreeHandler={this.displayCourseTreeHandler}/>
+        </div>
+        <div style={{height: heightOfCourseTree, width: '100vw', marginTop: '0vh', overflow: 'hidden'}}>
+          <CourseTree Database={firebase} displayCourseTreeHandler={this.displayCourseTreeHandler} display={this.state.displayCourseTree}/>
+        </div>
+
+        
       </div>
     );
   }

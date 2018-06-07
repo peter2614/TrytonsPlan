@@ -4,8 +4,6 @@ class Section {
                 DI, LA, FI) {
         this.sectionID = sectionID;
         this.courseID = courseID;
-        /*this.year = year;
-        this.quarter = quarter;*/
         this.startingTime = startingTime;
         this.endingTime = endingTime;
         this.day = day;
@@ -15,6 +13,7 @@ class Section {
         this.finalTime = finalTime;
         this.finalEndTime = finalEndTime;
         this.finalDate = finalDate;
+        this.hashKey = 0;
         this.DI = DI;
         this.LA = LA;
         this.FI = FI;
@@ -106,14 +105,6 @@ class Section {
 
     set setFinalDate(finalDate) {
         this.finalDate = finalDate;
-    }
-
-    get getDisArr(){
-        return this.disArr;
-    }
-
-    set setDisArr (disArr){
-        this.disArr = disArr;
     }
 
     get getDI() {
