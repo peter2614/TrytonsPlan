@@ -88,6 +88,9 @@ function getSchedule (courseIDList, dataSet, cb) {
     if (scheduleList.length !== 0) {
         callProcessor();
     }
+    else {
+        getScheduleCB([]); // getScheduleCB(null) if necessary 
+    }
 }
 
 function callProcessor (){
