@@ -13,23 +13,22 @@ const OptionsBar = (props) => {
         marginTop: '.1vh'
     }
     
-    
+    let switchButtonStyle = "switchButtonDisabled";
     let generateButtonStyle = "generateScheduleEnabled";
     let title = "Generate Schedules"
     let disabled = false;
-    if (props.sizeOfCourseList == 0) {
+    if (props.sizeOfCourseList === 0) {
         generateButtonStyle = "generateScheduleDisabled";
         title = "Need 2 more classes in your Course List."
         disabled = true;
         switchButtonStyle = "switchButtonDisabled";
-    } else if (props.sizeOfCourseList == 1) {
+    } else if (props.sizeOfCourseList === 1) {
         title = "Need 1 more class in your Course List.";
         generateButtonStyle = "generateScheduleDisabled";
         disabled = true;
         
     }
     let switchButtonDisabled = true;
-    let switchButtonStyle = "switchButtonDisabled";
     let switchButtonTitle = "No Schedules to show!";
     if(props.filteredSchedules != null) {
         switchButtonDisabled = false;
@@ -40,21 +39,22 @@ const OptionsBar = (props) => {
     var elements = document.getElementsByClassName("arrow-togglable");
     var currentIndex = 0;
 
-
+    // for switching between input fields using up and down arrow keys
     document.onkeydown = function(e) {
       switch (e.keyCode) {
         case 38:
-          currentIndex = (currentIndex == 0) ? elements.length - 1 : --currentIndex;
+          currentIndex = (currentIndex === 0) ? elements.length - 1 : --currentIndex;
           elements[currentIndex].focus();
           break;
         case 40:
-          currentIndex = ((currentIndex + 1) == elements.length) ? 0 : ++currentIndex;
+          currentIndex = ((currentIndex + 1) === elements.length) ? 0 : ++currentIndex;
           elements[currentIndex].focus();
           break; 
         case 13:
-          currentIndex = ((currentIndex + 1) == elements.length) ? 0 : ++currentIndex;
+          currentIndex = ((currentIndex + 1) === elements.length) ? 0 : ++currentIndex;
           elements[currentIndex].focus();
           break;
+        default:
       }
     };
 

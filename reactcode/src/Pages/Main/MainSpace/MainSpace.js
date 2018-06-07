@@ -10,7 +10,7 @@ const MainSpace = (props) => {
     let display = null;
     //Choose to display a course's information or the generate schedules when "Generate Schedules" is pressed in the options bar
     if(props.displayInfo === false) {
-        if(props.scheduleLoading == true) {
+        if(props.scheduleLoading === true) {
             //loading splash for Generate Schedules
             display = <div className="scheduleFadeIn">
                         <div style={{height: '25vh', backgroundColor: '#666'}}/>
@@ -87,7 +87,7 @@ const MainSpace = (props) => {
                         </div>
     
     //switch between splash screen and everything else
-    if  (props.displaySplashScreen == true && props.displayInfo == true) {
+    if  (props.displaySplashScreen === true && props.displayInfo === true) {
         finalDisplay = <div style={{backgroundColor: '#444', height: '87vh', width: '77vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <img src={logo}/>
                         </div>

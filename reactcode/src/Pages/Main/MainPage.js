@@ -137,6 +137,7 @@ class MainPage extends Component {
             if (a.course.id < b.course.id) return -1;
             if (a.course.id > b.course.id) return 1;
         });
+        console.log("DATA", data);
         this.setState({allInfo: data});
         this.setState({loading: false});
     }
@@ -170,12 +171,14 @@ class MainPage extends Component {
 
     getDataCallback = (courseData) => {
         this.state.courseData.push(courseData);
+        
         if(this.state.courseData.length == this.state.courseList.length && this.state.courseNames.length == this.state.courseList.length) {
             getSchedule(this.state.courseNames, this.state.courseData, this.getScheduleCallback);
         }
     }
 
     getScheduleCallback = (listOfSchedules) => {
+        console.log(listOfSchedules);
         this.state.schedules = listOfSchedules;
         this.state.filteredSchedules = [...listOfSchedules];
         this.filter();
@@ -403,8 +406,7 @@ class MainPage extends Component {
                     break;
             case 2: return '45.5vh';
                     break;
-            case 3: return '20vh';
-                    break;
+            case 3: return '28vh';
         }
     }
 

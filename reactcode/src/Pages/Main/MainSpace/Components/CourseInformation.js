@@ -3,19 +3,18 @@ import './CourseInformation.css'
 
 const courseinformation = (props) =>  props.allInfo.map((section, index) => {
 
-    let sections = null;
     let DI = null;
     let FI = null;
     let LE = null;
     let LA = null;
     let professorInfo = null;
-    console.log(section);
-    if (props.allInfo != null){
 
+    if (props.allInfo != null){
+    
             //handle professor information
             if (section.professor != null) {
                 professorInfo = section.professor.map(professor => {
-                    if (section.course.LE[0].professor[0] == "Staff") {
+                    if (section.course.LE[0].professor == "Staff") {
                         return <tr className="ctr" key={index}>
                                     <th style={{color: '#722'}}>Professor Info:</th>
                                     <th style={{color: '#722', position: 'absolute'}}>This class's professor is undecided.</th>
@@ -24,7 +23,7 @@ const courseinformation = (props) =>  props.allInfo.map((section, index) => {
                                     <th></th>
                                     <th></th>
                                 </tr>
-                    }
+                    } else 
                     if(professor != null) {
                     let PercentRecommend = professor.score*100;
                      return(

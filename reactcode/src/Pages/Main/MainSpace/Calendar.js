@@ -8,7 +8,7 @@ const Calendar = (props) => {
 
     let selectedIntervals = [];
     let additionalIntervals = [];
-    if(props.showFinals == false) {
+    if(props.showFinals === false) {
         selectedIntervals = [];
         additionalIntervals = [];
         if(props.schedule != null && props.schedule.constructor === Array ) {
@@ -18,19 +18,19 @@ const Calendar = (props) => {
                 let endTimeHr = null;
                 let endTimeMin = null;
                 if(section.startingTime < 1000) {
-                    startTimeHr=parseInt(section.startingTime.toString().substring(0,1));
-                    startTimeMin=parseInt(section.startingTime.toString().substring(1,3));
+                    startTimeHr=parseInt(section.startingTime.toString().substring(0,1), 10);
+                    startTimeMin=parseInt(section.startingTime.toString().substring(1,3), 10);
 
                 } else {
-                    startTimeHr=section.startingTime.toString().substring(0,2);
-                    startTimeMin=parseInt(section.startingTime.toString().substring(2,4));
+                    startTimeHr=parseInt(section.startingTime.toString().substring(0,2), 10);
+                    startTimeMin=parseInt(section.startingTime.toString().substring(2,4), 10);
                 }
                 if(section.endingTime < 1000) {
-                    endTimeHr=parseInt(section.endingTime.toString().substring(0,1));
-                    endTimeMin=parseInt(section.endingTime.toString().substring(1,3));
+                    endTimeHr=parseInt(section.endingTime.toString().substring(0,1), 10);
+                    endTimeMin=parseInt(section.endingTime.toString().substring(1,3), 10);
                 } else {
-                    endTimeHr=parseInt(section.endingTime.toString().substring(0,2));
-                    endTimeMin=parseInt(section.endingTime.toString().substring(2,4));
+                    endTimeHr=parseInt(section.endingTime.toString().substring(0,2), 10);
+                    endTimeMin=parseInt(section.endingTime.toString().substring(2,4), 10);
                 }
                 let value = section.courseID;
 
@@ -38,7 +38,7 @@ const Calendar = (props) => {
                     let interval = {
                         start: moment('20180514').hours(startTimeHr).minutes(startTimeMin),
                         end: moment('20180514').hours(endTimeHr).minutes(endTimeMin),
-                        value: value + " - LE",
+                        value: value + " - LE " + section.sectionID,
                     }
                     interval.start.add(day-1, 'd');
                     interval.end.add(day-1, 'd');
@@ -59,19 +59,19 @@ const Calendar = (props) => {
             let endTimeHr = null;
             let endTimeMin = null;
             if(section.startingTime < 1000) {
-                startTimeHr=parseInt(section.startingTime.toString().substring(0,1));
-                startTimeMin=parseInt(section.startingTime.toString().substring(1,3));
+                startTimeHr=parseInt(section.startingTime.toString().substring(0,1), 10);
+                startTimeMin=parseInt(section.startingTime.toString().substring(1,3), 10);
 
             } else {
-                startTimeHr=section.startingTime.toString().substring(0,2);
-                startTimeMin=parseInt(section.startingTime.toString().substring(2,4));
+                startTimeHr=parseInt(section.startingTime.toString().substring(0,2), 10);
+                startTimeMin=parseInt(section.startingTime.toString().substring(2,4), 10);
             }
             if(section.endingTime < 1000) {
-                endTimeHr=parseInt(section.endingTime.toString().substring(0,1));
-                endTimeMin=parseInt(section.endingTime.toString().substring(1,3));
+                endTimeHr=parseInt(section.endingTime.toString().substring(0,1), 10);
+                endTimeMin=parseInt(section.endingTime.toString().substring(1,3), 10);
             } else {
-                endTimeHr=parseInt(section.endingTime.toString().substring(0,2));
-                endTimeMin=parseInt(section.endingTime.toString().substring(2,4));
+                endTimeHr=parseInt(section.endingTime.toString().substring(0,2), 10);
+                endTimeMin=parseInt(section.endingTime.toString().substring(2,4), 10);
             }
             
             section.day.forEach(day =>{
@@ -96,19 +96,19 @@ const Calendar = (props) => {
                 let endTimeHr = null;
                 let endTimeMin = null;
                 if(section.startingTime < 1000) {
-                    startTimeHr=parseInt(section.startingTime.toString().substring(0,1));
-                    startTimeMin=parseInt(section.startingTime.toString().substring(1,3));
+                    startTimeHr=parseInt(section.startingTime.toString().substring(0,1), 10);
+                    startTimeMin=parseInt(section.startingTime.toString().substring(1,3), 10);
 
                 } else {
-                    startTimeHr=section.startingTime.toString().substring(0,2);
-                    startTimeMin=parseInt(section.startingTime.toString().substring(2,4));
+                    startTimeHr=parseInt(section.startingTime.toString().substring(0,2), 10);
+                    startTimeMin=parseInt(section.startingTime.toString().substring(2,4), 10);
                 }
                 if(section.endingTime < 1000) {
-                    endTimeHr=parseInt(section.endingTime.toString().substring(0,1));
-                    endTimeMin=parseInt(section.endingTime.toString().substring(1,3));
+                    endTimeHr=parseInt(section.endingTime.toString().substring(0,1), 10);
+                    endTimeMin=parseInt(section.endingTime.toString().substring(1,3), 10);
                 } else {
-                    endTimeHr=parseInt(section.endingTime.toString().substring(0,2));
-                    endTimeMin=parseInt(section.endingTime.toString().substring(2,4));
+                    endTimeHr=parseInt(section.endingTime.toString().substring(0,2), 10);
+                    endTimeMin=parseInt(section.endingTime.toString().substring(2,4), 10);
                 }
                 let value = section.value;
                 if (section.day != null) {
@@ -126,7 +126,7 @@ const Calendar = (props) => {
                 
         })}
     }
-    let calendarHeight = (94-parseInt(props.heightOfMainSpace.replace("vh", ''))).toString() + "vh";
+    let calendarHeight = (94-parseInt(props.heightOfMainSpace.replace("vh", ''), 10)).toString() + "vh";
 
    let button = null; 
    if (props.displayCalendar) {
@@ -141,7 +141,7 @@ const Calendar = (props) => {
         calendar = <div className="transition" style={{width: '78vw', height: calendarHeight, backgroundColor: '#FF'}}>
                         <button onClick={props.displayCalendarHandler} style={{marginLeft:'-39vw', position:'absolute', float:'left', height:'4vh', width:'5vw', marginTop:'-4vh', backgroundColor: '#49B', color: 'lightgrey', borderColor: '#49B', fontSize:'.7vw'}}>Calendar</button>
                         {button}
-                        <WeekCalendar numberOfDays={5} firstDay={moment('20180514')} dayFormat={'dddd'} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={10} cellHeight={12} selectedIntervals={selectedIntervals} onEventClick={props.deleteIntervalHandler} useModal={false}/>        
+                        <WeekCalendar numberOfDays={5} firstDay={moment('20180514')} dayFormat={'dddd'} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={20} cellHeight={15} selectedIntervals={selectedIntervals} onEventClick={props.deleteIntervalHandler} useModal={false}/>        
                     </div>
                     
     return calendar;   

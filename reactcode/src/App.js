@@ -21,7 +21,7 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App" style={{minHeight: '1rem', minWidth:'1rem', backgroundColor: '#AAA', overflow:'hidden'}}>
+      <div className="App" style={{minHeight: '1rem', minWidth:'1rem', backgroundColor: '#AAA', overflow:''}}>
         <MainPage db={firebase}/>
       </div>
     );

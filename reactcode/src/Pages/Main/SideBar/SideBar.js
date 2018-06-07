@@ -1,12 +1,11 @@
 import React from 'react';
 import SearchBar from './Components/SearchBar.js';
 import CourseList from './Components/CourseList.js';
-import logo from '../../../Assets/TrytonsPlanLogo.png';
+//import logo from '../../../Assets/TrytonsPlanLogo.png';
 
 const sidebar = (props) => {
 
-        var reA = /[^a-zA-Z]/g;
-        var reN = /[^0-9]/g;
+
         
         //Sorts the list of courses that appear in the sidebar in natural order
         let searchList = props.searchResults.sort(function naturalCompare(a, b) {

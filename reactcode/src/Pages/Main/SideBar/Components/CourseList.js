@@ -1,6 +1,5 @@
 import React from 'react';
 import Courses from './Courses.js';
-import {ListGroup} from 'react-bootstrap';
 
 
 const courselist = (props) => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import Courses from './Courses.js';
-import {ListGroup} from 'react-bootstrap';
 import './Course.css';
 
 const searchbar = (props) => {
@@ -34,7 +33,7 @@ const searchbar = (props) => {
                         <p style={{marginTop: '10px', fontSize: '2vw', color:'lightgrey'}}>Loading up Course Offerings...</p>
                     </div>
 
-    if(props.loading == false) {
+    if(props.loading === false) {
         courses =   <div
                         style={courseGroupStyle}>
                         <Courses 
