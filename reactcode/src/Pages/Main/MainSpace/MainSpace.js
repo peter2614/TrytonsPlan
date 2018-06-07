@@ -13,39 +13,39 @@ const MainSpace = (props) => {
         if(props.scheduleLoading === true) {
             //loading splash for Generate Schedules
             display = <div className="scheduleFadeIn">
-                <div style={{height: '25vh', backgroundColor: '#dddddd', margin: '1vh'}}/>
-                <div style={{height: '25vh', backgroundColor: '#dddddd', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <div style={{height: '25vh', backgroundColor: '#424242'}}/>
+                <div style={{height: '25vh', backgroundColor: '#424242', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <div className="loader" style={{height: '20vh', width: '20vh'}}/>
                 </div>
-                <div style={{height: '5vh', backgroundColor: '#dddddd', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <div style={{height: '5vh', backgroundColor: '#424242', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <p style={{color:'#dddddd', fontSize: '3vw'}}>Generating Schedules...</p>
                 </div>
-                <div style={{height: '39vh', backgroundColor: '#dddddd'}}/>
+                <div style={{height: '39vh', backgroundColor: '#424242'}}/>
             </div>
         } else {
             //Display the Schedule Cards after they finish loading
             if(props.schedules.length === 0 && props.schedulesErrorCheck != null && props.schedulesErrorCheck.length != 0) {
                 display = <div className="scheduleFadeIn">
-                    <div style={{height: '25vh', backgroundColor: '#dddddd', margin: '1vh'}}/>
-                    <div style={{height: '25vh', backgroundColor: '#dddddd', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <p style={{color:'#dddddd', fontSize: '5vw'}}>NO RESULTS</p>
+                    <div style={{height: '25vh', backgroundColor: '#424242'}}/>
+                    <div style={{height: '25vh', backgroundColor: '#424242', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <p style={{color:'#dddddd', fontSize: '3.5vw'}}>NO RESULTS</p>
                     </div>
-                    <div style={{height: '5vh', backgroundColor: '#dddddd', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <p style={{color:'#dddddd', fontSize: '3vw'}}>Your filters might be too strict.</p>
+                    <div style={{height: '5vh', backgroundColor: '#424242', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <p style={{color:'#dddddd', fontSize: '2vw'}}>Your filters might be too strict.</p>
                     </div>
-                    <div style={{height: '39vh', backgroundColor: '#dddddd'}}/>
+                    <div style={{height: '39vh', backgroundColor: '#424242'}}/>
                 </div>
             } else {
                 if (props.schedulesErrorCheck != null && props.schedulesErrorCheck.length == 0) {
                     display = <div className="scheduleFadeIn">
-                        <div style={{height: '20vh', backgroundColor: '#dddddd', margin: '1vh'}}/>
-                        <div style={{height: '25vh', backgroundColor: '#dddddd', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <div style={{height: '20vh', backgroundColor: '#424242'}}/>
+                        <div style={{height: '25vh', backgroundColor: '#424242', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <p style={{color:'#dddddd', fontSize: '5vw'}}>NO POSSIBLE COMBINATIONS</p>
                         </div>
-                        <div style={{height: '5vh', backgroundColor: '#dddddd', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <div style={{height: '5vh', backgroundColor: '#424242', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <p style={{color:'#dddddd', fontSize: '3vw'}}>Your classes are all conflicting.</p>
                         </div>
-                        <div style={{height: '39vh', backgroundColor: '#dddddd'}}/>
+                        <div style={{height: '39vh', backgroundColor: '#424242'}}/>
                     </div>
                 } else {
                     //Display schedule cards
@@ -64,7 +64,7 @@ const MainSpace = (props) => {
         if (props.allInfo != null && props.generalInfo != null) {
             display =   <div className={props.loading?'fadeOut':'fadeIn'} style={{fontFamily: 'Avenir', position: 'relative', backgroundColor: '#333', marginTop:'-94vh'}}>
                 <div style={{minHeight: '5vh', maxHeight:'10vh'}}>
-                    <p style={{fontFamily: 'Avenir', fontSize: '2vw', fontWeight: '500', marginTop: '1vw', color: 'lightgrey'}}>{props.courseID} - {props.generalInfo.title} ({props.generalInfo.units})</p>
+                    <p style={{fontFamily: 'Avenir', fontSize: '2vw', fontWeight: '500', marginTop: '1.5vw', color: 'lightgrey'}}>{props.courseID} - {props.generalInfo.title} ({props.generalInfo.units})</p>
                 </div>
                 <div style={{fontFamily: 'Avenir', minHeight: '13vh', maxHeight:'30vh', display: 'flex', marginTop: '1.5vh'}}>
                     <p style={{color: '#dddddd', marginLeft: '10%', width: '80%', fontSize: '18px'}}>{props.generalInfo.description}</p>
@@ -79,10 +79,10 @@ const MainSpace = (props) => {
     let background = null;
     if(props.displayInfo === true) {
         background =<div style={{overflow: 'hidden'}}>
-            <div style={{position: 'relative', backgroundColor: '#dddddd', height: '94vh', width: '78vw'}}>
+            <div style={{position: 'relative', backgroundColor: '#424242', height: '94vh', width: '78vw'}}>
                 <div style={{height: '20vh', backgroundColor: '#333'}}>
-                    <p className={props.loading?'loadingfadeIn':'loadingfadeOut'} style={{fontSize: '3vw', fontWeight: '700', margin: '0px', color: '#dddddd'}}>LOADING - Fetching Data</p>
-                    <p className={props.loading?'loadingfadeIn':'loadingfadeOut'} style={{color: '#dddddd', marginLeft: '10%', width: '80%'}}>The connection seems a bit slow, we'll have your info in one moment!</p>
+                    <p className={props.loading?'loadingfadeIn':'loadingfadeOut'} style={{fontSize: '3vw', fontWeight: '700', margin: '1vh', color: '#424242'}}>LOADING - Fetching Data</p>
+                    <p className={props.loading?'loadingfadeIn':'loadingfadeOut'} style={{color: '#424242', margin: '1vh', width: '80%'}}>The connection seems a bit slow, we'll have your info in one moment!</p>
                 </div>
                 <hr style={{paddingTop: '.5vh', marginLeft: '0%', width: '100%'}}/>
             </div>
@@ -106,7 +106,7 @@ const MainSpace = (props) => {
     }
 
     return (
-        <div>
+        <div style={{margin: '1vh', fontFamily: 'Avenir'}}>
             <div className="modal-container" onClick={props.closeModalHandler}>
                 <Modal show={props.showModal}>
                     <Modal.Header style={{display: 'flex', justifyContent: 'center'}}>

@@ -3,14 +3,14 @@ import CalendarIcon from '../../../../Assets/calendarIcon.png';
 
 const schedulecard = (props) => {
     const scheduleCardStyle = {
-        marginTop: '1vw',
-        marginLeft: '2%',
+        marginLeft: '1.3%',
+        marginTop: '1.3%',
         padding: '1vw',
         width: '47%',
         height: '40vh',
         backgroundColor: '#37506a',
         overflowY: 'auto',
-        opacity: '0.9'
+        opacity: '0.95'
     }
     //width: 47%
     let sections = props.sections.map(section => {

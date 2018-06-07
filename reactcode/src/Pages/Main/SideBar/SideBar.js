@@ -36,7 +36,7 @@ const sidebar = (props) => {
                 displayCourseInfoHandler={props.displayCourseInfoHandler}
                 clearCourseListHandler={props.clearCourseListHandler}/>
 
-            <hr className="hr1" style={{marginBottom: '1vh'}}/>
+            <hr className="hr1"/>
         </div>
 
     )

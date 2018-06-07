@@ -75,9 +75,9 @@ const OptionsBar = (props) => {
                 </button>
             </div>
 
-            <div className="buttongroup" style={{float: 'right', margin: '1vh', fontSize: '.9vw', marginBottom: '0vh'}}>
+            <div className="buttongroup" style={{float: 'right', fontSize: '.9vw', marginBottom: '0vh'}}>
                 <div style={{display: 'flex'}}>
-                    <p style={{paddingRight: '.5vw', marginTop: '1vh', marginLeft: '0.1vw', color: 'lightgrey', fontWeight: '700', fontSize: '12px'}}>SORT </p>
+                    <p style={{paddingRight: '.5vw', marginLeft: '0.1vw', marginTop: '0.8vh', color: 'lightgrey', fontWeight: '700', fontSize: '12px'}}>SORT </p>
                     <button style={buttonStyleSmall} onClick={event => props.rankScheduleHandler("GPA")}>GPA</button>
                     <button style={buttonStyleSmall} onClick={event => props.rankScheduleHandler("PROF")}>Prof Score</button>
                     <button style={buttonStyleSmall} onClick={event => props.rankScheduleHandler("TIMECOMMITMENT")}>Study Hrs</button>

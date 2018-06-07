@@ -529,7 +529,7 @@ class MainPage extends Component {
                 <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: '100vh', overflow:'hidden'}}>
 
 
-                    <div className={"NAVBAR"} style={{display: 'inline-block', width: '100%', height: '15%', paddingTop: '2vh', backgroundColor: 'transparent', overflow: 'auto'}}>
+                    <div className={"NAVBAR"} style={{display: 'inline-block', width: '100%', height: '6%', paddingTop: '2vh', backgroundColor: 'transparent', overflow: 'auto'}}>
                         <div style={{float: 'left', fontFamily: 'Avenir'}}>
                             <p style={{
                                 float: 'left',
@@ -551,7 +551,7 @@ class MainPage extends Component {
                             }}>Plan</p>
                         </div>
 
-                        <div className={"GENERATE OPTIONS"} style={{float: 'right', width:'78vw', height: '6vh', marginTop: '0.8vh', backgroundColor: 'transparent'}}>
+                        <div className={"GENERATE OPTIONS"} style={{float: 'right', width:'80vw', height: '6vh', marginTop: '0.8vh', backgroundColor: 'transparent'}}>
                             <OptionsBar
                                 startingTime = {this.state.startingTime}
                                 filteredSchedules={this.state.filteredSchedules}
@@ -567,7 +567,7 @@ class MainPage extends Component {
                         </div>
                     </div>
 
-                    <div style={{display: 'inline-block'}}>
+                    <div style={{display: 'inline-block', margin: '1.5vh'}}>
 
                         <div  className="sidebarcontainer">
                             <SideBar

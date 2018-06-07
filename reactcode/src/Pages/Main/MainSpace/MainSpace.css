@@ -2,23 +2,29 @@
     opacity:0;
     transition: opacity 0.2s;
     transition-timing-function:  ease-in;
+    margin-left: 1vw;
+    margin-bottom: 1vw;
 }
 .fadeIn{
-    opacity:1;
+    opacity:0.85;
     transition: opacity 0.2s;
     transition-timing-function:  ease-in;
+    margin-left: 1vw;
+    margin-bottom: 1vw;
 }
 
 .loadingfadeOut{
     opacity:0;
     transition: opacity 0s;
-
+    margin-left: 1vw;
+    margin-bottom: 1vw;
 }
 .loadingfadeIn{
-    opacity:1;
+    opacity:0.85;
     transition: opacity 3s;
     transition-timing-function:  ease-in;
-
+    margin-left: 1vw;
+    margin-bottom: 1vw;
 }
 
 .scheduleFadeIn {
@@ -27,10 +33,13 @@
         -ms-animation: fadein 1s; /* Internet Explorer */
          -o-animation: fadein 1s; /* Opera < 12.1 */
             animation: fadein 1s;
+    opacity: 0.85;
+    margin-left: 1vw;
+    margin-bottom: 1vw;
 }
 @keyframes fadein {
     from { opacity: 0; }
-    to   { opacity: 1; }
+    to   { opacity: 0.8; }
 }
 
 .backgroundfadeOut{
@@ -38,14 +47,18 @@
     height: 0px;
     transition: opacity 2s, height 2s;
     transition-delay: 1s;
-
+    margin-left: 1vw;
+    margin-bottom: 1vw;
 }
 .backgroundfadeIn{
-    opacity:1;
+    opacity:0.85;
     height: 89vh;
+    margin-left: 1vw;
+    margin-bottom: 1vw;
 }
 .loadingCircle{
-    opacity:1;
+    opacity:0.85;
     transition: .5s;
+    margin-bottom: 1vw;
 }
 

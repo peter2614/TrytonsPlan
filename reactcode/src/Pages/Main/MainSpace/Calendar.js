@@ -140,7 +140,7 @@ const Calendar = (props) => {
         </div>
     }
     let calendar = null;
-    calendar = <div className="transition" style={{width: '78vw', height: calendarHeight, backgroundColor: '#FF'}}>
+    calendar = <div className="transition" style={{marginLeft: '1.5vw', width: '78vw', height: calendarHeight, backgroundColor: '#FF'}}>
         <button className={generateCalendar} onClick={props.displayCalendarHandler}><text style={{margin: '-.2vw', fontFamily: 'Avenir'}}>Calendar</text></button>
         {button}
         <WeekCalendar numberOfDays={5} firstDay={moment('20180514')} dayFormat={'dddd'} startTime={moment({h:8, m:0})} endTime={moment({h:23, m:50})} scaleUnit={20} cellHeight={15} selectedIntervals={selectedIntervals} onEventClick={props.deleteIntervalHandler} useModal={false}/>
