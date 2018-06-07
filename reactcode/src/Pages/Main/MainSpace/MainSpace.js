@@ -24,9 +24,9 @@ const MainSpace = (props) => {
                     </div>
         } else {
             //Display the Schedule Cards after they finish loading
-            if(props.schedules.length === 0) {
+            if(props.schedules.length === 0 && props.schedulesErrorCheck != null && props.schedulesErrorCheck.length != 0) {
                 display = <div className="scheduleFadeIn">
-                            <div style={{height: '20vh', backgroundColor: '#666'}}/>
+                            <div style={{height: '25vh', backgroundColor: '#666'}}/>
                                 <div style={{height: '25vh', backgroundColor: '#666', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                     <p style={{color:'lightgrey', fontSize: '5vw'}}>NO RESULTS</p>
                                 </div>
@@ -36,14 +36,27 @@ const MainSpace = (props) => {
                             <div style={{height: '39vh', backgroundColor: '#666'}}/>     
                         </div>
             } else {
-                //Display schedule cards
-                display = 
-                <div className='scheduleFadeIn' style={{display: 'flex', flexWrap: 'wrap'}}>
-                    <ScheduleCards  
-                    displayCalendarHandler={props.displayCalendarHandler} 
-                    db={props.db} 
-                    schedules={props.schedules}/>
-                </div>
+                if (props.schedulesErrorCheck != null && props.schedulesErrorCheck.length == 0) {
+                    display = <div className="scheduleFadeIn">
+                                <div style={{height: '25vh', backgroundColor: '#666'}}/>
+                                    <div style={{height: '25vh', backgroundColor: '#666', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                        <p style={{color:'lightgrey', fontSize: '5vw'}}>NO POSSIBLE COMBINATIONS</p>
+                                    </div>
+                                    <div style={{height: '5vh', backgroundColor: '#666', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                        <p style={{color:'lightgrey', fontSize: '3vw'}}>Your classes are all conflicting.</p>
+                                    </div>
+                                <div style={{height: '39vh', backgroundColor: '#666'}}/>     
+                            </div>
+                } else {
+                    //Display schedule cards
+                    display = 
+                    <div className='scheduleFadeIn' style={{display: 'flex', flexWrap: 'wrap'}}>
+                        <ScheduleCards  
+                        displayCalendarHandler={props.displayCalendarHandler} 
+                        db={props.db} 
+                        schedules={props.schedules}/>
+                    </div>
+                }
             }
         }
     } else {

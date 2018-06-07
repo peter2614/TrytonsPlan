@@ -558,6 +558,7 @@ class MainPage extends Component {
                             displaySplashScreen={this.state.displaySplashScreen} 
                             scheduleLoading={this.state.scheduleLoading} 
                             schedules={this.state.filteredSchedules} 
+                            schedulesErrorCheck={this.state.schedules}
                             allInfo={this.state.allInfo} 
                             displayInfo={this.state.displayInfo} 
                             courseID={this.state.courseID} 
