@@ -145,7 +145,7 @@ class CourseTree extends Component {
                         width: "320px",
                     }}
                 >
-                <button id="tree-CSS2" style={{position: 'absolute', height: '3vh', width: '3vh', marginLeft: '-7vw', marginTop: '.75vh', backgroundColor: '#49B', borderColor: '#49B'}} onClick={this.props.courseTreeHandler}/>
+                <button id="tree-CSS2" style={{position: 'absolute', height: '3vh', width: '3vh', marginLeft: '-7vw', marginTop: '.75vh', backgroundColor: '#49B', borderColor: '#49B'}} onClick={this.props.displayCourseTreeHandler}/>
                     <Sidebar 
                         course = {this.state.selectedCourse}
                     />

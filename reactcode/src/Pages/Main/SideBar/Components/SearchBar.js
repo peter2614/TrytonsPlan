@@ -1,6 +1,7 @@
 import React from 'react';
 import Courses from './Courses.js';
 import './Course.css';
+import { Link } from 'react-router-dom';
 
 const searchbar = (props) => {
 
@@ -46,7 +47,7 @@ const searchbar = (props) => {
 
         return (
             <div>
-                <button id="tree-CSS" style={{position: 'absolute', height: '4vh', width: '4vh', marginLeft: '-10.5vw', marginTop: '1vh', backgroundColor: '#49B', borderColor: '#49B'}} onClick={props.courseTreeHandler}/>
+                <button id="tree-CSS" style={{position: 'absolute', height: '4vh', width: '4vh', marginLeft: '-10.5vw', marginTop: '1vh', backgroundColor: '#49B', borderColor: '#49B'}} onClick={props.displayCourseTreeHandler}></button>
                 <div style={{height: '6vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <input style={{ backgroundColor: 'lightgrey', fontSize: '2vh', height: '3vh'}} type="search" onChange={(event) => props.searchCourseHandler(event)} placeholder="Search Fall 18 Courses"/> 
                 </div>

@@ -28,7 +28,7 @@ const sidebar = (props) => {
                 searchCourseHandler={props.searchCourseHandler} 
                 courseHandler={props.addCourseHandler} 
                 displayCourseInfoHandler={props.displayCourseInfoHandler}
-                courseTreeHandler={props.courseTreeHandler}/>
+                displayCourseTreeHandler={props.displayCourseTreeHandler}/>
                 
                 <CourseList 
                 courses={props.courseList} 

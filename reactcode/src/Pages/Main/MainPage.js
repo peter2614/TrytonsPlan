@@ -6,7 +6,7 @@ import './MainPage.css';
 import OptionsBar from './OptionsBar/OptionsBar.js'
 import {getAllInfo, getAllInfoCalendar, getGeneralInfo, getCourseNames, getCourseTitles} from './GetData.js';
 import {getData, filterByMaxUnits, filterByMinUnits, filterByEndingTime, filterByStartingTime, rankByProfScore, rankByTimeCommitment, rankByTimeUsage, rankByGPA, getSchedule, getScheduleData, turnOffDatabase} from '../../Backend/Utility.js';
-
+import CourseTree from '../OliverCourseTree/CourseTree.js';
 
 class MainPage extends Component {
     constructor(props) {
@@ -57,6 +57,12 @@ class MainPage extends Component {
 
         //Modal
         showModal: false,
+
+        displayCourseTree: false,
+    }
+
+    displayCourseTreeHandler = () => {
+        this.setState({displayCourseTree: !this.state.displayCourseTree});
     }
 
     //==================On Startup==============
@@ -517,82 +523,90 @@ class MainPage extends Component {
             </div>
             */
     render() {
-    return (
-        <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: '100vh', overflow:'hidden'}}>
-
-         
-
-            <div style={{display: 'inline-block'}}>
-
-                <div  className="sidebarcontainer">
-                    <SideBar 
-                    courseList={this.state.courseList} 
-                    searchResults={this.state.searchResults}  
-                    loading={this.state.sidebarLoading} 
-                    clearCourseListHandler={this.clearCourseListHandler}
-
-                    addCourseHandler={this.addCourseHandler} 
-                    removeCourseHandler={this.removeCourseHandler}   
-                    searchCourseHandler={this.searchCourseHandler}
-                    displayCourseInfoHandler={this.displayCourseInfoHandler}
-                    courseTreeHandler={this.props.courseTreeHandler}/>
-                    
-                </div>
-                
-                <div style={{overflow:'hidden', height: '100vh'}}>
-                    
-                    <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
-                        <OptionsBar 
-                        startingTime = {this.state.startingTime}
-                        filteredSchedules={this.state.filteredSchedules} 
-                        switchViewHandler={this.switchViewHandler} 
-                        sizeOfCourseList={this.state.courseList.length} 
-                        generateScheduleHandler={this.generateScheduleHandler} 
-                        rankScheduleHandler={this.rankScheduleHandler} 
-                        maxUnitsHandler={this.maxUnitsHandler} 
-                        minUnitsHandler={this.minUnitsHandler} 
-                        startingTimeHandler={this.startingTimeHandler} 
-                        endingTimeHandler={this.endingTimeHandler}/>
-                    </div>
-
-                    <div className={this.state.displayCalendar?'MainSpaceCalendar':'MainSpace'} style={{width:'78vw', height: this.state.heightOfMainSpace, backgroundColor: '#444', overflowY: 'auto'}}>
-                        <MainSpace 
-                            displaySplashScreen={this.state.displaySplashScreen} 
-                            scheduleLoading={this.state.scheduleLoading} 
-                            schedules={this.state.filteredSchedules} 
-                            schedulesErrorCheck={this.state.schedules}
-                            allInfo={this.state.allInfo} 
-                            displayInfo={this.state.displayInfo} 
-                            courseID={this.state.courseID} 
-                            loading={this.state.loading} 
-                            generalInfo={this.state.generalInfo} 
-                            db={this.props.db}
-                            displayCalendarHandler={this.displayCalendarHandler}
-                            displayCalendar={this.state.displayCalendar}
-                            closeModalHandler={this.closeModalHandler}
-                            showModal={this.state.showModal}
-                            addIntervalHandler={this.addIntervalHandler}/>
-                        />   
+        let display = <CourseTree Database={this.props.db} displayCourseTreeHandler={this.displayCourseTreeHandler}/>
+        if (this.state.displayCourseTree === false) {
+            display = 
+            <div className="container" style={{padding: '0px', margin: '0px', width: 'inherit', height: '100vh', overflow:'hidden'}}>
+    
+             
+    
+                <div style={{display: 'inline-block'}}>
+    
+                    <div  className="sidebarcontainer">
+                        <SideBar 
+                        courseList={this.state.courseList} 
+                        searchResults={this.state.searchResults}  
+                        loading={this.state.sidebarLoading} 
+                        clearCourseListHandler={this.clearCourseListHandler}
+    
+                        addCourseHandler={this.addCourseHandler} 
+                        removeCourseHandler={this.removeCourseHandler}   
+                        searchCourseHandler={this.searchCourseHandler}
+                        displayCourseInfoHandler={this.displayCourseInfoHandler}
+                        displayCourseTreeHandler={this.displayCourseTreeHandler}/>
                         
                     </div>
-        
-                        <Calendar 
-                        heightOfMainSpace={this.state.heightOfMainSpace}
-                        showFinalsHandler={this.showFinalsHandler}
-                        deleteIntervalHandler={this.deleteIntervalHandler} 
-                        additionalIntervals={this.state.additionalIntervals} 
-                        clearCalendarHandler={this.clearCalendarHandler}
-                        raiseCalendarHandler={this.raiseCalendarHandler}
-                        lowerCalendarHandler={this.lowerCalendarHandler}
-                        schedule={this.state.currentSchedule} 
-                        displayCalendarHandler={this.displayCalendarHandler} 
-                        displayCalendar={this.state.displayCalendar}
-                        finalIntervals={this.state.finalIntervals}
-                        showFinals={this.state.showFinals}/>
                     
+                    <div style={{overflow:'hidden', height: '100vh'}}>
+                        
+                        <div className={"GENERATE OPTIONS"} style={{width:'78vw', height: '6vh', backgroundColor: '#555'}}>
+                            <OptionsBar 
+                            startingTime = {this.state.startingTime}
+                            filteredSchedules={this.state.filteredSchedules} 
+                            switchViewHandler={this.switchViewHandler} 
+                            sizeOfCourseList={this.state.courseList.length} 
+                            generateScheduleHandler={this.generateScheduleHandler} 
+                            rankScheduleHandler={this.rankScheduleHandler} 
+                            maxUnitsHandler={this.maxUnitsHandler} 
+                            minUnitsHandler={this.minUnitsHandler} 
+                            startingTimeHandler={this.startingTimeHandler} 
+                            endingTimeHandler={this.endingTimeHandler}/>
+                            
+                        </div>
+    
+                        <div className={this.state.displayCalendar?'MainSpaceCalendar':'MainSpace'} style={{width:'78vw', height: this.state.heightOfMainSpace, backgroundColor: '#444', overflowY: 'auto'}}>
+                            <MainSpace 
+                                displaySplashScreen={this.state.displaySplashScreen} 
+                                scheduleLoading={this.state.scheduleLoading} 
+                                schedules={this.state.filteredSchedules} 
+                                schedulesErrorCheck={this.state.schedules}
+                                allInfo={this.state.allInfo} 
+                                displayInfo={this.state.displayInfo} 
+                                courseID={this.state.courseID} 
+                                loading={this.state.loading} 
+                                generalInfo={this.state.generalInfo} 
+                                db={this.props.db}
+                                displayCalendarHandler={this.displayCalendarHandler}
+                                displayCalendar={this.state.displayCalendar}
+                                closeModalHandler={this.closeModalHandler}
+                                showModal={this.state.showModal}
+                                addIntervalHandler={this.addIntervalHandler}/>
+                            />   
+                            
+                        </div>
+            
+                            <Calendar 
+                            heightOfMainSpace={this.state.heightOfMainSpace}
+                            showFinalsHandler={this.showFinalsHandler}
+                            deleteIntervalHandler={this.deleteIntervalHandler} 
+                            additionalIntervals={this.state.additionalIntervals} 
+                            clearCalendarHandler={this.clearCalendarHandler}
+                            raiseCalendarHandler={this.raiseCalendarHandler}
+                            lowerCalendarHandler={this.lowerCalendarHandler}
+                            schedule={this.state.currentSchedule} 
+                            displayCalendarHandler={this.displayCalendarHandler} 
+                            displayCalendar={this.state.displayCalendar}
+                            finalIntervals={this.state.finalIntervals}
+                            showFinals={this.state.showFinals}/>
+                        
+                    </div>
                 </div>
             </div>
-        </div>
+        } 
+            
+        
+    return (
+        display
         
     );
   }

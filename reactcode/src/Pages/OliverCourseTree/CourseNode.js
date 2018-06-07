@@ -15,7 +15,7 @@ const CourseNode = (props) => {
             opacity = {opacity}
         >
                 <circle
-                    r = "34"
+                    r = "28"
                     stroke = {stroke}
                     strokeWidth = "3"
                 />
