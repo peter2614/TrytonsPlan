@@ -72,8 +72,8 @@ function getSchedule (courseIDList, dataSet, cb) {
             }
 
             sectionArr.push(new Section(currSec.id, courseIDList[j], currSec.LE[0].start_time, currSec.LE[0].end_time, currSec.LE[0].day,
-                currSec.LE[0].building, currSec.LE[0].room , currSec.LE[0].professor, currSec.FI.start_time,
-                currSec.FI.end_time, currSec.FI.date, currSec.DI, currSec.LA, currSec.FI));
+                                        currSec.LE[0].building, currSec.LE[0].room , currSec.LE[0].professor, currSec.FI.start_time,
+                                        currSec.FI.end_time, currSec.FI.date, currSec.DI, currSec.LA, currSec.FI));
             k++;
         }
 
@@ -89,7 +89,7 @@ function getSchedule (courseIDList, dataSet, cb) {
         callProcessor();
     }
     else {
-        getScheduleCB([]); // getScheduleCB(null) if necessary
+        getScheduleCB([]); // getScheduleCB(null) if necessary 
     }
 }
 

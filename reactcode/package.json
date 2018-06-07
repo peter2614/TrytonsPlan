@@ -1,4 +1,3 @@
-
 {
   "name": "reactcode",
   "version": "0.1.0",
@@ -12,6 +11,7 @@
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.2",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-week-calendar": "^0.1.1"
   },
@@ -23,13 +23,10 @@
   },
   "start": "npm run build-css && run-p -ncr watch-css start-js",
   "start-js": "react-scripts start",
-
   "build": "run-s -n build-css build-js",
   "build-js": "react-scripts build",
-
   "test": "run-s -n build-css test-js",
   "test-js": "react-scripts test --env=jsdom",
-
   "build-css": "node-less-chokidar src",
   "watch-css": "node-less-chokidar src --watch"
 }

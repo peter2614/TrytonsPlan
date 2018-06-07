@@ -34,17 +34,17 @@ function processSchedule (aSchedule, getScheduleData, cb){
 
         getScheduleData(unitPath, unitsCallback);
 
-        if(profName.toString().includes(" \r\n")) { // if co-taught
-            let profArr = profName.toString().split(" \r\n");
-            numProf += profArr.length - 1;
-            for(let i = 0; i < profArr.length; i++) {
-                path = "professor/" + profArr[i].toString() + "/" + courseID.toString();
+            if(profName.toString().includes(" \r\n")) { // if co-taught
+                let profArr = profName.toString().split(" \r\n");
+                numProf += profArr.length - 1;
+                for(let i = 0; i < profArr.length; i++) {
+                    path = "professor/" + profArr[i].toString() + "/" + courseID.toString();
+                    getScheduleData(path, callback);
+                }
+            }
+            else {
                 getScheduleData(path, callback);
             }
-        }
-        else {
-            getScheduleData(path, callback);
-        }
 
     }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import Course from './Course.js'
-import {ListGroupItem} from 'react-bootstrap';
 
 //Used to map the array of javascript objects into Course Components
 const courses = (props) => props.courses.map( (course, index) => {
