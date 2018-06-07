@@ -5,8 +5,6 @@ import CourseList from './Components/CourseList.js';
 
 const sidebar = (props) => {
 
-
-        
         //Sorts the list of courses that appear in the sidebar in natural order
         let searchList = props.searchResults.sort(function naturalCompare(a, b) {
             var ax = [], bx = [];
@@ -29,7 +27,9 @@ const sidebar = (props) => {
                 searchResults={searchList} 
                 searchCourseHandler={props.searchCourseHandler} 
                 courseHandler={props.addCourseHandler} 
-                displayCourseInfoHandler={props.displayCourseInfoHandler}/>
+                displayCourseInfoHandler={props.displayCourseInfoHandler}
+                courseTreeHandler={props.courseTreeHandler}/>
+                
                 <CourseList 
                 courses={props.courseList} 
                 courseHandler={props.removeCourseHandler} 

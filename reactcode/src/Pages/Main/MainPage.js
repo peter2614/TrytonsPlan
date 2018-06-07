@@ -534,7 +534,9 @@ class MainPage extends Component {
                     addCourseHandler={this.addCourseHandler} 
                     removeCourseHandler={this.removeCourseHandler}   
                     searchCourseHandler={this.searchCourseHandler}
-                    displayCourseInfoHandler={this.displayCourseInfoHandler}/>
+                    displayCourseInfoHandler={this.displayCourseInfoHandler}
+                    courseTreeHandler={this.props.courseTreeHandler}/>
+                    
                 </div>
                 
                 <div style={{overflow:'hidden', height: '100vh'}}>
@@ -570,8 +572,6 @@ class MainPage extends Component {
                             closeModalHandler={this.closeModalHandler}
                             showModal={this.state.showModal}
                             addIntervalHandler={this.addIntervalHandler}/>
-                            
-                            
                         />   
                         
                     </div>

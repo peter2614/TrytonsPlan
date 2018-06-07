@@ -37,3 +37,16 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+
+
+
+#tree-CSS {
+  background-image: url( '../../../../Assets/CourseTreeIcon.png' );
+  background-size: 3.5vh 3.5vh;
+}
+
+#tree-CSS2 {
+  background-image: url( '../../../../Assets/CourseTreeIcon.png' );
+  background-size: 2.4vh 2.4vh;
+}
