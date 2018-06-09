@@ -1,14 +1,14 @@
 .Tree {
-    height: 750px;
-    width: 1500px;
+    height: 100vh;
+    width: 2000px;
     position: relative;
-    overflow: hidden; 
-    zoom: 125%;
+    overflow: auto;
+    zoom: 100%;
 }
 
 .SideBar {
-    height:100%;
-    width: 25%;
+    height:700px;
+    width: 380px;
     position: absolute;
     overflow: hidden; 
 }
