@@ -23,7 +23,6 @@
 .courseHover:hover {
     background-color: #555555;
     transition: background 0.05s;
-    opacity: 1;
 }
 
 .listHandler:hover {
@@ -51,6 +50,7 @@
 
 #tree-CSS {
     background-image: url( '../../../../Assets/CourseTreeIcon.png' );
+    marginLeft: 1vw;
     background-size: 3.5vh 3.5vh;
 }
 

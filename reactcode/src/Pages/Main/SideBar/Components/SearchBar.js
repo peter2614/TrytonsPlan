@@ -14,7 +14,8 @@ const searchbar = (props) => {
         width: '100%',
         marginBottom: '0px',
         marginTop: '-1px',
-        backgroundColor: '#333333'
+        backgroundColor: '#333333',
+        opacity: 0.95,
     }
     const courseGroupStyleLoading={
         height: '45vh',
@@ -26,6 +27,7 @@ const searchbar = (props) => {
         justifyContent: 'center',
         display: 'flex',
         flexDirection:'column',
+        opacity: 0.95,
     }
 
     //The courses that display in the course offerings section of the side bar, shows a loading circle on start up
@@ -46,9 +48,9 @@ const searchbar = (props) => {
     }
 
     return (
-        <div>
-            <button id="tree-CSS" style={{position: 'absolute', height: '4vh', width: '4vh', marginLeft: '-10.5vw', marginTop: '1vh', backgroundColor: '#49B', borderColor: '#49B'}} onClick={props.displayCourseTreeHandler}></button>
-            <div style={{height: '6vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <div style={{backgroundColor: '#dddddd', opacity: 0.8}}>
+            <button id="tree-CSS" style={{float: "left", position: 'relative', height: '4vh', width: '4vh', marginLeft: '0.5vw', marginTop: '1vh', backgroundColor: '#c0a152', borderColor: '#c0a152'}} onClick={props.displayCourseTreeHandler}></button>
+            <div style={{float: "right", marginRight: "1vw", height: '6vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <input style={{fontFamily: 'Avenir', paddingLeft: '3%', backgroundColor: '#dddddd', fontSize: '2vh', height: '3vh', width: '14vw'}} type="search" onChange={(event) => props.searchCourseHandler(event)} placeholder="Search Fall 18 Courses"/>
             </div>
             {courses}

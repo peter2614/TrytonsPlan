@@ -131,7 +131,7 @@
     width: 4vw;
     margin-top: -6vh;
     background-color: transparent;
-    color: #DDDDDD;
+    color: #70a1db;
     border-width: 0.1rem;
     border-color: #37506a;
     font-style: 0.7vw;
@@ -157,10 +157,10 @@
     position:absolute;
     float:left;
     background-color: transparent;
-    color: #dddddd;
+    color: #70a1db;
     border-width: 0.1rem;
     border-color: #37506a;
-    font-size: 1.5vw;
+    font-size: 0.8vw;
 }
 
 .calendarButtonStyle:hover {
@@ -170,7 +170,7 @@
     color: #f2f2f2;
     border-width: 0.1rem;
     border-color: #37506a;
-    font-size: 0.4vw;
+    font-size: 0.8vw;
 }
 
 .calendarModal {

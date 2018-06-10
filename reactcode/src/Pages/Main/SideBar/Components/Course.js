@@ -10,25 +10,27 @@ const course = (props) => {
         textAlign: 'left',
         marginTop: '0.75vw',
         marginLeft: '0.3vw',
-        color: '#9a9a9a',
+        color: '#d6d6d6',
         fontSize: '115%'
     }
 
     //Button + and - sign formatting
     let text = null;
     if (props.text === "+") {
-        text = <div style={{fontSize: '20px', fontWeight: '500',  color: '#9a9a9a', backgroundColor: 'transparent'}}>
+        text = <div style={{fontSize: '30px', fontWeight: '500',  color: '#d6d6d6', backgroundColor: 'transparent'}}>
             <div className="listHandler">+</div>
         </div>;
     } else {
-        text = <div style={{fontSize: '30px', fontWeight: '400',  color: '#9a9a9a', backgroundColor: 'transparent'}}>
+        text = <div style={{fontSize: '40px', fontWeight: '300',  color: '#d6d6d6', backgroundColor: 'transparent'}}>
             <div className="listHandler">-</div>
         </div>;
     }
 
-    let name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#9a9a9a', fontSize: '120%', fontWeight: '525', backgroundColor: 'transparent'}}>
+    let name = <p style={{textAlign: 'left', margin: '0.6vw', marginLeft: '1vw', color: '#997f44', fontSize: '128%', fontWeight: '525', backgroundColor: 'transparent', opacity: 0.95}}>
         {props.name}
     </p>;
+
+    /*
 
     //Course Name Color Coding
     if(props.name.includes("BIBC")) {
@@ -64,7 +66,7 @@ const course = (props) => {
     if(props.name.includes("PHYS")) {
         name = <p style={{textAlign: 'left', margin: '0.75vw', color: '#1a4db7', fontSize: '120%', fontWeight: '525', backgroundColor: 'transparent'}}>{props.name}</p>
     }
-
+*/
 
 
 
@@ -75,26 +77,29 @@ const course = (props) => {
                     backgroundColor: '',}}>
         <div style={{
             fontFamily: 'Avenir',
-            fontSize: '110%',
+            fontSize: '120%',
             width: '20%',
             display: 'flex',
             backgroundColor: '',
             float: 'left',
             cursor: 'pointer',
             minHeight: '4vh',
-            alignItems: 'center'
+            alignItems: 'center',
+            opacity: 0.95,
         }} onClick={props.displayCourseInfoHandler}>
             {name}
         </div>
         <div style={{
             width: '63%',
+            fontSize: '115%',
             marginLeft: '1vw',
             backgroundColor: '',
             float: 'left',
             cursor: 'pointer',
             minHeight: '4vh',
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
+            opacity: 0.95,
         }} onClick={props.displayCourseInfoHandler}>
             <p style={textStyle}>
                 {props.description} ({props.units})
@@ -103,11 +108,12 @@ const course = (props) => {
         </div>
         <div style={{
             width: '12%',
-            marginRight: '0.5vw',
+            marginRight: '1vw',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: ''
+            backgroundColor: '',
+            opacity: 0.95,
         }}>
             <div onClick={props.courseHandler}>{text} </div>
         </div>

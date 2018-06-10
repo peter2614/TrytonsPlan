@@ -1,12 +1,11 @@
 table {
     border-collapse: collapse;
     width: 100%;
-
 }
 
 hr {
     border: none;
-    background-color: #379;
+    background-color: #3f5e7d;
     opacity: 0.9;
     margin: 0px;
     height: 4px;

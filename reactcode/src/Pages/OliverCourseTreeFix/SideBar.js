@@ -6,23 +6,23 @@ const Sidebar = (props) => {
     var information = null;
     if(props.course == null) {
         information =
-        <div
-            style = {{
-                height: "65%",
-                width: "100%",
-                paddingLeft: "0px",
-            }}
-        >
-            <h3
+            <div
                 style = {{
-                    paddingTop: "200px",
-                    color: "#dddddd",
-                    fontFamily: "Avenir"
+                    height: "65%",
+                    width: "100%",
+                    paddingLeft: "0px",
                 }}
             >
-                Click on a node to see the information.
-            </h3>
-        </div>
+                <h3
+                    style = {{
+                        paddingTop: "200px",
+                        color: "#dddddd",
+                        fontFamily: "Avenir"
+                    }}
+                >
+                    Click on a node to see the information.
+                </h3>
+            </div>
     } else {
         information =
             <CourseInfo
@@ -36,21 +36,22 @@ const Sidebar = (props) => {
 
     return(
         <div className = "SideBar"
-            height = "700"
-            style={{
-                float: 'left',
-            }}
+             height = "700"
+             style={{
+                 float: 'left',
+             }}
         >
             <button
-                id="tree-CSS2" 
+                id="tree-CSS2"
                 style={{
                     position:"absolute",
                     left: "15px",
                     top: "15px",
                     height: '3vh', width: '3vh',
-                    backgroundColor: '#49B',
-                    borderColor: '#49B'
-                }} 
+                    backgroundColor: '#997f44',
+                    borderColor: '#c0a152',
+                    marginLeft: '1vw',
+                }}
                 onClick={props.handleButton}
             />
 
@@ -66,7 +67,7 @@ const Sidebar = (props) => {
                 >
                     Trytons
                 </p>
-                
+
                 <p
                     style={{
                         float: 'left',
@@ -123,7 +124,7 @@ const Sidebar = (props) => {
                 <text
                     fontFamily= "Avenir"
                     text-anchor = "middle"
-                    y="4" 
+                    y="4"
                     style = {{stroke:"#dddddd"}}
                     fontSize="18"
                     transform = "translate(180, 40)"
@@ -134,7 +135,7 @@ const Sidebar = (props) => {
                 <text
                     fontFamily= "Avenir"
                     text-anchor = "middle"
-                    y="4" 
+                    y="4"
                     style = {{stroke:"#dddddd"}}
                     fontSize="18"
                     transform = "translate(200, 80)"
@@ -145,7 +146,7 @@ const Sidebar = (props) => {
                 <text
                     fontFamily= "Avenir"
                     text-anchor = "middle"
-                    y="4" 
+                    y="4"
                     style = {{stroke:"#dddddd"}}
                     fontSize="18"
                     transform = "translate(250, 125)"

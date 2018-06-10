@@ -5,15 +5,18 @@ import Courses from './Courses.js';
 
 const courselist = (props) => {
 
-    const courseGroupStyle={
+    const courseGroupStyle= {
         display: 'block',
         flexDirection: 'column',
-        height: '40vh',
+        height: '32vh',
         overflowY: 'auto',
         width: '100%',
-        marginBottom: '2vh',
+        marginBottom: '0vh',
         marginLeft: '0px',
-        backgroundColor: '#3c3c3c'}
+        backgroundColor: '#3c3c3c',
+        opacity: 0.95
+    };
+
     let courses =
         <div
             style={courseGroupStyle}>
@@ -32,12 +35,13 @@ const courselist = (props) => {
             height: '5vh',
             color: 'black',
             fontSize: '2.75vh',
-            backgroundColor: '#333333',
+            backgroundColor: '#DDDDDD',
             display: 'flex',
             alignContent: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            opacity: 0.8
         }}>
-            <text style={{fontFamily: 'Avenir', marginTop: '0.85vh', color: '#dddddd'}}>Course List</text>
+            <text style={{fontFamily: 'Avenir', marginTop: '0.85vh', color: '#343434'}}>Course List</text>
             <div style={{
                 position: 'absolute',
                 marginTop: '1vh',
@@ -47,16 +51,16 @@ const courselist = (props) => {
                 textAlign: 'center',
                 width: '5vw'
             }} onClick={props.clearCourseListHandler}>
-                <div style={{fontFamily: 'Avenir', marginTop: '0.25vh', fontSize: '1.2vw', fontWeight: '500',  color: '#dddddd'}}>
+                <div style={{fontFamily: 'Avenir', marginTop: '0.25vh', fontSize: '1.2vw', fontWeight: '500',  color: '#343434'}}>
                     <div class="clearButton">CLR</div></div>
             </div>
         </div>
 
-        <div style={{height: '100%', marginTop: '0px'}}>
+        <div style={{height: '100%', marginBottom: '1vh'}}>
             {courses}
         </div>
     </div>;
-}
+};
 
 
 export default courselist;

@@ -64,7 +64,7 @@ const MainSpace = (props) => {
         if (props.allInfo != null && props.generalInfo != null) {
             display =   <div className={props.loading?'fadeOut':'fadeIn'} style={{fontFamily: 'Avenir', position: 'relative', backgroundColor: '#333', marginTop:'-94vh'}}>
                 <div style={{minHeight: '5vh', maxHeight:'10vh'}}>
-                    <p style={{fontFamily: 'Avenir', fontSize: '2vw', fontWeight: '500', marginTop: '1.5vw', color: 'lightgrey'}}>{props.courseID} - {props.generalInfo.title} ({props.generalInfo.units})</p>
+                    <p style={{fontFamily: 'Avenir', fontSize: '2vw', fontWeight: '500', paddingTop: '1.5vh', color: 'lightgrey'}}>{props.courseID} - {props.generalInfo.title} ({props.generalInfo.units})</p>
                 </div>
                 <div style={{fontFamily: 'Avenir', minHeight: '13vh', maxHeight:'30vh', display: 'flex', marginTop: '1.5vh'}}>
                     <p style={{color: '#dddddd', marginLeft: '10%', width: '80%', fontSize: '18px'}}>{props.generalInfo.description}</p>
@@ -79,7 +79,7 @@ const MainSpace = (props) => {
     let background = null;
     if(props.displayInfo === true) {
         background =<div style={{overflow: 'hidden'}}>
-            <div style={{position: 'relative', backgroundColor: '#424242', height: '94vh', width: '78vw'}}>
+            <div style={{position: 'relative', backgroundColor: '#424242', height: '94vh', width: '78vw', opacity: 0}}>
                 <div style={{height: '20vh', backgroundColor: '#333'}}>
                     <p className={props.loading?'loadingfadeIn':'loadingfadeOut'} style={{fontSize: '3vw', fontWeight: '700', margin: '1vh', color: '#424242'}}>LOADING - Fetching Data</p>
                     <p className={props.loading?'loadingfadeIn':'loadingfadeOut'} style={{color: '#424242', margin: '1vh', width: '80%'}}>The connection seems a bit slow, we'll have your info in one moment!</p>

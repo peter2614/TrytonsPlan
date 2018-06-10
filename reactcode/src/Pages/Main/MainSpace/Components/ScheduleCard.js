@@ -3,14 +3,14 @@ import CalendarIcon from '../../../../Assets/calendarIcon.png';
 
 const schedulecard = (props) => {
     const scheduleCardStyle = {
-        marginLeft: '1.3%',
-        marginTop: '1.3%',
+        marginLeft: '1.5vw',
+        marginTop: '1.5vh',
         padding: '1vw',
         width: '47%',
         height: '40vh',
         backgroundColor: '#37506a',
         overflowY: 'auto',
-        opacity: '0.95'
+        opacity: '0.999'
     }
     //width: 47%
     let sections = props.sections.map(section => {
@@ -21,8 +21,10 @@ const schedulecard = (props) => {
             if (day === 3) {days += "W"}
             if (day === 4) {days += "Th"}
             if (day === 5) {days += "F"}
-        })
-        let name = null;
+        });
+
+        let name = <th style={{fontSize: '1.2vw', color: '#997f44'}}>{section.courseID}</th>
+        /*
         if(section.courseID.includes("BIBC")) {
             name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#997f44'}}>{section.courseID}</th>
         }
@@ -56,17 +58,17 @@ const schedulecard = (props) => {
         if(section.courseID.includes("PHYS")) {
             name = <th style={{textShadow: "1.5px 1.5px 0px #000", fontSize: '1.1vw', color: '#1a4db7'}}>{section.courseID}</th>
         }
-
+*/
 
 
         return(
             <tr key={section.courseID}>
                 {name}
-                <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{days}</th>
-                <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{formatTime(section.startingTime)}-{formatTime(section.endingTime)}</th>
-                <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{section.location}</th>
-                <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{section.professor}</th>
-                <th style={{color: 'lightgrey', fontSize: '.9vw'}}>{section.sectionID}</th>
+                <th style={{color: 'lightgrey', fontSize: '1vw'}}>{days}</th>
+                <th style={{color: 'lightgrey', fontSize: '1vw'}}>{formatTime(section.startingTime)}-{formatTime(section.endingTime)}</th>
+                <th style={{color: 'lightgrey', fontSize: '1vw'}}>{section.location}</th>
+                <th style={{color: 'lightgrey', fontSize: '1vw'}}>{section.professor}</th>
+                <th style={{color: 'lightgrey', fontSize: '1vw'}}>{section.sectionID}</th>
 
 
             </tr>
@@ -99,8 +101,8 @@ const schedulecard = (props) => {
             fontWeight: '800'
         }}>{props.scheduleID}</div>
         <button id="close-CSS" style={{
-            backgroundColor: '#49B',
-            borderColor: '#49B',
+            backgroundColor: '#3f5e7d',
+            borderColor: '#356a7f',
             marginTop: '-.5vw',
             marginLeft: '-4vw',
             marginRight: '-.5vw',

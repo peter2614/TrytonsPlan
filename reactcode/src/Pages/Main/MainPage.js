@@ -567,7 +567,7 @@ class MainPage extends Component {
                         </div>
                     </div>
 
-                    <div style={{display: 'inline-block', margin: '1.5vh'}}>
+                    <div style={{display: 'inline-block', margin: '1vh'}}>
 
                         <div  className="sidebarcontainer">
                             <SideBar
@@ -585,7 +585,7 @@ class MainPage extends Component {
                         </div>
 
                         <div style={{overflow:'hidden', height: '100vh'}}>
-                            <div className={this.state.displayCalendar?'MainSpaceCalendar':'MainSpace'} style={{width:'78vw', height: this.state.heightOfMainSpace, backgroundColor: 'transparent', overflowY: 'auto'}}>
+                            <div className={this.state.displayCalendar?'MainSpaceCalendar':'MainSpace'} style={{width:'76.5vw', height: this.state.heightOfMainSpace, backgroundColor: 'transparent', overflowY: 'auto'}}>
                                 <MainSpace
                                     displaySplashScreen={this.state.displaySplashScreen}
                                     scheduleLoading={this.state.scheduleLoading}
